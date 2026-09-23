@@ -165,6 +165,62 @@ for (const file of outputFiles) {
   }
 }
 
+const expectedMileageVideos = [
+  "media/mileage-dashboard-trip-review.mp4",
+  "media/mileage-manual-tracking.mp4",
+  "media/mileage-reports-logbook.mp4",
+  "media/mileage-settings-and-vehicles.mp4",
+  "media/mileage-trip-records.mp4",
+];
+const mileageProject = projects.find((project) => project.slug === "mileage-tracker");
+const mileageVideoSlots = mileageProject.media
+  .filter((slot) => slot.kind === "video" && slot.availability === "published")
+  .sort((left, right) => left.assetPath.localeCompare(right.assetPath));
+assert.deepEqual(
+  mileageVideoSlots.map((slot) => slot.assetPath),
+  expectedMileageVideos,
+  "MileageTracker must publish exactly the five approved recordings.",
+);
+
+const mileageHtml = await readFile(path.join(outputDirectory, "projects", "mileage-tracker", "index.html"), "utf8");
+const liveMileageHtml = mileageHtml.replace(/<!--[\s\S]*?-->/g, "");
+const mileageFigures = [...liveMileageHtml.matchAll(/<figure\b([^>]*)>([\s\S]*?)<\/figure\s*>/gi)]
+  .filter(([, attributes]) => attributeValues(attributes, "class")[0]?.split(/\s+/).includes("media-figure"))
+  .map(([, , body]) => body);
+const mileageVideoFigures = mileageFigures.filter((figure) => /<video\b/i.test(figure));
+assert.equal(mileageVideoFigures.length, expectedMileageVideos.length, "Every approved recording must render inside a live media figure.");
+
+for (const slot of mileageVideoSlots) {
+  const figure = mileageVideoFigures.find((candidate) => {
+    const sources = tagContents(candidate, "source");
+    return sources.some((source) => attributeValues(source, "src")[0] === "/" + slot.assetPath);
+  });
+  assert(figure, "Missing rendered figure for " + slot.assetPath);
+
+  const videoTags = tagContents(figure, "video");
+  assert.equal(videoTags.length, 1, slot.assetPath + " must have exactly one video player.");
+  const [videoTag] = videoTags;
+  assert(/\bcontrols(?=\s|=|>)/i.test(videoTag), slot.assetPath + " must expose playback controls.");
+  assert.equal(attributeValues(videoTag, "aria-label")[0]?.trim(), slot.altText, slot.assetPath + " must have its own accessible name.");
+
+  const captions = [...figure.matchAll(/<figcaption\b[^>]*>([\s\S]*?)<\/figcaption\s*>/gi)];
+  assert.equal(captions.length, 1, slot.assetPath + " must have exactly one caption.");
+  assert(captions[0][1].includes(slot.label) && captions[0][1].includes(slot.caption), slot.assetPath + " must render its own caption.");
+
+  const transcripts = [...figure.matchAll(/<details\b([^>]*)>([\s\S]*?)<\/details\s*>/gi)]
+    .filter(([, attributes]) => attributeValues(attributes, "class")[0]?.split(/\s+/).includes("transcript"));
+  assert.equal(transcripts.length, 1, slot.assetPath + " must have exactly one written transcript.");
+  assert(transcripts[0][2].includes(slot.transcript), slot.assetPath + " must render its own transcript.");
+}
+
+const fallbackArticles = [...liveMileageHtml.matchAll(/<article\b(?=[^>]*\bclass="[^"]*\bmedia-fallback\b[^"]*")[^>]*>([\s\S]*?)<\/article\s*>/gi)];
+const classificationFallback = fallbackArticles.find(([, body]) => /<h3\b[^>]*>\s*Trip classification\s*<\/h3>/i.test(body));
+assert(classificationFallback, "The unmatched classification subject must retain its visible fallback card.");
+assert(
+  classificationFallback[1].includes("No dedicated classification clip was supplied"),
+  "The classification fallback card must explain why its clip is absent.",
+);
+
 const resumeManifest = resumeAssetSchema.parse(await readJson(path.join(repositoryRoot, "src", "content", "resume-asset.json")));
 const resumeOutputPath = path.join(outputDirectory, "downloads", resumeManifest.fileName);
 const resumeBytes = await readFile(resumeOutputPath);

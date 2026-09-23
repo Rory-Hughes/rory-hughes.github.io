@@ -60,11 +60,44 @@ test("John Howard stays text-first with no fabricated demo or repository links",
   assert(johnHoward.media.every((slot) => slot.availability !== "published" && !slot.assetPath && slot.fallbackText.length >= 24));
 });
 
-test("the supplied MileageTracker screen recording is withheld behind text fallbacks", async () => {
+test("the five approved MileageTracker recordings are published and classification keeps its text fallback", async () => {
   const mileage = projectEntries.find((entry) => entry.id === "mileage-tracker").data;
-  assert(mileage.media.some((slot) => slot.kind === "video" && slot.reviewStatus === "withheld"));
-  assert(mileage.media.every((slot) => slot.availability !== "published" && !slot.assetPath));
-  assert.deepEqual(await validateMediaAssets(compilePublicProjects(projectEntries), path.join(repositoryRoot, "public")), []);
+  const expectedAssets = [
+    "media/mileage-dashboard-trip-review.mp4",
+    "media/mileage-manual-tracking.mp4",
+    "media/mileage-reports-logbook.mp4",
+    "media/mileage-settings-and-vehicles.mp4",
+    "media/mileage-trip-records.mp4",
+  ];
+  const expectedAssetDigests = new Map([
+    ["media/mileage-dashboard-trip-review.mp4", "2ebf79229ac0cf71fae6b66b2f8309b6ad832a20c6a805ef5077908ed7358400"],
+    ["media/mileage-manual-tracking.mp4", "ef6aaa84ed840f99e2a5bc3f1686b15bda115f0f9f676fa29e658ba2df77f4f8"],
+    ["media/mileage-reports-logbook.mp4", "90c30daf439f9578893b7c0dd773414acf31f5399144cbb6c01e0f5c16f69736"],
+    ["media/mileage-settings-and-vehicles.mp4", "6f9caec5718b06e324c9140ab8355f70a94140370704e12a1ab0683498db17ac"],
+    ["media/mileage-trip-records.mp4", "dbe9dcb9d4fcbdbf46b3b78933bac4064c8e6f334e029594e1a9a073b3d69ec1"],
+  ]);
+  const publishedVideos = mileage.media.filter((slot) => slot.kind === "video" && slot.availability === "published");
+  const classification = mileage.media.find((slot) => slot.id === "classification");
+
+  assert.equal(publishedVideos.length, 5);
+  assert(publishedVideos.every((slot) => slot.publicationState === "public" && slot.reviewStatus === "approved"));
+  assert(publishedVideos.every((slot) => slot.assetPath && slot.altText && slot.caption && slot.transcript));
+  assert.deepEqual(publishedVideos.map((slot) => slot.assetPath).sort(), expectedAssets);
+  assert.equal(classification.availability, "fallback");
+  assert.equal(classification.reviewStatus, "not-provided");
+  assert.deepEqual([...expectedAssetDigests.keys()].sort(), expectedAssets);
+  for (const [assetPath, expectedDigest] of expectedAssetDigests) {
+    const bytes = await readFile(path.join(repositoryRoot, "public", assetPath));
+    assert.equal(
+      createHash("sha256").update(bytes).digest("hex"),
+      expectedDigest,
+      assetPath + " must match the exact video bytes approved for publication.",
+    );
+  }
+  assert.deepEqual(
+    await validateMediaAssets(compilePublicProjects(projectEntries), path.join(repositoryRoot, "public")),
+    expectedAssets,
+  );
 });
 
 test("published media cannot pass without explicit privacy approval", () => {
@@ -96,6 +129,7 @@ test("published videos require an accessible transcript in both validators", asy
     altText: "A synthetic-data demonstration of the mileage application.",
     caption: "A reviewed synthetic-data application walkthrough.",
   };
+  delete publishedVideo.transcript;
   const project = { ...mileage, media: [publishedVideo] };
 
   assert.throws(() => projectSchema.parse(project), /Published recordings require a concise transcript/);

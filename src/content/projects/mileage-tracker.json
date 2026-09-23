@@ -21,16 +21,16 @@
   "statusLabel": "Closed-beta solo foundation",
   "currentStatus": "A closed-beta solo foundation. Known blockers, device checks, and release gates remain tracked; no full release is claimed.",
   "publicationState": "public",
-  "publicationBoundary": "This project description is not tax advice and does not promise CRA acceptance. The available recording contains real trip history and vehicle details, so it is not published.",
+  "publicationBoundary": "The five supplied screen recordings are approved for public display, including real trip, profile, and vehicle information. This project description is not tax advice and does not promise CRA acceptance.",
   "limitations": [
     "The project remains a closed-beta foundation with release gates still tracked.",
     "No tax advice or CRA-acceptance promise is made.",
-    "The supplied screen recording is withheld; a synthetic-data replacement has not been approved."
+    "The public screen recordings show owner-approved real trip, profile, and vehicle information; they do not change the project's closed-beta status."
   ],
   "claimPolicy": [
     "Do not describe the project as fully released or generally available.",
     "Do not promise CRA acceptance or present the app as tax advice.",
-    "Only publish media captured with synthetic trips, locations, vehicles, and expenses after review."
+    "The owner approved the five supplied recordings, including the visible account email, trip records, and vehicle details, for public display."
   ],
   "evidence": [
     "Automated unit and Android UI coverage spans validation, interrupted-trip recovery, synchronization, authentication, exports, and core screens.",
@@ -64,7 +64,7 @@
     {
       "heading": "Evidence and limits",
       "paragraphs": [
-        "The source repository is public. The available screen recording is excluded because it contains real trip history and vehicle details; only a new synthetic-data recording that passes privacy and accessibility review can replace this text fallback."
+        "The owner approved all five supplied screen recordings for public display, including visible profile, trip, and vehicle details. The clips document specific screens only; the written case study remains available independently of the recordings."
       ]
     }
   ],
@@ -82,19 +82,27 @@
       "id": "overview",
       "label": "Application overview",
       "kind": "video",
-      "availability": "fallback",
-      "publicationState": "deferred",
-      "reviewStatus": "withheld",
-      "fallbackText": "The supplied recording was excluded because it contains real trip history and vehicle details. A reviewed synthetic-data replacement is pending."
+      "availability": "published",
+      "publicationState": "public",
+      "reviewStatus": "approved",
+      "assetPath": "media/mileage-dashboard-trip-review.mp4",
+      "altText": "The MileageTracker dashboard followed by a trip-detail screen with a suggested business classification, route, recorded distance, category options, vehicle selection, and notes.",
+      "caption": "Owner-approved dashboard and trip-detail screens showing a classification suggestion and editable trip fields.",
+      "transcript": "Silent screen recording. It opens on the dashboard, then shows a trip detail with date and time, route, distance, a suggested business classification with Dismiss and Apply actions, category options, vehicle selection, and the notes area.",
+      "fallbackText": "The written project summary remains available if this owner-approved dashboard and trip-detail recording cannot be played."
     },
     {
       "id": "trip-capture",
       "label": "Trip capture and details",
-      "kind": "image",
-      "availability": "fallback",
-      "publicationState": "deferred",
-      "reviewStatus": "withheld",
-      "fallbackText": "No synthetic-data trip screen is approved for publication yet. This evidence remains available in the written project summary."
+      "kind": "video",
+      "availability": "published",
+      "publicationState": "public",
+      "reviewStatus": "approved",
+      "assetPath": "media/mileage-trip-records.mp4",
+      "altText": "The Trips screen scrolling through dated trip records with route names and recorded distances.",
+      "caption": "Owner-approved trip list showing recorded dates, routes, and distances.",
+      "transcript": "Silent screen recording scrolls through the Trips list. Several cards show date and time, route and place names, and recorded distances, followed by the Add Trip action. The visible records are approved by the owner for public display.",
+      "fallbackText": "The written project summary remains available if this owner-approved trip-list recording cannot be played."
     },
     {
       "id": "classification",
@@ -102,26 +110,47 @@
       "kind": "image",
       "availability": "fallback",
       "publicationState": "deferred",
-      "reviewStatus": "withheld",
-      "fallbackText": "A reviewed classification image is pending; the excluded recording is not embedded or copied into this repository."
+      "reviewStatus": "not-provided",
+      "fallbackText": "No dedicated classification clip was supplied; the overview recording shows a suggested category and its available actions."
+    },
+    {
+      "id": "tracking-controls",
+      "label": "Manual trip-tracking controls",
+      "kind": "video",
+      "availability": "published",
+      "publicationState": "public",
+      "reviewStatus": "approved",
+      "assetPath": "media/mileage-manual-tracking.mp4",
+      "altText": "The Track a Trip screen with a map preview and a Start Tracking control in its ready state.",
+      "caption": "Manual tracking controls ready to start; the clip does not show a completed drive.",
+      "transcript": "Silent screen recording of Track a Trip. A map preview and Start Tracking button appear with the timer and distance at zero. The footage shows the ready state only, not a completed trip or verified GPS outcome.",
+      "fallbackText": "The written project summary remains available if this manual-tracking controls recording cannot be played."
     },
     {
       "id": "vehicle-odometer",
       "label": "Vehicle and odometer management",
-      "kind": "image",
-      "availability": "fallback",
-      "publicationState": "deferred",
-      "reviewStatus": "withheld",
-      "fallbackText": "No synthetic vehicle or odometer capture is approved. Personal vehicle details are not displayed."
+      "kind": "video",
+      "availability": "published",
+      "publicationState": "public",
+      "reviewStatus": "approved",
+      "assetPath": "media/mileage-settings-and-vehicles.mp4",
+      "altText": "Profile and vehicle settings screens with an account email, member-since date, saved vehicles, and odometer fields.",
+      "caption": "Owner-approved profile and vehicle settings footage, including the account email and vehicle details.",
+      "transcript": "Silent screen recording. It shows the Profile screen with the account email and member-since field, then settings and vehicle screens with saved-vehicle and odometer information. These displayed personal values are approved by the owner for this public portfolio.",
+      "fallbackText": "The written project summary remains available if this owner-approved profile and vehicle settings recording cannot be played."
     },
     {
       "id": "summary-export",
       "label": "Summary and export",
-      "kind": "image",
-      "availability": "fallback",
-      "publicationState": "deferred",
-      "reviewStatus": "withheld",
-      "fallbackText": "A reviewed summary or export example is pending; this page describes the test coverage without exposing personal records."
+      "kind": "video",
+      "availability": "published",
+      "publicationState": "public",
+      "reviewStatus": "approved",
+      "assetPath": "media/mileage-reports-logbook.mp4",
+      "altText": "The Reports screen with reporting periods, vehicle filters, logbook and export actions, a review warning, and a period summary.",
+      "caption": "Quarterly report view and export actions; the screen does not establish a filed or accepted tax return.",
+      "transcript": "Silent screen recording of Reports. It shows monthly, quarterly, and annual tabs, tax-year and vehicle filters, CRA Vehicle Logbook, Export History, Export Logbook, Vehicle Expenses, a warning that some trips need attention, and a period summary. This is an interface walkthrough, not tax advice or proof of an accepted filing.",
+      "fallbackText": "The written project summary remains available if this owner-approved reports and export recording cannot be played."
     }
   ]
 }

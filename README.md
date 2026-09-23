@@ -26,15 +26,13 @@ client-side router is required.
 - Add public media only under public/media/, reference it from the matching
   project record, include descriptive alt text and a caption, and provide a
   concise transcript for recordings. Every media file must be smaller than
-  100 MiB and pass a manual privacy review using synthetic data.
+  100 MiB and pass a manual privacy review.
 - The supplied QA Software Intern resume is copied unchanged to
   public/downloads/Rory-Hughes-Resume.docx. Its pinned SHA-256 and byte count
   are checked locally and in CI. If the owner supplies a replacement, update
   both the file and src/content/resume-asset.json.
 
-The supplied MileageTracker screen recording is intentionally not included:
-it contains real trip history and vehicle details. Use a new synthetic-data
-capture only after it has been reviewed and made accessible. John Howard demo
+Use the 5 supplied MileageTracker screen recordings. John Howard demo
 and sanitized-repository destinations remain pending; do not add links until
 Rory supplies the approved public destinations.
 
