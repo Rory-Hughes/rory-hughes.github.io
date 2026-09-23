@@ -1,0 +1,181 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import MediaBlock from "../components/MediaBlock.astro";
+import type { PublicProfile, ProjectRecord } from "../lib/types";
+
+interface Props {
+  profile: PublicProfile;
+  project: ProjectRecord;
+}
+
+const { profile, project } = Astro.props;
+const title = project.title + " | " + profile.displayName;
+const description = project.summary;
+const categoryLabels = {
+  "client-system": "Client system",
+  "mobile-application": "Android application",
+  "research-project": "Learning project",
+};
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  profile={profile}
+  canonicalPath={"/projects/" + project.slug + "/"}
+>
+  <main class="site-frame case-study-page" id="main-content" tabindex="-1">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span aria-hidden="true">/</span>
+      <a href="/projects/">Projects</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">{project.shortTitle}</span>
+    </nav>
+
+    <article class="case-study">
+      <header class="case-study__header">
+        <div class="case-study__title-block">
+          <p class="eyebrow">{categoryLabels[project.category]} / Case study</p>
+          <h1>{project.title}</h1>
+          <p class="case-study__summary">{project.summary}</p>
+        </div>
+        <div class="case-study__status">
+          <span class="eyebrow">Current status</span>
+          <span class="status-chip">{project.statusLabel}</span>
+        </div>
+      </header>
+
+      <dl class="case-metadata">
+        <div>
+          <dt>Role</dt>
+          <dd>{project.role}</dd>
+        </div>
+        <div>
+          <dt>Technologies</dt>
+          <dd>
+            {project.technologies.length > 0
+              ? project.technologies.join(", ")
+              : "No implementation stack is asserted in this case study."}
+          </dd>
+        </div>
+        <div>
+          <dt>People or intended audience</dt>
+          <dd>{project.stakeholders.join(", ")}</dd>
+        </div>
+      </dl>
+
+      <aside class="boundary-note" aria-labelledby="boundary-heading">
+        <div class="boundary-note__marker" aria-hidden="true">!</div>
+        <div>
+          <p class="eyebrow">Publication boundary</p>
+          <h2 id="boundary-heading">{project.currentStatus}</h2>
+          <p>{project.publicationBoundary}</p>
+        </div>
+      </aside>
+
+      <div class="case-study__body">
+        <section class="case-overview" aria-labelledby="problem-heading">
+          <div>
+            <p class="eyebrow">The problem</p>
+            <h2 id="problem-heading">A workflow worth getting right</h2>
+          </div>
+          <p>{project.problem}</p>
+        </section>
+
+        {project.sections.map((section, index) => (
+          <section class="case-section" aria-labelledby={"case-section-" + index}>
+            <div class="case-section__heading">
+              <span class="case-section__index" aria-hidden="true">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <h2 id={"case-section-" + index}>{section.heading}</h2>
+            </div>
+            <div class="case-section__content">
+              {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+              {section.bullets && (
+                <ul class="evidence-list">
+                  {section.bullets.map((bullet) => <li>{bullet}</li>)}
+                </ul>
+              )}
+            </div>
+          </section>
+        ))}
+
+        <section class="case-evidence" aria-labelledby="evidence-heading">
+          <div class="section-heading">
+            <p class="eyebrow">What is verifiable</p>
+            <h2 id="evidence-heading">Evidence and boundaries</h2>
+          </div>
+          <ul class="evidence-list">
+            {project.evidence.map((item) => <li>{item}</li>)}
+          </ul>
+          <div class="limits-grid">
+            {project.limitations.map((limitation) => (
+              <p class="limit-note">{limitation}</p>
+            ))}
+          </div>
+        </section>
+
+        <section class="case-links" aria-labelledby="links-heading">
+          <div>
+            <p class="eyebrow">Next step</p>
+            <h2 id="links-heading">Project links</h2>
+          </div>
+          {project.links.length > 0 ? (
+            <ul class="link-list">
+              {project.links.map((link) => (
+                <li><a class="text-link" href={link.href}>{link.label} <span aria-hidden="true">↗</span></a></li>
+              ))}
+            </ul>
+          ) : (
+            <p class="link-fallback">{project.linkFallback}</p>
+          )}
+          <a class="button button--secondary" href={"/#contact"}>
+            Contact Rory
+          </a>
+        </section>
+
+        {project.media.length > 0 && (
+          <section class="case-media" aria-labelledby="media-heading">
+            <div class="section-heading">
+              <p class="eyebrow">Media review</p>
+              <h2 id="media-heading">Evidence media</h2>
+              <p class="section-heading__intro">
+                Media appears only after privacy review. These labeled states
+                make clear what is not public yet; the written evidence above
+                does not depend on screenshots or video.
+              </p>
+            </div>
+            <div class="media-grid">
+              {project.media.map((slot) => (
+                <MediaBlock projectSlug={project.slug} media={slot} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {project.citations.length > 0 && (
+          <section class="case-citations" aria-labelledby="citation-heading">
+            <p class="eyebrow">Research reference</p>
+            <h2 id="citation-heading">Source material</h2>
+            <ul>
+              {project.citations.map((citation) => (
+                <li>
+                  <a class="text-link" href={citation.href}>{citation.title}</a>
+                  <span>{citation.authors}. {citation.publication} ({citation.year}).</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+      </div>
+    </article>
+
+    <div class="case-study__back">
+      <a class="text-link" href="/projects/">Back to all projects</a>
+      <span aria-hidden="true">/</span>
+      <a class="text-link" href="/#contact">Contact</a>
+    </div>
+  </main>
+</BaseLayout>

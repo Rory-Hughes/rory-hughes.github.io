@@ -1,0 +1,59 @@
+{
+  "slug": "bioelectric-simulator",
+  "title": "Multicellular bioelectric simulator",
+  "shortTitle": "Bioelectric simulator",
+  "order": 3,
+  "featured": false,
+  "category": "research-project",
+  "summary": "A work-in-progress learning simulator for passive membrane voltage spreading through a chain of gap-junction-coupled cells.",
+  "problem": "I am exploring how a small computational model can make a research description of multicellular bioelectric interactions easier to reason about.",
+  "role": "Independent learning-project builder.",
+  "stakeholders": [
+    "Readers exploring computational models of cell interactions"
+  ],
+  "technologies": [],
+  "statusLabel": "Research in progress",
+  "currentStatus": "A learning project in progress; no reproduction or validation of the cited paper's results is claimed.",
+  "publicationState": "public",
+  "publicationBoundary": "This project is an independent learning exercise and must not be presented as validated research or as a reproduction of the cited paper.",
+  "limitations": [
+    "No documented comparison with the paper's published results is available.",
+    "No validated or reproduced scientific result is claimed.",
+    "The implementation details and tools are not asserted here."
+  ],
+  "claimPolicy": [
+    "Describe this as a work-in-progress learning project only.",
+    "Do not claim that it reproduces, validates, or confirms the cited paper.",
+    "Any future result claim requires a documented comparison and clear limitations."
+  ],
+  "evidence": [
+    "The cited paper is the research reference for this exploratory learning project.",
+    "No documented comparison between the simulator and the paper's published results is available."
+  ],
+  "sections": [
+    {
+      "heading": "Scope",
+      "paragraphs": [
+        "The executable learning model represents a chain of cells as passive electrical membranes coupled by gap junctions. It applies a current pulse and visualizes how membrane voltage changes and spreads over time. It does not simulate gene expression or protein transcription."
+      ]
+    },
+    {
+      "heading": "Research reference and limits",
+      "paragraphs": [
+        "The project is informed by the cited paper but is not presented as a reproduction of its simulations or findings. No documented comparison, validated output, or reproduced result is claimed."
+      ]
+    }
+  ],
+  "links": [],
+  "linkFallback": "No public implementation repository or interactive demo has been supplied.",
+  "citations": [
+    {
+      "title": "Top-down perspectives on cell membrane potential and protein transcription",
+      "authors": "Javier Cervera, Michael Levin, and Salvador Mafe",
+      "publication": "Scientific Reports",
+      "year": 2026,
+      "href": "https://doi.org/10.1038/s41598-025-31696-6"
+    }
+  ],
+  "media": []
+}

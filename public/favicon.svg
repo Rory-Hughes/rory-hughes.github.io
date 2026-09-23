@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">RH</title>
+  <rect width="64" height="64" rx="12" fill="#17364b" />
+  <path d="M14 48V16h15c10 0 15 5 15 13 0 6-3 10-9 12l12 7H34L23 40v8Zm9-16h6c4 0 6-1 6-4s-2-4-6-4h-6Z" fill="#fffefa" />
+  <path d="M46 16h7v32h-7z" fill="#a8d5cf" />
+</svg>

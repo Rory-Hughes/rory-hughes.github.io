@@ -1,0 +1,24 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { compilePublicProfile } from "../lib/publication-compiler.mjs";
+
+const profile = compilePublicProfile(await getCollection("profile"));
+---
+
+<BaseLayout
+  title={"Page not found | " + profile.displayName}
+  description="This portfolio page could not be found."
+  profile={profile}
+  canonicalPath="/404.html"
+>
+  <main id="main-content" class="site-frame not-found" tabindex="-1">
+    <p class="eyebrow">404 / Not found</p>
+    <h1>This page is not in the project record.</h1>
+    <p>The link may have changed. Return to the portfolio or browse the project index.</p>
+    <div class="action-row">
+      <a class="button button--primary" href="/">Return home</a>
+      <a class="button button--secondary" href="/projects/">Browse projects</a>
+    </div>
+  </main>
+</BaseLayout>

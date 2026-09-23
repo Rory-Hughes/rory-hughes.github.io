@@ -1,0 +1,49 @@
+---
+import "../styles/tokens.css";
+import "../styles/global.css";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import type { PublicProfile } from "../lib/types";
+
+interface Props {
+  title: string;
+  description: string;
+  profile: PublicProfile;
+  canonicalPath?: string;
+}
+
+const {
+  title,
+  description,
+  profile,
+  canonicalPath = Astro.url.pathname,
+} = Astro.props;
+const canonicalBase = Astro.site ?? Astro.url;
+const canonicalUrl = new URL(canonicalPath, canonicalBase);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#F5F1E8" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalUrl.href} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={profile.displayName + " portfolio"} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl.href} />
+    <meta name="twitter:card" content="summary" />
+    <title>{title}</title>
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <SiteHeader profile={profile} />
+    <slot />
+    <SiteFooter profile={profile} />
+  </body>
+</html>

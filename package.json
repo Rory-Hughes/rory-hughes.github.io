@@ -1,0 +1,26 @@
+{
+  "name": "rory-hughes-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.21.0 <25"
+  },
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "astro build && node scripts/create-release-manifest.mjs && node scripts/validate-output.mjs",
+    "preview": "astro preview --host 127.0.0.1",
+    "check": "astro check && node scripts/validate-content.mjs",
+    "test": "node --test",
+    "ci:validate": "npm run check && npm test && npm run build"
+  },
+  "dependencies": {
+    "astro": "7.3.3",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "typescript": "6.0.3",
+    "yaml": "2.9.1"
+  }
+}

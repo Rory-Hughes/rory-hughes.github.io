@@ -1,0 +1,20 @@
+---
+import { getCollection } from "astro:content";
+import CaseStudyLayout from "../../layouts/CaseStudyLayout.astro";
+import { compilePublicProfile, compilePublicProjects } from "../../lib/publication-compiler.mjs";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("projects");
+  const projects = compilePublicProjects(entries);
+  const profile = compilePublicProfile(await getCollection("profile"));
+
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project, profile },
+  }));
+}
+
+const { project, profile } = Astro.props;
+---
+
+<CaseStudyLayout project={project} profile={profile} />

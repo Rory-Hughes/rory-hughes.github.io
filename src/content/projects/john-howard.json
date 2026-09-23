@@ -1,0 +1,101 @@
+{
+  "slug": "john-howard",
+  "title": "John Howard Program Management and Data Collection System",
+  "shortTitle": "John Howard system",
+  "order": 1,
+  "featured": true,
+  "category": "client-system",
+  "summary": "A privacy-minded Windows application shaped around nonprofit program workflows, controlled information transfer, and reporting, with test evidence kept synthetic.",
+  "problem": "Program teams need software workflows for managing programs and relevant participant information while supporting controlled transfers to the main office and privacy-conscious funder reporting.",
+  "role": "Led discovery, requirements, planning, design, and technical decisions; built and maintained application test coverage.",
+  "stakeholders": [
+    "Program staff",
+    "Main office administrator",
+    "Executive Director"
+  ],
+  "technologies": [
+    "C#",
+    "WPF"
+  ],
+  "statusLabel": "Active development",
+  "currentStatus": "Synthetic-data prototype and implementation foundation approaching MVP. It is not deployed or production-approved.",
+  "publicationState": "public",
+  "publicationBoundary": "Public examples use synthetic data only. No real participant data or internal client material is authorized for this portfolio.",
+  "limitations": [
+    "No approved public demo or sanitized repository is available yet.",
+    "The prototype is not deployed or production-approved.",
+    "No real participant data is shown or used as public evidence."
+  ],
+  "claimPolicy": [
+    "Describe the system as active development approaching MVP, never as deployed or production-ready.",
+    "Keep participant examples synthetic and omit internal client artifacts.",
+    "Treat early stakeholder feedback as qualitative feedback, not measured impact."
+  ],
+  "evidence": [
+    "Translated stakeholder discussions, feedback, mockups, and requirements into testable workflows.",
+    "Built C# unit, integration, view-model, UI-structure, and regression tests across application layers.",
+    "Maintained manual test evidence using synthetic data."
+  ],
+  "sections": [
+    {
+      "heading": "Context",
+      "paragraphs": [
+        "The work is for the John Howard Society of Saint John. The Windows desktop system is intended to support program management, relevant participant information, controlled transfers to the main office, and privacy-conscious funder reporting."
+      ]
+    },
+    {
+      "heading": "Role and approach",
+      "paragraphs": [
+        "I led discovery, requirements, planning, design, and technical decision-making. Stakeholder discussions, feedback, mockups, and requirements were turned into workflows that could be built and tested."
+      ],
+      "bullets": [
+        "Organized workflows around program staff and main-office needs.",
+        "Kept the system's publication boundary explicit while planning evidence and tests."
+      ]
+    },
+    {
+      "heading": "Implementation and verification",
+      "paragraphs": [
+        "The application is built with C# and WPF. Verification includes automated coverage across unit, integration, view-model, UI-structure, and regression layers, alongside manual test evidence using synthetic data."
+      ]
+    },
+    {
+      "heading": "What is public today",
+      "paragraphs": [
+        "This case study is intentionally text-first. A public demo and sanitized code destination will be added only after Rory supplies and approves them; there is no destination to follow yet."
+      ]
+    }
+  ],
+  "links": [],
+  "linkFallback": "The public demo and sanitized repository are pending approval; no destination is linked yet.",
+  "citations": [],
+  "media": [
+    {
+      "id": "overview",
+      "label": "Application overview",
+      "kind": "image",
+      "availability": "fallback",
+      "publicationState": "deferred",
+      "reviewStatus": "not-provided",
+      "fallbackText": "No approved overview image has been provided. The case study remains complete as text."
+    },
+    {
+      "id": "program-workflow",
+      "label": "Representative program workflow",
+      "kind": "image",
+      "availability": "fallback",
+      "publicationState": "deferred",
+      "reviewStatus": "not-provided",
+      "fallbackText": "A synthetic-data workflow capture is pending. No participant or internal client material is shown."
+    },
+    {
+      "id": "reporting-transfer",
+      "label": "Reporting or controlled-transfer view",
+      "kind": "image",
+      "availability": "fallback",
+      "publicationState": "deferred",
+      "reviewStatus": "not-provided",
+      "fallbackText": "A reviewed reporting or transfer example is not available yet; no empty media frame is displayed."
+    }
+  ]
+}

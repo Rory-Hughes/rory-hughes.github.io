@@ -1,0 +1,127 @@
+{
+  "slug": "mileage-tracker",
+  "title": "MileageTracker",
+  "shortTitle": "MileageTracker",
+  "order": 2,
+  "featured": true,
+  "category": "mobile-application",
+  "summary": "An Android mileage-tracking app with trip capture, classification, vehicle records, and reporting, supported by automated checks and explicit beta release gates.",
+  "problem": "Drivers need a dependable way to record trip details, organize mileage, and review information for their own records without losing sight of incomplete or unverified entries.",
+  "role": "Solo developer building the Android application and maintaining its verification and closed-beta checklist.",
+  "stakeholders": [
+    "Drivers recording personal or business mileage"
+  ],
+  "technologies": [
+    "Kotlin",
+    "Jetpack Compose",
+    "Room",
+    "Hilt",
+    "Firebase"
+  ],
+  "statusLabel": "Closed-beta solo foundation",
+  "currentStatus": "A closed-beta solo foundation. Known blockers, device checks, and release gates remain tracked; no full release is claimed.",
+  "publicationState": "public",
+  "publicationBoundary": "This project description is not tax advice and does not promise CRA acceptance. The available recording contains real trip history and vehicle details, so it is not published.",
+  "limitations": [
+    "The project remains a closed-beta foundation with release gates still tracked.",
+    "No tax advice or CRA-acceptance promise is made.",
+    "The supplied screen recording is withheld; a synthetic-data replacement has not been approved."
+  ],
+  "claimPolicy": [
+    "Do not describe the project as fully released or generally available.",
+    "Do not promise CRA acceptance or present the app as tax advice.",
+    "Only publish media captured with synthetic trips, locations, vehicles, and expenses after review."
+  ],
+  "evidence": [
+    "Automated unit and Android UI coverage spans validation, interrupted-trip recovery, synchronization, authentication, exports, and core screens.",
+    "A closed-beta checklist separates implemented features, known blockers, device smoke tests, emulator-rule checks, and release gates.",
+    "The public GitHub repository is available for code review."
+  ],
+  "sections": [
+    {
+      "heading": "Context",
+      "paragraphs": [
+        "MileageTracker is an Android app for recording and organizing vehicle mileage. Its project scope includes trip capture, business or personal classification, vehicle records, and reporting."
+      ]
+    },
+    {
+      "heading": "Role and implementation",
+      "paragraphs": [
+        "I am building the app as a solo developer using Kotlin and Jetpack Compose, with Room, Hilt, and Firebase in the implementation stack."
+      ],
+      "bullets": [
+        "Trip capture and durable GPS capture.",
+        "Business or personal classification and vehicle management.",
+        "Odometer, expense, receipt, and report workflows."
+      ]
+    },
+    {
+      "heading": "Verification and release gates",
+      "paragraphs": [
+        "Automated unit and Android UI tests cover validation, interrupted-trip recovery, synchronization, authentication, exports, and core screens. The closed-beta checklist keeps implemented behavior separate from known blockers, device smoke tests, emulator-rule checks, and release gates."
+      ]
+    },
+    {
+      "heading": "Evidence and limits",
+      "paragraphs": [
+        "The source repository is public. The available screen recording is excluded because it contains real trip history and vehicle details; only a new synthetic-data recording that passes privacy and accessibility review can replace this text fallback."
+      ]
+    }
+  ],
+  "links": [
+    {
+      "label": "View the public MileageTracker repository",
+      "href": "https://github.com/Rory-Hughes/MileageTracker",
+      "kind": "repository"
+    }
+  ],
+  "linkFallback": "The public repository is available; no hosted demo is linked.",
+  "citations": [],
+  "media": [
+    {
+      "id": "overview",
+      "label": "Application overview",
+      "kind": "video",
+      "availability": "fallback",
+      "publicationState": "deferred",
+      "reviewStatus": "withheld",
+      "fallbackText": "The supplied recording was excluded because it contains real trip history and vehicle details. A reviewed synthetic-data replacement is pending."
+    },
+    {
+      "id": "trip-capture",
+      "label": "Trip capture and details",
+      "kind": "image",
+      "availability": "fallback",
+      "publicationState": "deferred",
+      "reviewStatus": "withheld",
+      "fallbackText": "No synthetic-data trip screen is approved for publication yet. This evidence remains available in the written project summary."
+    },
+    {
+      "id": "classification",
+      "label": "Trip classification",
+      "kind": "image",
+      "availability": "fallback",
+      "publicationState": "deferred",
+      "reviewStatus": "withheld",
+      "fallbackText": "A reviewed classification image is pending; the excluded recording is not embedded or copied into this repository."
+    },
+    {
+      "id": "vehicle-odometer",
+      "label": "Vehicle and odometer management",
+      "kind": "image",
+      "availability": "fallback",
+      "publicationState": "deferred",
+      "reviewStatus": "withheld",
+      "fallbackText": "No synthetic vehicle or odometer capture is approved. Personal vehicle details are not displayed."
+    },
+    {
+      "id": "summary-export",
+      "label": "Summary and export",
+      "kind": "image",
+      "availability": "fallback",
+      "publicationState": "deferred",
+      "reviewStatus": "withheld",
+      "fallbackText": "A reviewed summary or export example is pending; this page describes the test coverage without exposing personal records."
+    }
+  ]
+}

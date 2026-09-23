@@ -1,0 +1,104 @@
+{
+  "publicationState": "public",
+  "displayName": "Rory Hughes",
+  "location": "Saint John, New Brunswick, Canada",
+  "headline": "Software development, grounded in real workflows.",
+  "introduction": "I am an Information Technology: Software Development student building Android and Windows applications. I like joining the dots between understanding a problem, shaping a useful workflow, and checking that the details hold up.",
+  "about": [
+    "I am completing the Information Technology: Software Development program at New Brunswick Community College, with expected graduation in 2027 and a cumulative GPA of 3.91. My project work spans Android with Kotlin and Windows desktop software with C# and WPF.",
+    "I bring a customer-service and operations mindset to software: clarify what should happen, document blockers and edge cases, and verify changes across the paths people use. I am interested in work that connects implementation, product thinking, and careful quality checks."
+  ],
+  "email": "hughesrory8@gmail.com",
+  "phoneDisplay": "506-271-7876",
+  "phoneHref": "tel:+15062717876",
+  "githubUrl": "https://github.com/Rory-Hughes",
+  "resumeHref": "/downloads/Rory-Hughes-Resume.docx",
+  "skills": [
+    {
+      "name": "Quality and testing",
+      "note": "Plan, reproduce, and verify expected behavior across application layers.",
+      "items": [
+        "Test-case design",
+        "Manual workflow checks",
+        "Defect reproduction",
+        "Fix verification",
+        "Unit and integration testing",
+        "Android UI, view-model, and regression coverage",
+        "Release-readiness checklists"
+      ]
+    },
+    {
+      "name": "Languages and platforms",
+      "note": "Hands-on work across mobile, desktop, web, and data tasks.",
+      "items": [
+        "Kotlin",
+        "C#",
+        "JavaScript",
+        "TypeScript",
+        "SQL",
+        "HTML5 and CSS3",
+        "Jetpack Compose",
+        "WPF",
+        "Room",
+        "Hilt",
+        "Firebase",
+        "Git and GitHub",
+        "Bash and command line"
+      ]
+    },
+    {
+      "name": "Product and communication",
+      "note": "Make requirements, decisions, and quality concerns easy to follow.",
+      "items": [
+        "Requirements analysis",
+        "Technical documentation",
+        "Stakeholder feedback",
+        "Clear blocker reporting",
+        "Customer service",
+        "Teamwork"
+      ]
+    },
+    {
+      "name": "Browser automation",
+      "note": "Prior exposure through small browser-automation experiments.",
+      "items": [
+        "Selenium familiarity",
+        "Playwright familiarity",
+        "Form-filling workflows"
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "organization": "Home Hardware",
+      "role": "Customer Service Representative",
+      "location": "Quispamsis, New Brunswick",
+      "description": "Supported customers and completed data-entry and inventory tasks where accuracy and clear communication were essential."
+    },
+    {
+      "organization": "Mackies Moving",
+      "role": "Mover",
+      "location": "Saint John, New Brunswick",
+      "description": "Followed detailed logistics, identified issues, and coordinated safely with teammates to meet service deadlines."
+    },
+    {
+      "organization": "Boys and Girls Club",
+      "role": "Volunteer - Raspberry Pi installation",
+      "location": "Saint John, New Brunswick",
+      "description": "Troubleshot Raspberry Pi boards used for motion-triggered effects during a fundraiser installation."
+    }
+  ],
+  "education": {
+    "program": "Information Technology: Software Development",
+    "institution": "New Brunswick Community College",
+    "location": "Saint John, New Brunswick",
+    "expectedGraduation": "2027",
+    "gpa": "3.91",
+    "training": [
+      {
+        "name": "AWS Cloud Foundations",
+        "credential": "Certificate / badge"
+      }
+    ]
+  }
+}

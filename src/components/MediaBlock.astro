@@ -1,0 +1,54 @@
+---
+import type { z } from "zod";
+import type { projectSchema } from "../lib/content-contract.mjs";
+import { videoMimeType } from "../lib/media-policy.mjs";
+
+type MediaSlot = z.infer<typeof projectSchema>["media"][number];
+
+interface Props {
+  projectSlug: string;
+  media: MediaSlot;
+}
+
+const { projectSlug, media } = Astro.props;
+const headingId = "media-" + projectSlug + "-" + media.id;
+const statusLabel = media.reviewStatus === "withheld"
+  ? "Withheld"
+  : media.availability === "candidate"
+    ? "Under review"
+    : "Deferred";
+---
+
+{media.availability === "published" && media.assetPath && media.altText && media.caption ? (
+  <figure class="media-figure">
+    {media.kind === "video" ? (
+      <video controls preload="metadata" aria-label={media.altText}>
+        <source src={"/" + media.assetPath} type={videoMimeType(media.assetPath)} />
+        Your browser does not support this video. The written transcript below
+        contains the same information.
+      </video>
+    ) : (
+      <img src={"/" + media.assetPath} alt={media.altText} loading="lazy" decoding="async" />
+    )}
+    <figcaption>
+      <strong>{media.label}</strong>
+      <span>{media.caption}</span>
+    </figcaption>
+    {media.kind === "video" && media.transcript && (
+      <details class="transcript">
+        <summary>Read the video transcript</summary>
+        <p>{media.transcript}</p>
+      </details>
+    )}
+  </figure>
+) : (
+  <article class="media-fallback" aria-labelledby={headingId}>
+    <div class="media-fallback__topline">
+      <p class="eyebrow">Evidence status</p>
+      <span class="status-chip status-chip--quiet">{statusLabel}</span>
+    </div>
+    <h3 id={headingId}>{media.label}</h3>
+    <p>{media.fallbackText}</p>
+    <p class="media-fallback__note">The written case study remains available without media.</p>
+  </article>
+)}

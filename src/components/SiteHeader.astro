@@ -1,0 +1,51 @@
+---
+import type { PublicProfile } from "../lib/types";
+
+interface Props {
+  profile: PublicProfile;
+}
+
+const { profile } = Astro.props;
+const links = [
+  { id: "about", label: "About" },
+  { id: "skills", label: "Skills" },
+  { id: "projects", label: "Projects" },
+  { id: "experience", label: "Experience" },
+  { id: "education", label: "Education" },
+  { id: "contact", label: "Contact" },
+];
+---
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="brand" href="/" aria-label={profile.displayName + " home"}>
+      <span class="brand__mark" aria-hidden="true">RH</span>
+      <span>{profile.displayName}</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      {links.map((link) => <a href={"/#" + link.id}>{link.label}</a>)}
+    </nav>
+
+    <details class="mobile-menu" data-mobile-menu>
+      <summary>
+        <span>Menu</span>
+        <span class="mobile-menu__icon" aria-hidden="true">+</span>
+      </summary>
+      <nav aria-label="Mobile primary navigation">
+        {links.map((link) => <a href={"/#" + link.id}>{link.label}</a>)}
+      </nav>
+    </details>
+  </div>
+</header>
+
+<script>
+  const menus = document.querySelectorAll<HTMLDetailsElement>("[data-mobile-menu]");
+  for (const menu of menus) {
+    for (const link of menu.querySelectorAll("a")) {
+      link.addEventListener("click", () => {
+        menu.open = false;
+      });
+    }
+  }
+</script>

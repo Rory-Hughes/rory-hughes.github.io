@@ -1,0 +1,186 @@
+---
+import { getCollection } from "astro:content";
+import ProjectCard from "../components/ProjectCard.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { compilePublicProfile, compilePublicProjects } from "../lib/publication-compiler.mjs";
+
+const profile = compilePublicProfile(await getCollection("profile"));
+const projects = compilePublicProjects(await getCollection("projects"));
+const featuredProjects = projects.filter((project) => project.featured);
+const additionalProjects = projects.filter((project) => !project.featured);
+---
+
+<BaseLayout
+  title={profile.displayName + " | Software development and quality"}
+  description={profile.introduction}
+  profile={profile}
+  canonicalPath="/"
+>
+  <main id="main-content" class="site-frame home-page" tabindex="-1">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__copy">
+        <p class="eyebrow">Portfolio / Saint John, New Brunswick</p>
+        <h1 id="hero-title">{profile.headline}</h1>
+        <p class="hero__intro">{profile.introduction}</p>
+        <div class="action-row">
+          <a class="button button--primary" href="#projects">Explore selected work</a>
+          <a class="button button--text" href="#contact">Get in touch <span aria-hidden="true">↗</span></a>
+        </div>
+        <p class="hero__location">{profile.location}</p>
+      </div>
+
+      <aside class="hero-card" aria-label="Working approach and education">
+        <div class="hero-card__header">
+          <span class="eyebrow">Working approach</span>
+          <span class="folio-number" aria-hidden="true">01—03</span>
+        </div>
+        <ol class="approach-list">
+          <li><span>01</span><strong>Understand the problem</strong></li>
+          <li><span>02</span><strong>Shape the workflow</strong></li>
+          <li><span>03</span><strong>Verify the behavior</strong></li>
+        </ol>
+        <div class="hero-card__education">
+          <strong>{profile.education.gpa}</strong>
+          <span>cumulative GPA</span>
+          <small>{profile.education.institution} / expected {profile.education.expectedGraduation}</small>
+        </div>
+      </aside>
+    </section>
+
+    <section id="about" class="content-section about-section" aria-labelledby="about-heading">
+      <SectionHeading
+        id="about-heading"
+        eyebrow="01 / About"
+        title="Thoughtful software starts with the people and process around it."
+        intro="A concise introduction to how I approach software development."
+      />
+      <div class="about-copy">
+        {profile.about.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </section>
+
+    <section id="skills" class="content-section skills-section" aria-labelledby="skills-heading">
+      <SectionHeading
+        id="skills-heading"
+        eyebrow="02 / Skills"
+        title="A practical toolkit, used with context."
+        intro="Grouped by the work each skill supports, not by badge count."
+      />
+      <div class="skills-grid">
+        {profile.skills.map((group, index) => (
+          <article class="skill-group">
+            <span class="skill-group__index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+            <h3>{group.name}</h3>
+            <p>{group.note}</p>
+            <ul class="tag-list">
+              {group.items.map((item) => <li>{item}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section id="projects" class="content-section projects-section" aria-labelledby="projects-heading">
+      <div class="section-heading-row">
+        <SectionHeading
+          id="projects-heading"
+          eyebrow="03 / Selected projects"
+          title="Evidence, with the status left visible."
+          intro="Read the problem, my role, what was checked, and what is still in progress."
+        />
+        <a class="text-link section-heading-row__link" href="/projects/">Open project index</a>
+      </div>
+      <div class="projects-grid">
+        {featuredProjects.map((project) => <ProjectCard project={project} />)}
+      </div>
+      {additionalProjects.length > 0 && (
+        <div class="additional-projects">
+          <p class="eyebrow">Research and learning</p>
+          <div class="projects-grid projects-grid--secondary">
+            {additionalProjects.map((project) => <ProjectCard project={project} compact={true} />)}
+          </div>
+        </div>
+      )}
+    </section>
+
+    <section id="experience" class="content-section experience-section" aria-labelledby="experience-heading">
+      <SectionHeading
+        id="experience-heading"
+        eyebrow="04 / Experience"
+        title="Service, coordination, and careful follow-through."
+        intro="Verified work and volunteer experience."
+      />
+      <div class="experience-list">
+        {profile.experience.map((entry, index) => (
+          <article class="experience-item">
+            <span class="experience-item__index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+            <div>
+              <p class="eyebrow">{entry.location}</p>
+              <h3>{entry.role}</h3>
+              <p class="experience-item__organization">{entry.organization}</p>
+            </div>
+            <p class="experience-item__description">{entry.description}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section id="education" class="content-section education-section" aria-labelledby="education-heading">
+      <SectionHeading
+        id="education-heading"
+        eyebrow="05 / Education"
+        title="Building a strong software-development foundation."
+      />
+      <div class="education-card">
+        <div>
+          <p class="eyebrow">{profile.education.institution} / {profile.education.location}</p>
+          <h3>{profile.education.program}</h3>
+          <p>Expected graduation {profile.education.expectedGraduation}</p>
+        </div>
+        <div class="education-card__metrics">
+          <div><span class="eyebrow">Cumulative GPA</span><strong>{profile.education.gpa}</strong></div>
+          {profile.education.training.map((item) => (
+            <div>
+              <span class="eyebrow">{item.credential}</span>
+              <strong class="education-card__training">{item.name}</strong>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="content-section contact-section" aria-labelledby="contact-heading">
+      <div class="contact-panel">
+        <div class="contact-panel__copy">
+          <SectionHeading
+            id="contact-heading"
+            eyebrow="06 / Contact"
+            title="Have a project or role in mind?"
+            intro="Reach out directly. No form, account, or third-party lead service."
+          />
+          <a class="button button--primary" href={"mailto:" + profile.email}>Email Rory</a>
+        </div>
+        <div class="contact-panel__details">
+          <a href={"mailto:" + profile.email}>
+            <span class="eyebrow">Email</span>
+            <strong>{profile.email}</strong>
+          </a>
+          <a href={profile.phoneHref}>
+            <span class="eyebrow">Phone</span>
+            <strong>{profile.phoneDisplay}</strong>
+          </a>
+          <a href={profile.githubUrl}>
+            <span class="eyebrow">GitHub</span>
+            <strong>Rory-Hughes</strong>
+          </a>
+          <a class="resume-download" href={profile.resumeHref} download>
+            <span class="eyebrow">Resume download</span>
+            <strong>QA Software Intern version <span aria-hidden="true">↓</span></strong>
+            <small>The supplied DOCX is offered unchanged.</small>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
