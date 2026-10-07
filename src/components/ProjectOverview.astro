@@ -1,0 +1,29 @@
+---
+interface Props { slug: string; }
+const { slug } = Astro.props;
+---
+
+{slug === "john-howard" && (
+  <figure class="project-overview project-overview--desktop">
+    <div class="overview-label">Project overview <span>Offline Windows architecture</span></div>
+    <div class="overview-shells">
+      <div class="overview-node"><span class="overview-node__icon" aria-hidden="true">▦</span><strong>Main Office</strong><span>Admin WPF shell</span></div>
+      <div class="overview-exchange"><span aria-hidden="true">↔</span><strong>Signed transfer files</strong><span>Manual, recipient-bound exchange</span></div>
+      <div class="overview-node"><span class="overview-node__icon" aria-hidden="true">▦</span><strong>House</strong><span>Program WPF shell</span></div>
+    </div>
+    <div class="overview-core"><strong>Shared libraries</strong><span>Presentation · Application · Domain · Infrastructure · Transfer</span></div>
+    <figcaption>Separate application shells share rules and protected storage. Architecture and engineering examples are approved for public display using synthetic data. The prototype is not deployed or production-approved; full participant and reporting workflows remain planned.</figcaption>
+  </figure>
+)}
+{slug === "mileage-tracker" && (
+  <figure class="project-overview project-overview--mobile">
+    <div class="overview-label">Project overview <span>Android trip workflow</span></div>
+    <div class="overview-flow">
+      <div class="overview-node"><span class="overview-node__icon" aria-hidden="true">⌖</span><strong>GPS capture</strong><span>Automatic trips</span></div>
+      <div class="overview-node"><span class="overview-node__icon" aria-hidden="true">▤</span><strong>Local storage</strong><span>Room & recovery</span></div>
+      <div class="overview-node"><span class="overview-node__icon" aria-hidden="true">↔</span><strong>Classification</strong><span>Business or personal</span></div>
+      <div class="overview-node"><span class="overview-node__icon" aria-hidden="true">▥</span><strong>Reporting</strong><span>Review & export</span></div>
+    </div>
+    <figcaption>Captured trips start unclassified. Swipe to classify, or open editable details. Closed-beta foundation with device and release gates remaining.</figcaption>
+  </figure>
+)}

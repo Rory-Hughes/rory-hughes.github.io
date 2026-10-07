@@ -1,31 +1,24 @@
 :root {
   color-scheme: light;
-
-  --canvas: #f5f1e8;
-  --surface: #fffefa;
-  --text: #172c40;
-  --muted: #536575;
-  --border: #d9ded9;
-  --primary: #17364b;
+  --canvas: #f7f8fc;
+  --surface: #ffffff;
+  --text: #182334;
+  --muted: #526176;
+  --border: #dce1ec;
+  --primary: #3049d8;
   --on-primary: #ffffff;
-  --accent: #287c78;
-  --accent-soft: #e2f0ec;
-  --link: #176c78;
-  --focus: #176c78;
-  --research: #665e82;
-
+  --accent: #3049d8;
+  --accent-soft: #edf0ff;
+  --link: #263fc6;
+  --focus: #3049d8;
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --text-body: 1rem;
-  --text-meta: 0.8125rem;
-  --line-body: 1.6;
-  --content-max: 73.75rem;
-  --gutter: clamp(1rem, 4vw, 1.5rem);
-  --section-space: clamp(3.5rem, 8vw, 5rem);
-
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-pill: 999px;
-
-  --shadow-soft: 0 1.5rem 4rem rgb(23 54 75 / 8%);
+  --text-meta: 0.75rem;
+  --line-body: 1.7;
+  --content-max: 74rem;
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --section-space: clamp(3rem, 7vw, 5.5rem);
+  --radius-sm: 0.2rem;
+  --radius-md: 0.4rem;
+  --shadow-soft: 0 0.8rem 2.5rem rgb(24 35 52 / 5%);
 }

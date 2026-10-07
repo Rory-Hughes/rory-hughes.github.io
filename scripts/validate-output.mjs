@@ -184,6 +184,23 @@ assert.deepEqual(
 
 const mileageHtml = await readFile(path.join(outputDirectory, "projects", "mileage-tracker", "index.html"), "utf8");
 const liveMileageHtml = mileageHtml.replace(/<!--[\s\S]*?-->/g, "");
+const leadSection = [...liveMileageHtml.matchAll(/<section\b([^>]*)>([\s\S]*?)<\/section\s*>/gi)]
+  .find(([, attributes]) => attributeValues(attributes, "class")[0]?.split(/\s+/).includes("case-study__lead-media"));
+assert(leadSection, "MileageTracker must show its trip-capture recording near the top.");
+const leadAsset = "media/mileage-trip-records.mp4";
+const tripCaptureSlot = mileageProject.media.find((slot) => slot.id === "trip-capture");
+assert.equal(tripCaptureSlot?.assetPath, leadAsset, "The lead recording must be the approved trip-capture asset.");
+assert.deepEqual(
+  tagContents(leadSection[2], "source").map((source) => attributeValues(source, "src")[0]),
+  ["/" + leadAsset],
+  "The lead section must contain only the trip-capture recording.",
+);
+const readingBodyIndex = liveMileageHtml.search(/<div\b[^>]*\bclass="[^"]*\bcase-study__body\b[^"]*"/i);
+assert(readingBodyIndex >= 0 && leadSection.index + leadSection[0].length <= readingBodyIndex, "Trip capture must appear before the reading body.");
+const remainingSection = [...liveMileageHtml.matchAll(/<section\b([^>]*)>([\s\S]*?)<\/section\s*>/gi)]
+  .find(([, attributes]) => attributeValues(attributes, "class")[0]?.split(/\s+/).includes("case-media"));
+assert(remainingSection, "MileageTracker must retain its remaining recordings section.");
+assert(!attributeValues(remainingSection[2], "src").includes("/" + leadAsset), "Trip capture must not be duplicated among remaining recordings.");
 const mileageFigures = [...liveMileageHtml.matchAll(/<figure\b([^>]*)>([\s\S]*?)<\/figure\s*>/gi)]
   .filter(([, attributes]) => attributeValues(attributes, "class")[0]?.split(/\s+/).includes("media-figure"))
   .map(([, , body]) => body);

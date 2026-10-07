@@ -11,178 +11,99 @@ const featuredProjects = projects.filter((project) => project.featured);
 const additionalProjects = projects.filter((project) => !project.featured);
 ---
 
-<BaseLayout
-  title={profile.displayName + " | Software development and product thinking"}
-  description={profile.introduction}
-  profile={profile}
-  canonicalPath="/"
->
+<BaseLayout title={profile.displayName + " | Android and Windows software development"} description={profile.introduction} profile={profile} canonicalPath="/">
   <main id="main-content" class="site-frame home-page" tabindex="-1">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero__copy">
-        <p class="eyebrow">Portfolio / Saint John, New Brunswick</p>
-        <h1 id="hero-title">{profile.headline}</h1>
-        <p class="hero__intro">{profile.introduction}</p>
-        <div class="action-row">
-          <a class="button button--primary" href="#projects">Explore selected work</a>
-          <a class="button button--text" href="#contact">Get in touch <span aria-hidden="true">↗</span></a>
-        </div>
-        <p class="hero__location">{profile.location}</p>
-      </div>
-
-      <aside class="hero-card" aria-label="Working approach">
-        <div class="hero-card__header">
-          <span class="eyebrow">Working approach</span>
-          <span class="folio-number" aria-hidden="true">01—03</span>
-        </div>
-        <ol class="approach-list">
-          <li><span>01</span><strong>Understand the problem</strong></li>
-          <li><span>02</span><strong>Shape the workflow</strong></li>
-          <li><span>03</span><strong>Verify the behavior</strong></li>
-        </ol>
-      </aside>
-    </section>
-
-    <section id="about" class="content-section about-section" aria-labelledby="about-heading">
-      <SectionHeading
-        id="about-heading"
-        eyebrow="01 / About"
-        title="Thoughtful software starts with the people and process around it."
-        intro="A concise introduction to how I approach software development."
-      />
-      <div class="about-copy">
-        {profile.about.map((paragraph) => <p>{paragraph}</p>)}
-      </div>
-    </section>
-
-    <section id="skills" class="content-section skills-section" aria-labelledby="skills-heading">
-      <SectionHeading
-        id="skills-heading"
-        eyebrow="02 / Skills"
-        title="A practical toolkit, used with context."
-        intro="Development, testing, and communication skills used across my projects."
-      />
-      <div class="skills-grid">
-        {profile.skills.map((group, index) => (
-          <article class="skill-group">
-            <span class="skill-group__index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-            <h3>{group.name}</h3>
-            <p>{group.note}</p>
-            <ul class="tag-list">
-              {group.items.map((item) => <li>{item}</li>)}
-            </ul>
-          </article>
-        ))}
+      <p class="eyebrow">Software developer / {profile.location}</p>
+      <h1 id="hero-title">{profile.displayName}</h1>
+      <p class="hero__focus">Android &amp; Windows software.</p>
+      <p class="hero__intro">{profile.introduction}</p>
+      <div class="action-row">
+        <a class="button button--primary" href="#projects">Explore my projects <span aria-hidden="true">↓</span></a>
+        <a class="button button--secondary" href="#contact">Get in touch</a>
+        <a class="button button--text" href={profile.resumeHref} download>QA Software Intern resume (Word) <span aria-hidden="true">↗</span></a>
       </div>
     </section>
 
     <section id="projects" class="content-section projects-section" aria-labelledby="projects-heading">
       <div class="section-heading-row">
-        <SectionHeading
-          id="projects-heading"
-          eyebrow="03 / Selected projects"
-          title="Mobile and desktop software, built around real problems."
-          intro="Read the problem, my role, what was checked, and what is still in progress."
-        />
-        <a class="text-link section-heading-row__link" href="/projects/">Open project index</a>
+      <SectionHeading id="projects-heading" eyebrow="Selected work" title="Projects in focus." />
+        <a class="text-link" href="/projects/">All projects <span aria-hidden="true">↗</span></a>
       </div>
       <div class="projects-grid">
         {featuredProjects.map((project) => <ProjectCard project={project} />)}
       </div>
       {additionalProjects.length > 0 && (
         <div class="additional-projects">
-          <p class="eyebrow">Research and learning</p>
-          <div class="projects-grid projects-grid--secondary">
+          <p class="eyebrow">Research &amp; learning</p>
+          <div class="additional-projects__grid">
             {additionalProjects.map((project) => <ProjectCard project={project} compact={true} />)}
           </div>
         </div>
       )}
     </section>
 
-    <section id="experience" class="content-section experience-section" aria-labelledby="experience-heading">
-      <SectionHeading
-        id="experience-heading"
-        eyebrow="04 / Experience"
-        title="Service, coordination, and careful follow-through."
-        intro="Work and volunteer experience that informs how I build software."
-      />
-      <div class="experience-list">
-        {profile.experience.map((entry, index) => (
-          <article class="experience-item">
-            <span class="experience-item__index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-            <div>
-              <p class="eyebrow">{entry.location}</p>
-              <h3>{entry.role}</h3>
-              <p class="experience-item__organization">{entry.organization}</p>
-            </div>
-            <p class="experience-item__description">{entry.description}</p>
+    <section id="about" class="content-section about-section" aria-labelledby="about-heading">
+      <SectionHeading id="about-heading" eyebrow="About" title={profile.headline} />
+      <div class="about-copy">{profile.about.map((paragraph) => <p>{paragraph}</p>)}</div>
+    </section>
+
+    <section id="skills" class="content-section skills-section" aria-labelledby="skills-heading">
+      <SectionHeading id="skills-heading" eyebrow="Skills" title="A practical toolkit." intro="Development, testing, and communication skills used across my projects." />
+      <div class="skills-grid">
+        {profile.skills.map((group) => (
+          <article class="skill-group">
+            <h3>{group.name}</h3>
+            <p>{group.note}</p>
+            <ul class="skills-list">{group.items.map((item) => <li>{item}</li>)}</ul>
           </article>
         ))}
       </div>
     </section>
 
-    <section id="education" class="content-section education-section" aria-labelledby="education-heading">
-      <SectionHeading
-        id="education-heading"
-        eyebrow="05 / Education"
-        title="Building a strong software-development foundation."
-      />
-      <div class="education-card">
-        <div>
-          <p class="eyebrow">{profile.education.institution} / {profile.education.location}</p>
-          <h3>{profile.education.program}</h3>
-          <p>Expected graduation {profile.education.expectedGraduation}</p>
+    <div class="background-sections">
+      <section id="experience" class="content-section experience-section" aria-labelledby="experience-heading">
+        <SectionHeading id="experience-heading" eyebrow="Experience" title="Accuracy. Service. Follow-through." intro="Work and volunteer experience that informs how I build software." />
+        <div class="experience-list">
+          {profile.experience.map((entry) => (
+            <article class="experience-item">
+              <p class="eyebrow">{entry.organization} / {entry.location}</p>
+              <h3>{entry.role}</h3>
+              <p>{entry.description}</p>
+            </article>
+          ))}
         </div>
-        <div class="education-card__metrics">
-          <div><span class="eyebrow">Cumulative GPA</span><strong>{profile.education.gpa}</strong></div>
+      </section>
+      <section id="education" class="content-section education-section" aria-labelledby="education-heading">
+        <SectionHeading id="education-heading" eyebrow="Education" title="A foundation to build on." />
+        <div class="education-card">
+          <p class="eyebrow">{profile.education.institution}</p>
+          <h3>{profile.education.program}</h3>
+          <p>{profile.education.location}<br />Expected graduation {profile.education.expectedGraduation}</p>
+          <p class="education-card__gpa"><strong>{profile.education.gpa}</strong> cumulative GPA</p>
           {profile.education.training.map((item) => (
-            <div>
-              <span class="eyebrow">{item.credential}</span>
-              <strong class="education-card__training">
-                {item.href ? <a class="text-link" href={item.href}>{item.name}</a> : item.name}
-              </strong>
-              {item.issuedDate && (
-                <small class="education-card__issued">
-                  Issued <time datetime={item.issuedDate}>{new Date(item.issuedDate + "T00:00:00Z").toLocaleDateString("en-CA", {
-                    year: "numeric", month: "long", day: "numeric", timeZone: "UTC",
-                  })}</time>
-                </small>
-              )}
+            <div class="education-card__training">
+              <p class="eyebrow">{item.credential}</p>
+              <strong>{item.href ? <a href={item.href}>{item.name}</a> : item.name}</strong>
+              {item.issuedDate && <p>Issued <time datetime={item.issuedDate}>{new Date(item.issuedDate + "T00:00:00Z").toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" })}</time></p>}
             </div>
           ))}
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
     <section id="contact" class="content-section contact-section" aria-labelledby="contact-heading">
       <div class="contact-panel">
-        <div class="contact-panel__copy">
-          <SectionHeading
-            id="contact-heading"
-            eyebrow="06 / Contact"
-            title="Have a project or role in mind?"
-            intro="For software-development roles, product work, or a project you want to discuss."
-          />
-          <a class="button button--primary" href={"mailto:" + profile.email}>Email Rory</a>
+        <SectionHeading id="contact-heading" eyebrow="Contact" title="Let's build something useful." intro="For software-development roles, product work, or a project you want to discuss." />
+        <div class="action-row">
+          <a class="button button--primary" href={"mailto:" + profile.email}>Email Rory <span aria-hidden="true">↗</span></a>
+          <a class="button button--secondary" href={profile.resumeHref} download>QA Software Intern resume (Word) <span aria-hidden="true">↓</span></a>
         </div>
+        <p class="resume-note">QA Software Intern resume · Word document</p>
         <div class="contact-panel__details">
-          <a href={"mailto:" + profile.email}>
-            <span class="eyebrow">Email</span>
-            <strong>{profile.email}</strong>
-          </a>
-          <a href={profile.phoneHref}>
-            <span class="eyebrow">Phone</span>
-            <strong>{profile.phoneDisplay}</strong>
-          </a>
-          <a href={profile.githubUrl}>
-            <span class="eyebrow">GitHub</span>
-            <strong>Rory-Hughes</strong>
-          </a>
-          <a class="resume-download" href={profile.resumeHref} download>
-            <span class="eyebrow">Resume download</span>
-            <strong>QA Software Intern version <span aria-hidden="true">↓</span></strong>
-            <small>Download my resume as a Word document.</small>
-          </a>
+          <a href={"mailto:" + profile.email}>{profile.email}</a>
+          <a href={profile.phoneHref}>{profile.phoneDisplay}</a>
+          <a href={profile.githubUrl}>GitHub / Rory-Hughes <span aria-hidden="true">↗</span></a>
         </div>
       </div>
     </section>

@@ -13,6 +13,7 @@ const { profile } = Astro.props;
     <p>Rory Hughes <span aria-hidden="true">·</span> Saint John, New Brunswick</p>
     <div class="site-footer__links">
       <a href={"mailto:" + profile.email}>Email</a>
+      <a href={profile.resumeHref} download>QA Software Intern resume (Word)</a>
       <a href={profile.githubUrl}>GitHub</a>
       <a href="#top">Back to top</a>
     </div>

@@ -22,14 +22,14 @@ const projects = compilePublicProjects(await getCollection("projects"));
     </nav>
     <header class="page-heading">
       <p class="eyebrow">Portfolio / Project index</p>
-      <h1>Work, shown with its status and boundaries.</h1>
+      <h1>Selected projects</h1>
       <p>
-        Each case study explains the problem, my role, technologies, evidence,
-        and what is not being claimed.
+        Android, Windows, and a learning project. Explore the workflow,
+        implementation, and evidence behind each one.
       </p>
     </header>
     <div class="projects-grid">
-      {projects.map((project) => <ProjectCard project={project} />)}
+      {projects.map((project) => <ProjectCard project={project} compact={!project.featured} />)}
     </div>
     <p class="project-index__return"><a class="text-link" href="/#projects">Return to the portfolio overview</a></p>
   </main>

@@ -11,6 +11,14 @@ interface Props {
 }
 
 const { projectSlug, media } = Astro.props;
+const portraitAssetPaths = new Set([
+  "media/mileage-dashboard-trip-review.mp4",
+  "media/mileage-trip-records.mp4",
+  "media/mileage-manual-tracking.mp4",
+  "media/mileage-settings-and-vehicles.mp4",
+  "media/mileage-reports-logbook.mp4",
+]);
+const usesPortraitFrame = media.assetPath && portraitAssetPaths.has(media.assetPath);
 const headingId = "media-" + projectSlug + "-" + media.id;
 const statusLabel = media.reviewStatus === "withheld"
   ? "Withheld"
@@ -20,13 +28,15 @@ const statusLabel = media.reviewStatus === "withheld"
 ---
 
 {media.availability === "published" && media.assetPath && media.altText && media.caption ? (
-  <figure class="media-figure">
+  <figure class:list={["media-figure", { "media-figure--portrait": usesPortraitFrame }]}>
     {media.kind === "video" ? (
-      <video controls preload="metadata" aria-label={media.altText}>
+      <div class="media-figure__player">
+      <video controls preload="metadata" playsinline aria-label={media.altText}>
         <source src={"/" + media.assetPath} type={videoMimeType(media.assetPath)} />
         Your browser does not support this video. The written transcript below
         contains the same information.
       </video>
+      </div>
     ) : (
       <img src={"/" + media.assetPath} alt={media.altText} loading="lazy" decoding="async" />
     )}
