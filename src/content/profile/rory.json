@@ -84,9 +84,9 @@
     },
     {
       "organization": "Boys and Girls Club",
-      "role": "Volunteer - Raspberry Pi installation",
+      "role": "Volunteer - Trail construction",
       "location": "Saint John, New Brunswick",
-      "description": "Troubleshot Raspberry Pi boards used for motion-triggered effects during a fundraiser installation."
+      "description": "Helped build the wooden frames for a fundraiser trail, preparing the structures to be decorated."
     }
   ],
   "education": {
@@ -98,7 +98,9 @@
     "training": [
       {
         "name": "AWS Cloud Foundations",
-        "credential": "Certificate / badge"
+        "credential": "Certificate / badge",
+        "href": "https://www.credly.com/badges/4fa2062f-5c31-48ea-a08a-d0fe92c0eff4",
+        "issuedDate": "2026-09-11"
       }
     ]
   }

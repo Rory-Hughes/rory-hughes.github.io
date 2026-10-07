@@ -214,12 +214,7 @@ for (const slot of mileageVideoSlots) {
 }
 
 const fallbackArticles = [...liveMileageHtml.matchAll(/<article\b(?=[^>]*\bclass="[^"]*\bmedia-fallback\b[^"]*")[^>]*>([\s\S]*?)<\/article\s*>/gi)];
-const classificationFallback = fallbackArticles.find(([, body]) => /<h3\b[^>]*>\s*Trip classification\s*<\/h3>/i.test(body));
-assert(classificationFallback, "The unmatched classification subject must retain its visible fallback card.");
-assert(
-  classificationFallback[1].includes("No dedicated classification clip was supplied"),
-  "The classification fallback card must explain why its clip is absent.",
-);
+assert.equal(fallbackArticles.length, 0, "MileageTracker's five recordings cover classification without an extra deferred card.");
 
 const resumeManifest = resumeAssetSchema.parse(await readJson(path.join(repositoryRoot, "src", "content", "resume-asset.json")));
 const resumeOutputPath = path.join(outputDirectory, "downloads", resumeManifest.fileName);

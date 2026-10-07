@@ -48,6 +48,8 @@ export const profileSchema = z.object({
     training: z.array(z.object({
       name: z.string().min(2),
       credential: z.string().min(2),
+      href: httpsUrl.optional(),
+      issuedDate: z.string().regex(/^20[0-9]{2}-[0-9]{2}-[0-9]{2}$/).optional(),
     }).strict()).min(1),
   }).strict(),
 }).strict();

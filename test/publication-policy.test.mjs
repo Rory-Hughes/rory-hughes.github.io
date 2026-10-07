@@ -60,7 +60,7 @@ test("John Howard stays text-first with no fabricated demo or repository links",
   assert(johnHoward.media.every((slot) => slot.availability !== "published" && !slot.assetPath && slot.fallbackText.length >= 24));
 });
 
-test("the five approved MileageTracker recordings are published and classification keeps its text fallback", async () => {
+test("the five approved MileageTracker recordings include classification without a redundant placeholder", async () => {
   const mileage = projectEntries.find((entry) => entry.id === "mileage-tracker").data;
   const expectedAssets = [
     "media/mileage-dashboard-trip-review.mp4",
@@ -77,14 +77,16 @@ test("the five approved MileageTracker recordings are published and classificati
     ["media/mileage-trip-records.mp4", "dbe9dcb9d4fcbdbf46b3b78933bac4064c8e6f334e029594e1a9a073b3d69ec1"],
   ]);
   const publishedVideos = mileage.media.filter((slot) => slot.kind === "video" && slot.availability === "published");
-  const classification = mileage.media.find((slot) => slot.id === "classification");
+  const tripCapture = mileage.media.find((slot) => slot.id === "trip-capture");
 
   assert.equal(publishedVideos.length, 5);
   assert(publishedVideos.every((slot) => slot.publicationState === "public" && slot.reviewStatus === "approved"));
   assert(publishedVideos.every((slot) => slot.assetPath && slot.altText && slot.caption && slot.transcript));
   assert.deepEqual(publishedVideos.map((slot) => slot.assetPath).sort(), expectedAssets);
-  assert.equal(classification.availability, "fallback");
-  assert.equal(classification.reviewStatus, "not-provided");
+  assert.equal(mileage.media.length, 5);
+  assert(!mileage.media.some((slot) => slot.availability === "fallback"));
+  assert.match(tripCapture.caption, /classify.*business or personal/i);
+  assert.match(tripCapture.transcript, /Trip Details/i);
   assert.deepEqual([...expectedAssetDigests.keys()].sort(), expectedAssets);
   for (const [assetPath, expectedDigest] of expectedAssetDigests) {
     const bytes = await readFile(path.join(repositoryRoot, "public", assetPath));

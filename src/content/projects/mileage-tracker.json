@@ -61,11 +61,11 @@
     {
       "heading": "The application in the recordings",
       "paragraphs": [
-        "The five recordings below show the dashboard and trip details, saved trip records, manual tracking controls, vehicle settings, and reports. Captions explain what each clip demonstrates, and written descriptions keep the evidence usable without playback."
+        "The five recordings below show the dashboard, automatically captured trips awaiting classification, the trip-detail form, manual tracking controls, vehicle settings, and reports. On the Trips screen, swipe left or right to classify a trip as business or personal, or select it to edit its details in a form. Captions and written descriptions explain each recording."
       ],
       "bullets": [
         "The overview shows a suggested trip classification and editable fields.",
-        "The trip list shows existing records and distances.",
+        "The Trips screen lists automatically captured, unclassified trips; selecting a trip opens its editable details and classification controls.",
         "The tracking clip shows controls in their ready state; it does not demonstrate a completed drive.",
         "Vehicle and report clips show their respective screens, rather than proving every background or export path."
       ]
@@ -119,25 +119,16 @@
     },
     {
       "id": "trip-capture",
-      "label": "Trip capture and details",
+      "label": "Captured trips, classification, and editing",
       "kind": "video",
       "availability": "published",
       "publicationState": "public",
       "reviewStatus": "approved",
       "assetPath": "media/mileage-trip-records.mp4",
-      "altText": "The Trips screen scrolling through dated trip records with route names and recorded distances.",
-      "caption": "Owner-approved trip list showing recorded dates, routes, and distances.",
-      "transcript": "Silent screen recording scrolls through the Trips list. Several cards show date and time, route and place names, and recorded distances, followed by the Add Trip action. The visible records are approved by the owner for public display.",
+      "altText": "Automatically captured trips awaiting classification, followed by a trip-detail form with classification options, vehicle selection, notes, attachments, and a route map.",
+      "caption": "Review automatically captured, unclassified trips. Swipe left or right to classify them as business or personal, or open a trip to edit its details in a form.",
+      "transcript": "The recording begins on Trips, with automatically captured, unclassified entries showing dates, routes, and distances. A selected trip opens Trip Details, showing a classification suggestion, a missing-information warning, category choices, vehicle selection, notes, attachments, and the recorded route. The Trips screen also supports swiping left or right to classify a trip as business or personal.",
       "fallbackText": "The written project summary remains available if this owner-approved trip-list recording cannot be played."
-    },
-    {
-      "id": "classification",
-      "label": "Trip classification",
-      "kind": "image",
-      "availability": "fallback",
-      "publicationState": "deferred",
-      "reviewStatus": "not-provided",
-      "fallbackText": "No dedicated classification clip was supplied; the overview recording shows a suggested category and its available actions."
     },
     {
       "id": "tracking-controls",

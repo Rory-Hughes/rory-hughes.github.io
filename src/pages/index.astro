@@ -30,7 +30,7 @@ const additionalProjects = projects.filter((project) => !project.featured);
         <p class="hero__location">{profile.location}</p>
       </div>
 
-      <aside class="hero-card" aria-label="Working approach and education">
+      <aside class="hero-card" aria-label="Working approach">
         <div class="hero-card__header">
           <span class="eyebrow">Working approach</span>
           <span class="folio-number" aria-hidden="true">01—03</span>
@@ -40,11 +40,6 @@ const additionalProjects = projects.filter((project) => !project.featured);
           <li><span>02</span><strong>Shape the workflow</strong></li>
           <li><span>03</span><strong>Verify the behavior</strong></li>
         </ol>
-        <div class="hero-card__education">
-          <strong>{profile.education.gpa}</strong>
-          <span>cumulative GPA</span>
-          <small>{profile.education.institution} / expected {profile.education.expectedGraduation}</small>
-        </div>
       </aside>
     </section>
 
@@ -143,7 +138,16 @@ const additionalProjects = projects.filter((project) => !project.featured);
           {profile.education.training.map((item) => (
             <div>
               <span class="eyebrow">{item.credential}</span>
-              <strong class="education-card__training">{item.name}</strong>
+              <strong class="education-card__training">
+                {item.href ? <a class="text-link" href={item.href}>{item.name}</a> : item.name}
+              </strong>
+              {item.issuedDate && (
+                <small class="education-card__issued">
+                  Issued <time datetime={item.issuedDate}>{new Date(item.issuedDate + "T00:00:00Z").toLocaleDateString("en-CA", {
+                    year: "numeric", month: "long", day: "numeric", timeZone: "UTC",
+                  })}</time>
+                </small>
+              )}
             </div>
           ))}
         </div>
