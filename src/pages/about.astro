@@ -1,0 +1,24 @@
+---
+import { getCollection } from "astro:content";
+import ProfileDetailLayout from "../layouts/ProfileDetailLayout.astro";
+import { compilePublicProfile } from "../lib/publication-compiler.mjs";
+
+const profile = compilePublicProfile(await getCollection("profile"));
+---
+
+<ProfileDetailLayout
+  profile={profile}
+  title={"About | " + profile.displayName}
+  description="How Rory approaches software development, quality, product work, and future study."
+  heading="How I approach software"
+  intro={profile.introduction}
+  sectionId="about"
+>
+  <section class="content-section profile-detail-section about-section" aria-labelledby="about-detail-heading">
+    <div class="section-heading">
+      <p class="eyebrow">About</p>
+      <h2 id="about-detail-heading">{profile.headline}</h2>
+    </div>
+    <div class="about-copy">{profile.about.map((paragraph) => <p>{paragraph}</p>)}</div>
+  </section>
+</ProfileDetailLayout>

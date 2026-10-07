@@ -1,0 +1,32 @@
+---
+import { getCollection } from "astro:content";
+import ProfileDetailLayout from "../layouts/ProfileDetailLayout.astro";
+import { compilePublicProfile } from "../lib/publication-compiler.mjs";
+
+const profile = compilePublicProfile(await getCollection("profile"));
+---
+
+<ProfileDetailLayout
+  profile={profile}
+  title={"Experience | " + profile.displayName}
+  description="Rory's customer service, operations, and volunteer experience."
+  heading="Experience"
+  intro="Work and volunteer experience that informs how I communicate, coordinate, and build software."
+  sectionId="experience"
+>
+  <section class="content-section profile-detail-section" aria-labelledby="experience-detail-heading">
+    <div class="section-heading">
+      <p class="eyebrow">Experience</p>
+      <h2 id="experience-detail-heading">Accuracy. Service. Follow-through.</h2>
+    </div>
+    <div class="experience-list">
+      {profile.experience.map((entry) => (
+        <article class="experience-item">
+          <p class="eyebrow">{entry.organization} / {entry.location}</p>
+          <h3>{entry.role}</h3>
+          <p>{entry.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</ProfileDetailLayout>

@@ -24,7 +24,7 @@ ul { padding-left: 1.35rem; }
 .brand__mark { display: grid; place-items: center; width: 2.2rem; height: 2.2rem; background: var(--primary); color: white; font-size: .8rem; border-radius: var(--radius-sm); }
 .desktop-nav { display: flex; gap: clamp(.7rem, 1.6vw, 1.4rem); }
 .desktop-nav a, .mobile-menu nav a { display: flex; min-height: 44px; align-items: center; color: var(--text); text-decoration: none; font-size: .85rem; font-weight: 650; }
-.desktop-nav a:first-child { color: var(--primary); }
+.desktop-nav a[aria-current="page"], .mobile-menu nav a[aria-current="page"] { color: var(--primary); }
 .desktop-nav a:hover, .mobile-menu a:hover { color: var(--primary); text-decoration: underline; }
 .mobile-menu { display: none; }
 .eyebrow { margin-bottom: .8rem; color: var(--muted); font-size: var(--text-meta); font-weight: 750; line-height: 1.5; letter-spacing: .1em; text-transform: uppercase; }
@@ -136,6 +136,20 @@ ul { padding-left: 1.35rem; }
 .page-heading > p:last-child { max-width: 62ch; color: var(--muted); }
 .project-index { padding-bottom: 4rem; }
 .project-index__return { margin-top: 2rem; }
+.profile-detail-page { padding-bottom: 4rem; }
+.profile-detail-page .page-heading { padding-block: 2.5rem; }
+.profile-detail-section { padding-block: 2.5rem; }
+.profile-detail-section.about-section { grid-template-columns: .9fr 1.2fr; }
+.profile-detail-section .experience-list { max-width: 58rem; }
+.profile-detail-section .education-card { max-width: 58rem; }
+.profile-detail-section .contact-panel { max-width: 58rem; }
+.profile-section-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 2rem; }
+.profile-section-nav__link { display: grid; align-content: center; min-height: 5rem; gap: .35rem; padding: 1rem 1.2rem; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface); color: var(--text); text-decoration: none; }
+.profile-section-nav__link span { color: var(--muted); font-size: .75rem; }
+.profile-section-nav__link strong { font-size: 1rem; }
+.profile-section-nav__link--next { text-align: right; }
+.profile-section-nav__link:hover { border-color: var(--primary); color: var(--primary); }
+.profile-detail-return { margin-top: 1.25rem; }
 .case-study__header { padding-block: 2.5rem 2rem; }
 .case-study__header h1 { max-width: 23ch; font-size: clamp(2.35rem, 5vw, 3.8rem); }
 .case-study__summary { max-width: 70ch; color: var(--muted); font-size: 1.1rem; }
@@ -248,6 +262,8 @@ summary { cursor: pointer; font-weight: 650; }
   .transcript p { padding: 0 1rem 1rem; }
   .site-footer__inner { display: block; }
   .site-footer__links { margin-top: .5rem; }
+  .profile-section-nav { grid-template-columns: 1fr; }
+  .profile-section-nav__link--next { text-align: left; }
 }
 @container (max-width: 22rem) {
   .overview-shells, .case-study__overview-visual .overview-shells { grid-template-columns: 1fr; }

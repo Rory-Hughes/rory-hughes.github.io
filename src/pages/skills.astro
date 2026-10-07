@@ -1,0 +1,33 @@
+---
+import { getCollection } from "astro:content";
+import ProfileDetailLayout from "../layouts/ProfileDetailLayout.astro";
+import { compilePublicProfile } from "../lib/publication-compiler.mjs";
+
+const profile = compilePublicProfile(await getCollection("profile"));
+---
+
+<ProfileDetailLayout
+  profile={profile}
+  title={"Skills | " + profile.displayName}
+  description="Rory's software development, testing, communication, and browser automation skills."
+  heading="Skills and tools"
+  intro="A practical toolkit built through coursework, project work, and hands-on verification."
+  sectionId="skills"
+>
+  <section class="content-section profile-detail-section" aria-labelledby="skills-detail-heading">
+    <div class="section-heading">
+      <p class="eyebrow">Skills</p>
+      <h2 id="skills-detail-heading">A practical toolkit.</h2>
+      <p class="section-heading__intro">Development, testing, and communication skills used across my projects.</p>
+    </div>
+    <div class="skills-grid">
+      {profile.skills.map((group) => (
+        <article class="skill-group">
+          <h3>{group.name}</h3>
+          <p>{group.note}</p>
+          <ul class="skills-list">{group.items.map((item) => <li>{item}</li>)}</ul>
+        </article>
+      ))}
+    </div>
+  </section>
+</ProfileDetailLayout>

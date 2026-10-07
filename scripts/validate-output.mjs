@@ -103,6 +103,11 @@ const htmlFiles = outputFiles.filter((file) => file.relativePath.endsWith(".html
 const requiredOutput = [
   "index.html",
   "projects/index.html",
+  "about/index.html",
+  "skills/index.html",
+  "experience/index.html",
+  "education/index.html",
+  "contact/index.html",
   "projects/john-howard/index.html",
   "projects/mileage-tracker/index.html",
   "projects/bioelectric-simulator/index.html",

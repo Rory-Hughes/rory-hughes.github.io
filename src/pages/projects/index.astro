@@ -31,6 +31,6 @@ const projects = compilePublicProjects(await getCollection("projects"));
     <div class="projects-grid">
       {projects.map((project) => <ProjectCard project={project} compact={!project.featured} />)}
     </div>
-    <p class="project-index__return"><a class="text-link" href="/#projects">Return to the portfolio overview</a></p>
+    <p class="project-index__return"><a class="text-link" href="/">Return to the portfolio overview</a></p>
   </main>
 </BaseLayout>

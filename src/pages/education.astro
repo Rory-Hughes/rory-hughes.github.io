@@ -1,0 +1,42 @@
+---
+import { getCollection } from "astro:content";
+import ProfileDetailLayout from "../layouts/ProfileDetailLayout.astro";
+import { compilePublicProfile } from "../lib/publication-compiler.mjs";
+
+const profile = compilePublicProfile(await getCollection("profile"));
+const formatDate = (date: string) => new Date(date + "T00:00:00Z").toLocaleDateString("en-CA", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  timeZone: "UTC",
+});
+---
+
+<ProfileDetailLayout
+  profile={profile}
+  title={"Education | " + profile.displayName}
+  description="Rory's software development program and professional training."
+  heading="Education and training"
+  intro="Formal study and focused training that support my software development work."
+  sectionId="education"
+>
+  <section class="content-section profile-detail-section" aria-labelledby="education-detail-heading">
+    <div class="section-heading">
+      <p class="eyebrow">Education</p>
+      <h2 id="education-detail-heading">A foundation to build on.</h2>
+    </div>
+    <article class="education-card">
+      <p class="eyebrow">{profile.education.institution} / {profile.education.location}</p>
+      <h3>{profile.education.program}</h3>
+      <p>Expected graduation {profile.education.expectedGraduation}</p>
+      <p class="education-card__gpa"><strong>{profile.education.gpa}</strong> cumulative GPA</p>
+      {profile.education.training.map((item) => (
+        <div class="education-card__training">
+          <p class="eyebrow">{item.credential}</p>
+          <strong>{item.href ? <a href={item.href}>{item.name}</a> : item.name}</strong>
+          {item.issuedDate && <p>Issued <time datetime={item.issuedDate}>{formatDate(item.issuedDate)}</time></p>}
+        </div>
+      ))}
+    </article>
+  </section>
+</ProfileDetailLayout>

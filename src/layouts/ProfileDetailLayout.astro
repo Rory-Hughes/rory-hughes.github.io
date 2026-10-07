@@ -1,0 +1,63 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import type { PublicProfile } from "../lib/types";
+
+interface Props {
+  profile: PublicProfile;
+  title: string;
+  description: string;
+  heading: string;
+  intro: string;
+  sectionId: "about" | "skills" | "experience" | "education" | "contact";
+}
+
+const { profile, title, description, heading, intro, sectionId } = Astro.props;
+const sections = [
+  { id: "projects", label: "Projects", href: "/projects/" },
+  { id: "about", label: "About", href: "/about/" },
+  { id: "skills", label: "Skills", href: "/skills/" },
+  { id: "experience", label: "Experience", href: "/experience/" },
+  { id: "education", label: "Education", href: "/education/" },
+  { id: "contact", label: "Contact", href: "/contact/" },
+];
+const currentIndex = sections.findIndex((section) => section.id === sectionId);
+const previous = sections[currentIndex - 1];
+const next = sections[currentIndex + 1];
+const sectionLabel = sectionId.charAt(0).toUpperCase() + sectionId.slice(1);
+---
+
+<BaseLayout title={title} description={description} profile={profile} canonicalPath={"/" + sectionId + "/"}>
+  <main id="main-content" class="site-frame profile-detail-page" tabindex="-1">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span aria-hidden="true">/</span>
+      <span aria-current="page">{sectionLabel}</span>
+    </nav>
+
+    <header class="page-heading">
+      <p class="eyebrow">Portfolio / {sectionLabel}</p>
+      <h1>{heading}</h1>
+      <p>{intro}</p>
+    </header>
+
+    <div class="profile-detail-content">
+      <slot />
+    </div>
+
+    <nav class="profile-section-nav" aria-label="Adjacent portfolio sections">
+      {previous && (
+        <a class="profile-section-nav__link" href={previous.href}>
+          <span>Previous section</span>
+          <strong>{previous.label}</strong>
+        </a>
+      )}
+      {next && (
+        <a class="profile-section-nav__link profile-section-nav__link--next" href={next.href}>
+          <span>Next section</span>
+          <strong>{next.label}</strong>
+        </a>
+      )}
+    </nav>
+    <p class="profile-detail-return"><a class="text-link" href="/">Return to the portfolio overview</a></p>
+  </main>
+</BaseLayout>

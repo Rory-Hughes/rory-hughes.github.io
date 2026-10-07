@@ -7,13 +7,14 @@ interface Props {
 
 const { profile } = Astro.props;
 const links = [
-  { id: "projects", label: "Projects" },
-  { id: "about", label: "About" },
-  { id: "skills", label: "Skills" },
-  { id: "experience", label: "Experience" },
-  { id: "education", label: "Education" },
-  { id: "contact", label: "Contact" },
+  { href: "/projects/", label: "Projects" },
+  { href: "/about/", label: "About" },
+  { href: "/skills/", label: "Skills" },
+  { href: "/experience/", label: "Experience" },
+  { href: "/education/", label: "Education" },
+  { href: "/contact/", label: "Contact" },
 ];
+const currentPath = Astro.url.pathname;
 ---
 
 <header class="site-header">
@@ -24,7 +25,7 @@ const links = [
     </a>
 
     <nav class="desktop-nav" aria-label="Primary navigation">
-      {links.map((link) => <a href={"/#" + link.id}>{link.label}</a>)}
+      {links.map((link) => <a href={link.href} aria-current={currentPath === link.href ? "page" : undefined}>{link.label}</a>)}
     </nav>
 
     <details class="mobile-menu" data-mobile-menu>
@@ -33,7 +34,7 @@ const links = [
         <span class="mobile-menu__icon" aria-hidden="true">☰</span>
       </summary>
       <nav aria-label="Mobile primary navigation">
-        {links.map((link) => <a href={"/#" + link.id}>{link.label}</a>)}
+        {links.map((link) => <a href={link.href} aria-current={currentPath === link.href ? "page" : undefined}>{link.label}</a>)}
       </nav>
     </details>
   </div>

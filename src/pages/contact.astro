@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+import ProfileDetailLayout from "../layouts/ProfileDetailLayout.astro";
+import { compilePublicProfile } from "../lib/publication-compiler.mjs";
+
+const profile = compilePublicProfile(await getCollection("profile"));
+---
+
+<ProfileDetailLayout
+  profile={profile}
+  title={"Contact | " + profile.displayName}
+  description="Contact Rory about software development roles, product work, or a project."
+  heading="Get in touch"
+  intro="For software-development roles, product work, or a project you want to discuss."
+  sectionId="contact"
+>
+  <section class="content-section profile-detail-section" aria-labelledby="contact-detail-heading">
+    <div class="contact-panel">
+      <div class="section-heading">
+        <p class="eyebrow">Contact</p>
+        <h2 id="contact-detail-heading">Let's build something useful.</h2>
+      </div>
+      <div class="action-row">
+        <a class="button button--primary" href={"mailto:" + profile.email}>Email Rory <span aria-hidden="true">↗</span></a>
+        <a class="button button--secondary" href={profile.resumeHref} download>QA Software Intern resume (Word) <span aria-hidden="true">↓</span></a>
+      </div>
+      <p class="resume-note">QA Software Intern resume · Word document</p>
+      <div class="contact-panel__details">
+        <a href={"mailto:" + profile.email}>{profile.email}</a>
+        <a href={profile.phoneHref}>{profile.phoneDisplay}</a>
+        <a href={profile.githubUrl}>GitHub / Rory-Hughes <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </section>
+</ProfileDetailLayout>
