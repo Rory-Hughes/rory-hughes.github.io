@@ -32,9 +32,25 @@ client-side router is required.
   are checked locally and in CI. If the owner supplies a replacement, update
   both the file and src/content/resume-asset.json.
 
-Use the 5 supplied MileageTracker screen recordings. John Howard demo
-and sanitized-repository destinations remain pending; do not add links until
-Rory supplies the approved public destinations.
+Use the 5 supplied MileageTracker screen recordings without changing their bytes.
+The owner-approved sanitized source repository is
+https://github.com/Rory-Hughes/MilageTracker (the repository spelling intentionally
+differs from the MileageTracker display name).
+
+John Howard's case study uses the owner-approved October 7 content package in the
+separate portfolio planning workspace. The package's verification log takes
+precedence over its summaries: it reports 1,148 passing cases across six suites;
+130 additional UI cases were listed but those suites did not complete. These are
+dated working-tree observations, not a fresh acceptance run. Do not copy the
+package's contradictory "1,278 tests all passing" headline.
+
+John Howard recordings and public-repository destinations remain pending.
+The existing video slots can accept reviewed synthetic-data recordings with captions,
+alternative descriptions, and written transcripts. Do not publish the raw handoff,
+verification log, or internal context files as downloadable assets.
+
+See [docs/content-readiness.md](docs/content-readiness.md) for the content inventory,
+recording handoff, and remaining assignment/release checks.
 
 ## GitHub Pages release (owner-operated)
 

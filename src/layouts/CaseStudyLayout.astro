@@ -68,7 +68,7 @@ const categoryLabels = {
       <aside class="boundary-note" aria-labelledby="boundary-heading">
         <div class="boundary-note__marker" aria-hidden="true">!</div>
         <div>
-          <p class="eyebrow">Publication boundary</p>
+          <p class="eyebrow">Project status and scope</p>
           <h2 id="boundary-heading">{project.currentStatus}</h2>
           <p>{project.publicationBoundary}</p>
         </div>
@@ -104,8 +104,8 @@ const categoryLabels = {
 
         <section class="case-evidence" aria-labelledby="evidence-heading">
           <div class="section-heading">
-            <p class="eyebrow">What is verifiable</p>
-            <h2 id="evidence-heading">Evidence and boundaries</h2>
+            <p class="eyebrow">Engineering evidence</p>
+            <h2 id="evidence-heading">What was checked, and what remains</h2>
           </div>
           <ul class="evidence-list">
             {project.evidence.map((item) => <li>{item}</li>)}
@@ -139,12 +139,11 @@ const categoryLabels = {
         {project.media.length > 0 && (
           <section class="case-media" aria-labelledby="media-heading">
             <div class="section-heading">
-              <p class="eyebrow">Media review</p>
-              <h2 id="media-heading">Evidence media</h2>
+              <p class="eyebrow">Application walkthroughs</p>
+              <h2 id="media-heading">See the application</h2>
               <p class="section-heading__intro">
-                Media appears only after privacy review. These labeled states
-                make clear what is not public yet; the written evidence above
-                does not depend on screenshots or video.
+                Each recording explains the behavior it shows. Planned recordings
+                are labeled below; the case study can also be read without video.
               </p>
             </div>
             <div class="media-grid">

@@ -12,7 +12,7 @@ const additionalProjects = projects.filter((project) => !project.featured);
 ---
 
 <BaseLayout
-  title={profile.displayName + " | Software development and quality"}
+  title={profile.displayName + " | Software development and product thinking"}
   description={profile.introduction}
   profile={profile}
   canonicalPath="/"
@@ -65,7 +65,7 @@ const additionalProjects = projects.filter((project) => !project.featured);
         id="skills-heading"
         eyebrow="02 / Skills"
         title="A practical toolkit, used with context."
-        intro="Grouped by the work each skill supports, not by badge count."
+        intro="Development, testing, and communication skills used across my projects."
       />
       <div class="skills-grid">
         {profile.skills.map((group, index) => (
@@ -86,7 +86,7 @@ const additionalProjects = projects.filter((project) => !project.featured);
         <SectionHeading
           id="projects-heading"
           eyebrow="03 / Selected projects"
-          title="Evidence, with the status left visible."
+          title="Mobile and desktop software, built around real problems."
           intro="Read the problem, my role, what was checked, and what is still in progress."
         />
         <a class="text-link section-heading-row__link" href="/projects/">Open project index</a>
@@ -109,7 +109,7 @@ const additionalProjects = projects.filter((project) => !project.featured);
         id="experience-heading"
         eyebrow="04 / Experience"
         title="Service, coordination, and careful follow-through."
-        intro="Verified work and volunteer experience."
+        intro="Work and volunteer experience that informs how I build software."
       />
       <div class="experience-list">
         {profile.experience.map((entry, index) => (
@@ -157,7 +157,7 @@ const additionalProjects = projects.filter((project) => !project.featured);
             id="contact-heading"
             eyebrow="06 / Contact"
             title="Have a project or role in mind?"
-            intro="Reach out directly. No form, account, or third-party lead service."
+            intro="For software-development roles, product work, or a project you want to discuss."
           />
           <a class="button button--primary" href={"mailto:" + profile.email}>Email Rory</a>
         </div>
@@ -177,7 +177,7 @@ const additionalProjects = projects.filter((project) => !project.featured);
           <a class="resume-download" href={profile.resumeHref} download>
             <span class="eyebrow">Resume download</span>
             <strong>QA Software Intern version <span aria-hidden="true">↓</span></strong>
-            <small>The supplied DOCX is offered unchanged.</small>
+            <small>Download my resume as a Word document.</small>
           </a>
         </div>
       </div>

@@ -5,9 +5,9 @@
   "order": 1,
   "featured": true,
   "category": "client-system",
-  "summary": "A privacy-minded Windows application shaped around nonprofit program workflows, controlled information transfer, and reporting, with test evidence kept synthetic.",
-  "problem": "Program teams need software workflows for managing programs and relevant participant information while supporting controlled transfers to the main office and privacy-conscious funder reporting.",
-  "role": "Led discovery, requirements, planning, design, and technical decisions; built and maintained application test coverage.",
+  "summary": "An offline Windows desktop prototype for nonprofit program operations. Separate Main Office and House apps share authorization, protected storage, and a signed file-exchange core.",
+  "problem": "Housing-program teams working across disconnected sites need to coordinate program definitions and eventually return participant information to a main office. Sensitive information and unreliable connectivity make local storage, explicit trust, and controlled file exchange central design concerns.",
+  "role": "Led stakeholder discovery, requirements, workflow design, architecture decisions, implementation, and verification.",
   "stakeholders": [
     "Program staff",
     "Main office administrator",
@@ -15,87 +15,131 @@
   ],
   "technologies": [
     "C#",
-    "WPF"
+    ".NET",
+    "WPF",
+    "SQLite",
+    "Windows DPAPI",
+    "xUnit",
+    "FlaUI"
   ],
   "statusLabel": "Active development",
-  "currentStatus": "Synthetic-data prototype and implementation foundation approaching MVP. It is not deployed or production-approved.",
+  "currentStatus": "Active synthetic-data prototype. Workspace security is complete; administration and program-authoring work is partly accepted and partly under review. It is not deployed or production-approved.",
   "publicationState": "public",
-  "publicationBoundary": "Public examples use synthetic data only. No real participant data or internal client material is authorized for this portfolio.",
+  "publicationBoundary": "The case study describes approved architecture and engineering examples. All application examples use synthetic data.",
   "limitations": [
-    "No approved public demo or sanitized repository is available yet.",
-    "The prototype is not deployed or production-approved.",
-    "No real participant data is shown or used as public evidence."
+    "Participant management, recurring submissions, the full data-return workflow, aggregate reporting, retention, and rollout remain planned work.",
+    "The October 7 verification report describes a modified working tree. Its measurements are a dated development snapshot, not results tied to a clean published commit.",
+    "The two UI-automation suites were not fully executed in that report. Narrator and 200% display-scale acceptance remain outstanding.",
+    "Receipt manifests, atomic package commits, and a revised receipt format are architecture decisions awaiting implementation.",
+    "No production deployment, live authentication/key-custody approval, or compliance assessment is claimed."
   ],
   "claimPolicy": [
-    "Describe the system as active development approaching MVP, never as deployed or production-ready.",
-    "Keep participant examples synthetic and omit internal client artifacts.",
-    "Treat early stakeholder feedback as qualitative feedback, not measured impact."
+    "Use the approved October 7 verification log over contradictory summary claims. Never say all 1,278 listed cases passed.",
+    "Separate completed workspace security, partially accepted administration, tested transfer-core behavior, and backlog application workflows.",
+    "Keep all examples synthetic. Publish no private repository, raw internal context files, participant data, or invented demo URL.",
+    "Describe automated checks as engineering evidence; do not imply accessibility, privacy, compliance, performance, or production approval."
   ],
   "evidence": [
-    "Translated stakeholder discussions, feedback, mockups, and requirements into testable workflows.",
-    "Built C# unit, integration, view-model, UI-structure, and regression tests across application layers.",
-    "Maintained manual test evidence using synthetic data."
+    "Approved October 7, 2026 report: six executed suites, 1,148 passing cases; two additional UI suites list 130 cases without a completed run.",
+    "Four passing end-to-end tests exercise the provisioning/trust chain from blank state with real cryptography and SQLite.",
+    "A test enforces that the two WPF shells do not reference one another.",
+    "Workspace entry, lock, protected recovery, and audit are complete. Administration and authoring contain accepted work, implementation under review, and remaining backlog; participant and reporting journeys remain planned."
   ],
   "sections": [
     {
-      "heading": "Context",
+      "heading": "From an operational problem to a buildable system",
       "paragraphs": [
-        "The work is for the John Howard Society of Saint John. The Windows desktop system is intended to support program management, relevant participant information, controlled transfers to the main office, and privacy-conscious funder reporting."
+        "The project is for the John Howard Society of Saint John. Main Office and House staff have different responsibilities, and the intended workflow must operate without an always-on service. I translated stakeholder discussions and mockups into requirements, workflow states, architecture decisions, and testable acceptance criteria.",
+        "That work connects product thinking to implementation: establish who needs to do what, make the trust boundaries explicit, and distinguish a proposed workflow from something the application can demonstrate."
       ]
     },
     {
-      "heading": "Role and approach",
+      "heading": "Two applications, one shared core",
       "paragraphs": [
-        "I led discovery, requirements, planning, design, and technical decision-making. Stakeholder discussions, feedback, mockups, and requirements were turned into workflows that could be built and tested."
+        "The Main Office Admin console and House Program app are separate WPF applications. Neither shell references the other; a test enforces that separation. Five shared libraries hold presentation logic, application use cases, domain rules, infrastructure, and the transfer protocol.",
+        "Authorization and storage rules live beneath the screens. The domain holds invariants; application services make capability and session decisions; infrastructure supplies protected storage; the transfer library validates signed, encrypted files. Both interfaces use these shared rules."
       ],
       "bullets": [
-        "Organized workflows around program staff and main-office needs.",
-        "Kept the system's publication boundary explicit while planning evidence and tests."
+        "Main Office: administrative workspaces, House directory, projects, and program-authoring tools.",
+        "House: its own installation identity, workspace security, and program-package review and activation foundations.",
+        "Exchange: manually moved files with recipient binding and operator-confirmed signing trust."
       ]
     },
     {
-      "heading": "Implementation and verification",
+      "heading": "A lock must invalidate work already in flight",
       "paragraphs": [
-        "The application is built with C# and WPF. Verification includes automated coverage across unit, integration, view-model, UI-structure, and regression layers, alongside manual test evidence using synthetic data."
+        "An authorization check can be valid before an asynchronous operation and stale when it finishes. SecuritySession uses a session epoch: work captures the current session generation, and guarded paths check it again around asynchronous work. Lock, sign-out, and invalidation advance that generation.",
+        "The checks also consider whether an actor is still present and whether a transition is pending. Callers can reject a stale completion instead of repopulating a locked workspace. This is the concurrency detail behind the visible lock behavior."
       ]
     },
     {
-      "heading": "What is public today",
+      "heading": "An incoming file must earn trust",
       "paragraphs": [
-        "This case study is intentionally text-first. A public demo and sanitized code destination will be added only after Rory supplies and approves them; there is no destination to follow yet."
+        "The transfer core treats a received package as untrusted input. A signing key is enrolled through a separately confirmed fingerprint; packages are signed, encrypted, and bound to their intended recipient and assignment. A filename or a file arriving on removable media does not establish trust.",
+        "The parser rejects duplicate and unexpected properties, derives the fingerprint from the supplied public key, and compares the bytes with canonical serialization. Negative-path tests exercise tampering, substituted keys, incorrect recipients, and assignment mismatches."
+      ]
+    },
+    {
+      "heading": "Review, confirmation, and persistence are separate",
+      "paragraphs": [
+        "The program-data import service separates review, operator confirmation, and commit. Review and commit require different capabilities; commit refuses a missing review token or unconfirmed review. A generation counter prevents an older asynchronous review from replacing a newer one.",
+        "These are transfer-service foundations. The complete data-return application workflow, conflict-resolution screens, and receipt lifecycle are still backlog work; the existence of a service does not make that entire user journey finished."
+      ]
+    },
+    {
+      "heading": "Protected storage and useful audit evidence",
+      "paragraphs": [
+        "Windows DPAPI protects local documents for the current Windows user. The implementation uses fresh entropy and clears temporary cryptographic buffers in finally blocks. Audit events use opaque identifiers and record authority, scope, and purpose rather than copying participant content.",
+        "The audit store takes a single-writer file lease. If persistence fails, it restores the prior in-memory event list so memory does not claim that failed writes reached disk. The design makes failure behavior part of the storage contract."
+      ]
+    },
+    {
+      "heading": "Verification that shows what was actually checked",
+      "paragraphs": [
+        "The supplied October 7, 2026 verification log records 1,148 passing expanded cases across six test projects and a Debug build with zero warnings under TreatWarningsAsErrors. Another 130 cases were listed across two UI-automation suites, but those suites could not complete in the non-interactive session.",
+        "Four end-to-end tests passed for the core provisioning and trust chain, beginning with an empty database and exercising real cryptography and SQLite. The FlaUI harnesses inspect the realized UI Automation tree rather than just declared XAML properties. Their existence is documented; this report does not establish a full passing UI or accessibility acceptance run.",
+        "The approved package also documents eight known accessibility defects, with tests that deliberately assert their current presence. A green result from those tests records a known gap; it does not mean the interface is accessible."
+      ]
+    },
+    {
+      "heading": "Keeping engineering context honest",
+      "paragraphs": [
+        "I maintain repository guidance for AI-assisted development that records architecture decisions, known defects, verification commands, and lessons from earlier incorrect claims. It helps keep new changes consistent and makes decisions that are adopted but not built visible.",
+        "One documented negative control removed the UI-test parallelization setting, rebuilt, and observed the control test fail because the expected assembly attribute was missing. The setting was then restored. This checks that the test detects the fault it is intended to catch; it is separate from the incomplete UI-suite execution recorded on October 7.",
+        "The next steps are to finish review and acceptance of the administration work, complete the remaining program and reporting journeys, and record representative synthetic-data workflows. The architecture described here supports that direction; it is not a claim that every planned capability is implemented."
       ]
     }
   ],
   "links": [],
-  "linkFallback": "The public demo and sanitized repository are pending approval; no destination is linked yet.",
+  "linkFallback": "The public demo and sanitized repository are pending approval. Approved architecture and engineering examples are described above; recordings will be added when ready.",
   "citations": [],
   "media": [
     {
       "id": "overview",
-      "label": "Application overview",
-      "kind": "image",
+      "label": "Workspace entry and lock",
+      "kind": "video",
       "availability": "fallback",
       "publicationState": "deferred",
       "reviewStatus": "not-provided",
-      "fallbackText": "No approved overview image has been provided. The case study remains complete as text."
+      "fallbackText": "Recording planned: enter a synthetic workspace, inspect privacy-safe audit evidence, lock the application, and show that protected content clears. The session design is explained above."
     },
     {
       "id": "program-workflow",
-      "label": "Representative program workflow",
-      "kind": "image",
+      "label": "Program administration",
+      "kind": "video",
       "availability": "fallback",
       "publicationState": "deferred",
       "reviewStatus": "not-provided",
-      "fallbackText": "A synthetic-data workflow capture is pending. No participant or internal client material is shown."
+      "fallbackText": "Recording planned: a representative House-directory or program-authoring workflow using synthetic data. The published clip will identify the exact behavior shown and its current review status."
     },
     {
       "id": "reporting-transfer",
-      "label": "Reporting or controlled-transfer view",
-      "kind": "image",
+      "label": "Signed offline handoff",
+      "kind": "video",
       "availability": "fallback",
       "publicationState": "deferred",
       "reviewStatus": "not-provided",
-      "fallbackText": "A reviewed reporting or transfer example is not available yet; no empty media frame is displayed."
+      "fallbackText": "Recording planned: signing-trust confirmation and package review, with a rejection example if demonstrated. The current end-to-end test evidence is described above; no completed data-return UI is claimed."
     }
   ]
 }

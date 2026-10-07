@@ -5,7 +5,7 @@
   "order": 2,
   "featured": true,
   "category": "mobile-application",
-  "summary": "An Android mileage-tracking app with trip capture, classification, vehicle records, and reporting, supported by automated checks and explicit beta release gates.",
+  "summary": "A Kotlin Android app for mileage, vehicle records, receipts, and exports. Local trip storage and recovery are central, with optional cloud sync and a sanitized public repository.",
   "problem": "Drivers need a dependable way to record trip details, organize mileage, and review information for their own records without losing sight of incomplete or unverified entries.",
   "role": "Solo developer building the Android application and maintaining its verification and closed-beta checklist.",
   "stakeholders": [
@@ -19,13 +19,14 @@
     "Firebase"
   ],
   "statusLabel": "Closed-beta solo foundation",
-  "currentStatus": "A closed-beta solo foundation. Known blockers, device checks, and release gates remain tracked; no full release is claimed.",
+  "currentStatus": "Closed-beta solo foundation with a sanitized public source repository. Device validation and release gates remain; it is not a general release.",
   "publicationState": "public",
-  "publicationBoundary": "The five supplied screen recordings are approved for public display, including real trip, profile, and vehicle information. This project description is not tax advice and does not promise CRA acceptance.",
+  "publicationBoundary": "The supplied screen recordings and sanitized source repository are approved for public display. Reporting features are designed to support recordkeeping; no CRA acceptance is promised.",
   "limitations": [
     "The project remains a closed-beta foundation with release gates still tracked.",
     "No tax advice or CRA-acceptance promise is made.",
-    "The public screen recordings show owner-approved real trip, profile, and vehicle information; they do not change the project's closed-beta status."
+    "The public screen recordings show owner-approved real trip, profile, and vehicle information; they do not change the project's closed-beta status.",
+    "The linked README uses CRA compliance language. This portfolio does not establish an independent compliance assessment or CRA acceptance."
   ],
   "claimPolicy": [
     "Do not describe the project as fully released or generally available.",
@@ -35,47 +36,72 @@
   "evidence": [
     "Automated unit and Android UI coverage spans validation, interrupted-trip recovery, synchronization, authentication, exports, and core screens.",
     "A closed-beta checklist separates implemented features, known blockers, device smoke tests, emulator-rule checks, and release gates.",
-    "The public GitHub repository is available for code review."
+    "Sanitized public source, architecture documentation, and a guided codebase tour are linked below."
   ],
   "sections": [
     {
-      "heading": "Context",
+      "heading": "The problem and my role",
       "paragraphs": [
-        "MileageTracker is an Android app for recording and organizing vehicle mileage. Its project scope includes trip capture, business or personal classification, vehicle records, and reporting."
+        "Drivers need more than a distance total: trips need context, vehicles need accurate odometer records, and reports need entries that can be reviewed. I am the solo developer, responsible for the Android implementation, supporting services, verification work, and beta-readiness checklist.",
+        "The scope includes GPS trip capture, business or personal classification, multiple vehicles, annual odometer records, expense and receipt capture, and PDF/CSV reporting. The aim is useful Canadian mileage recordkeeping, with incomplete entries and release limitations kept visible."
       ]
     },
     {
-      "heading": "Role and implementation",
+      "heading": "Architecture: screens through use cases to storage",
       "paragraphs": [
-        "I am building the app as a solo developer using Kotlin and Jetpack Compose, with Room, Hilt, and Firebase in the implementation stack."
+        "Jetpack Compose screens receive StateFlow state from Hilt-injected view models. Use cases and repository interfaces separate business behavior from Room, DataStore, and Firebase implementations. Room owns local records; optional synchronization goes through an outbox rather than direct screen-to-cloud writes."
+      ]
+    },
+    {
+      "heading": "Durability before connectivity",
+      "paragraphs": [
+        "Tracking checkpoints the active session, then buffers a completed trip before persistence. WorkManager retries local writes independently of network access; cloud synchronization requires connectivity and consent. Keeping those paths separate supports recovery when a drive or connection is interrupted."
+      ]
+    },
+    {
+      "heading": "The application in the recordings",
+      "paragraphs": [
+        "The five recordings below show the dashboard and trip details, saved trip records, manual tracking controls, vehicle settings, and reports. Captions explain what each clip demonstrates, and written descriptions keep the evidence usable without playback."
       ],
       "bullets": [
-        "Trip capture and durable GPS capture.",
-        "Business or personal classification and vehicle management.",
-        "Odometer, expense, receipt, and report workflows."
+        "The overview shows a suggested trip classification and editable fields.",
+        "The trip list shows existing records and distances.",
+        "The tracking clip shows controls in their ready state; it does not demonstrate a completed drive.",
+        "Vehicle and report clips show their respective screens, rather than proving every background or export path."
       ]
     },
     {
-      "heading": "Verification and release gates",
+      "heading": "Verification and the remaining release work",
       "paragraphs": [
-        "Automated unit and Android UI tests cover validation, interrupted-trip recovery, synchronization, authentication, exports, and core screens. The closed-beta checklist keeps implemented behavior separate from known blockers, device smoke tests, emulator-rule checks, and release gates."
+        "The project includes unit and Android UI coverage for validation, interrupted-trip recovery, synchronization, authentication, exports, and core screens. A beta checklist distinguishes implementation evidence from device smoke tests and release approval.",
+        "Physical-device tracking validation, complete synchronization coverage, Firebase and Google Play configuration, and release signing remain release gates. Team workflows and accounting integrations are disabled prototypes. Automated test results from the newly sanitized copy have not been re-run as part of this portfolio update."
       ]
     },
     {
-      "heading": "Evidence and limits",
+      "heading": "Public source, with configuration kept separate",
       "paragraphs": [
-        "The owner approved all five supplied screen recordings for public display, including visible profile, trip, and vehicle details. The clips document specific screens only; the written case study remains available independently of the recordings."
+        "The public repository is a sanitized copy with a fresh history, placeholder configuration, and a renamed example package ID. Its README documents the setup needed for a developer to supply their own configuration. The architecture and onboarding guides offer a route from the visible screens into the code."
       ]
     }
   ],
   "links": [
     {
-      "label": "View the public MileageTracker repository",
-      "href": "https://github.com/Rory-Hughes/MileageTracker",
+      "label": "Explore the MileageTracker source",
+      "href": "https://github.com/Rory-Hughes/MilageTracker",
+      "kind": "repository"
+    },
+    {
+      "label": "Read the architecture and trip-capture flow",
+      "href": "https://github.com/Rory-Hughes/MilageTracker/blob/main/docs/ARCHITECTURE.md",
+      "kind": "repository"
+    },
+    {
+      "label": "Follow the codebase onboarding guide",
+      "href": "https://github.com/Rory-Hughes/MilageTracker/blob/main/docs/ONBOARDING.md",
       "kind": "repository"
     }
   ],
-  "linkFallback": "The public repository is available; no hosted demo is linked.",
+  "linkFallback": "The sanitized public repository and codebase guides are available; the recordings below demonstrate selected screens.",
   "citations": [],
   "media": [
     {
