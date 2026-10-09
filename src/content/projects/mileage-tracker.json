@@ -61,7 +61,7 @@
     {
       "heading": "The application in the recordings",
       "paragraphs": [
-        "The five recordings below show the dashboard, automatically captured trips awaiting classification, the trip-detail form, manual tracking controls, vehicle settings, and reports. On the Trips screen, swipe left or right to classify a trip as business or personal, or select it to edit its details in a form. Captions and written descriptions explain each recording."
+        "The five recordings on this page show the dashboard, automatically captured trips awaiting classification, the trip-detail form, manual tracking controls, vehicle settings, and reports. On the Trips screen, swipe left or right to classify a trip as business or personal, or select it to edit its details in a form. Captions and written descriptions explain each recording."
       ],
       "bullets": [
         "The overview shows a suggested trip classification and editable fields.",
@@ -101,7 +101,7 @@
       "kind": "repository"
     }
   ],
-  "linkFallback": "The sanitized public repository and codebase guides are available; the recordings below demonstrate selected screens.",
+  "linkFallback": "The sanitized public repository and codebase guides are available; the recordings on this page demonstrate selected screens.",
   "citations": [],
   "media": [
     {

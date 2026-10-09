@@ -1,0 +1,16 @@
+---
+interface Props {
+  headingId: string;
+  statusLabel: string;
+  currentStatus: string;
+  publicationBoundary: string;
+}
+
+const { headingId, statusLabel, currentStatus, publicationBoundary } = Astro.props;
+---
+
+<aside class="boundary-note" aria-labelledby={headingId}>
+  <h2 id={headingId}>Current status <span class="status-chip">{statusLabel}</span></h2>
+  <p>{currentStatus}</p>
+  <p>{publicationBoundary}</p>
+</aside>

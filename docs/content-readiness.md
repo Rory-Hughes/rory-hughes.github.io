@@ -40,16 +40,20 @@ MileageTracker source: [public repository](https://github.com/Rory-Hughes/Milage
 and [onboarding](https://github.com/Rory-Hughes/MilageTracker/blob/main/docs/ONBOARDING.md).
 The source is linked for inspection; no fresh Android test pass is claimed by this work.
 
-## Add the John Howard recordings
+## John Howard application recording — October 8, 2026
 
-The case study is already complete as text. Three slots in its authoritative JSON record
-are ready for recordings; do not invent a hosted demo or repository URL.
+Rory supplied and authorized `C:/Users/rory/Downloads/JHDemoVid3.mp4` for the public
+portfolio demo. It is copied unchanged to
+`public/media/john-howard-application-walkthrough.mp4`. The single walkthrough replaces
+the three planned recording placeholders and appears before the case-study reading body.
+Homepage and project-index cards link directly to the recording.
 
-| Slot ID | Suggested subject | Boundary |
-| --- | --- | --- |
-| overview | Authorized workspace entry, audit, manual lock, content clearing | Show synthetic data; distinguish visible lock from concurrency behavior proven by code/tests |
-| program-workflow | A House-directory or program-authoring action | Caption exactly what works and its current review status |
-| reporting-transfer | Trust confirmation and program-package review/activation, if demonstrated | Do not imply the full data-return/reporting UI exists; show rejection only if actually recorded |
+The clip is 80.2 seconds, 1280×720 H.264 with AAC audio, and 8,701,124 bytes.
+SHA-256: `65fc7b3093b594e72e4643a591f230705c9c1f382d3efb2364812ef90dd5a1fe`.
+Inspection frames remain in the OS temp directory. Sampled screens identify synthetic
+workspaces and show program authoring, reusable fields, cadence, House assignment,
+form preview, publication, and House trust/import setup. A written visual transcript
+describes these actions without claiming a completed participant/reporting journey.
 
 For each finished, privacy-reviewed clip:
 
@@ -60,10 +64,9 @@ For each finished, privacy-reviewed clip:
    `availability: published`, `publicationState: public`, `reviewStatus: approved`,
    `assetPath: media/<filename>`, a useful `altText`, a precise `caption`, a concise
    `transcript`, and a readable `fallbackText`.
-4. The current regression test deliberately requires all John Howard slots to remain
-   unpublished. Update that assertion to reflect the specifically approved clips when
-   they are supplied; retain the no-fabricated-destinations check and check exact media
-   bytes. Do not weaken the media approval, transcript, or size rules.
+4. Update the approved-media regression assertion for any additional specifically
+   authorized clips; retain the no-fabricated-destinations check and exact media bytes.
+   Do not weaken the media approval, transcript, or size rules.
 5. Run `npm run ci:validate` and review desktop/mobile playback and captions.
 
 ## Iterate on design with stable content
@@ -90,6 +93,18 @@ placement after Rory reviews the content.
   coverage, against the published artifact before calling release acceptance complete.
 
 ## Local verification of this content pass
+
+October 8 demo update: Astro reported zero errors/warnings/hints across 29 files;
+content/media policy passed, all 12 regression tests passed, and the static build
+produced 11 pages with valid routes, links, media, resume, and release manifest.
+The copied John Howard video matches the supplied file's byte count and SHA-256.
+Playback was checked in the in-app browser (80.2 seconds, 1280×720), with no
+horizontal overflow at a 390px mobile viewport. The preview was restarted to make
+the newly added public asset available. These local checks used the bundled Node
+v24.19.0; the exact v24.21.0 pin remains part of the GitHub release environment.
+The source and recording remain local pending Rory's final design pass and release.
+An unnecessary About-page grid override was removed so the shared mobile breakpoint
+can stack the page's heading and biography correctly.
 
 `npm run ci:validate` passed with zero Astro errors/warnings/hints, all 12 existing
 tests, six prerendered pages, approved media and resume hashes, link checks, and the

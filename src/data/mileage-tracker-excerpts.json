@@ -1,0 +1,57 @@
+[
+  {
+    "id": "trip-suggestion",
+    "mediaId": "overview",
+    "title": "Apply or dismiss a trip suggestion",
+    "description": "Loads the top trip suggestion, applies it through a use case, and refreshes the details after a successful save.",
+    "sourcePath": "app/src/main/java/com/example/mileagetracker/ui/viewmodel/TripDetailViewModel.kt (lines 251–287)",
+    "sourceHref": "https://github.com/Rory-Hughes/MilageTracker/blob/main/app/src/main/java/com/example/mileagetracker/ui/viewmodel/TripDetailViewModel.kt#L251-L287",
+    "contentPath": "src/data/mileage-tracker-excerpts/trip-suggestion.md",
+    "previewFenceIndex": 0,
+    "language": "kotlin"
+  },
+  {
+    "id": "trip-classification",
+    "mediaId": "trip-capture",
+    "title": "Swipe to classify, tap to review",
+    "description": "Maps each swipe direction to a business or personal classification; tapping the trip opens its editable details.",
+    "sourcePath": "app/src/main/java/com/example/mileagetracker/ui/screen/UnclassifiedScreen.kt (lines 240–276)",
+    "sourceHref": "https://github.com/Rory-Hughes/MilageTracker/blob/main/app/src/main/java/com/example/mileagetracker/ui/screen/UnclassifiedScreen.kt#L240-L276",
+    "contentPath": "src/data/mileage-tracker-excerpts/trip-classification.md",
+    "previewFenceIndex": 0,
+    "language": "kotlin"
+  },
+  {
+    "id": "manual-tracking",
+    "mediaId": "tracking-controls",
+    "title": "Manual tracking commands",
+    "description": "Connects the screen's start and stop controls to a tracking command dispatcher. The video shows the ready state only.",
+    "sourcePath": "app/src/main/java/com/example/mileagetracker/ui/viewmodel/ManualTripControlViewModel.kt (lines 49–74)",
+    "sourceHref": "https://github.com/Rory-Hughes/MilageTracker/blob/main/app/src/main/java/com/example/mileagetracker/ui/viewmodel/ManualTripControlViewModel.kt#L49-L74",
+    "contentPath": "src/data/mileage-tracker-excerpts/manual-tracking.md",
+    "previewFenceIndex": 0,
+    "language": "kotlin"
+  },
+  {
+    "id": "vehicle-odometer",
+    "mediaId": "vehicle-odometer",
+    "title": "Save a vehicle with opening odometer evidence",
+    "description": "Persists a vehicle, then records its optional opening odometer reading and photo through the odometer use case.",
+    "sourcePath": "app/src/main/java/com/example/mileagetracker/ui/viewmodel/VehicleManagementViewModel.kt (lines 85–125)",
+    "sourceHref": "https://github.com/Rory-Hughes/MilageTracker/blob/main/app/src/main/java/com/example/mileagetracker/ui/viewmodel/VehicleManagementViewModel.kt#L85-L125",
+    "contentPath": "src/data/mileage-tracker-excerpts/vehicle-odometer.md",
+    "previewFenceIndex": 0,
+    "language": "kotlin"
+  },
+  {
+    "id": "summary-export",
+    "mediaId": "summary-export",
+    "title": "Build and record a logbook export",
+    "description": "Chooses the PDF or CSV use case from the requested format and adds successful exports to report history.",
+    "sourcePath": "app/src/main/java/com/example/mileagetracker/ui/viewmodel/ExportViewModel.kt (lines 74–119)",
+    "sourceHref": "https://github.com/Rory-Hughes/MilageTracker/blob/main/app/src/main/java/com/example/mileagetracker/ui/viewmodel/ExportViewModel.kt#L74-L119",
+    "contentPath": "src/data/mileage-tracker-excerpts/summary-export.md",
+    "previewFenceIndex": 0,
+    "language": "kotlin"
+  }
+]

@@ -1,0 +1,191 @@
+---
+interface Props {
+  leadLayout?: boolean;
+  recordingLayout?: boolean;
+  galleryLayout?: boolean;
+  relatedSection?: { href: string; label: string };
+  excerpt: {
+    id: string;
+    title: string;
+    description: string;
+    sourcePath: string;
+    sourceHref?: string;
+    language: "csharp" | "kotlin" | "python";
+    previewCode: string;
+    highlightedHtml: string;
+  };
+}
+
+const { excerpt, leadLayout = false, recordingLayout = false, galleryLayout = false, relatedSection } = Astro.props;
+const lineNumbers = excerpt.previewCode.split(/\r?\n/).map((_, index) => index + 1);
+const languageLabel = { csharp: "C#", kotlin: "Kotlin", python: "Python" }[excerpt.language];
+const titleId = "excerpt-title-" + excerpt.id;
+const descriptionId = "excerpt-description-" + excerpt.id;
+const sourceId = "excerpt-source-" + excerpt.id;
+---
+
+<article class:list={["code-excerpt-card", { "code-excerpt-card--lead": leadLayout, "code-excerpt-card--recording": recordingLayout, "code-excerpt-card--gallery": galleryLayout }]} data-code-excerpt-card={excerpt.id}>
+  <div class="code-excerpt-card__copy">
+    <p class="eyebrow">Code excerpt / {languageLabel}</p>
+    <h3 id={titleId}>{excerpt.title}</h3>
+    <p id={descriptionId}>{excerpt.description}</p>
+    {relatedSection && <a class="code-excerpt-card__context" href={relatedSection.href}>Supports: {relatedSection.label}</a>}
+    <p class="code-excerpt-card__source" id={sourceId}>
+      <span>Source</span>
+      <code>{excerpt.sourcePath}</code>
+      {excerpt.sourceHref && <a href={excerpt.sourceHref} target="_blank" rel="noreferrer">Open source lines <span aria-hidden="true">↗</span></a>}
+    </p>
+  </div>
+  <figure class="code-excerpt-card__preview" aria-hidden="true">
+    <figcaption><span>Preview</span><span>{languageLabel}</span></figcaption>
+    <div class="code-excerpt-card__editor">
+      <div class="code-excerpt-card__gutter">{lineNumbers.map((line) => <span>{line}</span>)}</div>
+      <div class="code-excerpt-card__code" set:html={excerpt.highlightedHtml}></div>
+    </div>
+    <span class="code-excerpt-card__fade"></span>
+  </figure>
+  <button
+    class="code-excerpt-card__open"
+    type="button"
+    data-code-excerpt-trigger
+    data-excerpt-id={excerpt.id}
+    aria-labelledby={titleId}
+    aria-describedby={descriptionId + " " + sourceId}
+  >
+    <span class="code-excerpt-card__open-label">Open full excerpt <span aria-hidden="true">↗</span></span>
+  </button>
+</article>
+
+<style>
+  .code-excerpt-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: stretch;
+    gap: 1rem;
+    margin: -1rem 0 2.75rem;
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    box-shadow: 0 0.75rem 2rem rgb(23 38 59 / 6%);
+    transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+  }
+
+  .code-excerpt-card:hover,
+  .code-excerpt-card:focus-within {
+    border-color: #7d91ec;
+    box-shadow: 0 1rem 2.4rem rgb(23 38 59 / 11%);
+    transform: translateY(-2px);
+  }
+
+  .code-excerpt-card__copy { min-width: 0; align-self: start; padding: 0.25rem 0.25rem 2.3rem; }
+  .code-excerpt-card__copy .eyebrow { margin-bottom: 0.55rem; font-size: 0.68rem; }
+  .code-excerpt-card h3 { margin: 0 0 0.55rem; font-size: 1.05rem; line-height: 1.25; }
+  .code-excerpt-card__copy > p:not(.eyebrow) { margin: 0; color: var(--muted); font-size: 0.82rem; line-height: 1.55; }
+  .code-excerpt-card__copy .code-excerpt-card__source { display: grid; gap: 0.3rem; margin-top: 0.8rem; }
+  .code-excerpt-card__source span { color: var(--text); font-size: 0.65rem; font-weight: 750; letter-spacing: 0.07em; text-transform: uppercase; }
+  .code-excerpt-card__source code { overflow-wrap: anywhere; color: var(--muted); font-size: 0.67rem; line-height: 1.45; }
+  .code-excerpt-card__source a { position: relative; z-index: 2; display: inline-flex; justify-self: start; align-self: start; width: max-content; max-width: 100%; gap: 0.25rem; color: var(--primary); font-size: 0.67rem; font-weight: 700; line-height: 1.45; text-decoration: underline; text-underline-offset: 0.15em; }
+  .code-excerpt-card__context { position: relative; z-index: 2; display: inline-flex; max-width: 100%; margin-top: 0.6rem; color: var(--primary); font-size: 0.65rem; font-weight: 700; line-height: 1.4; text-decoration: underline; text-underline-offset: 0.15em; }
+
+  .code-excerpt-card__preview { position: relative; min-width: 0; min-height: 11rem; margin: 0; overflow: hidden; border: 1px solid #343d4d; border-radius: 0.55rem; background: #0d1117; color: #e6edf3; }
+  .code-excerpt-card__preview figcaption { display: flex; justify-content: space-between; padding: 0.55rem 0.75rem; border-bottom: 1px solid #303846; color: #a9b6c8; font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; }
+  .code-excerpt-card__editor { display: grid; grid-template-columns: auto minmax(0, 1fr); height: 9rem; overflow: hidden; padding: 0.65rem 0.6rem 0.8rem 0; font: 0.65rem/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .code-excerpt-card__gutter { display: grid; grid-auto-rows: 1.45em; min-width: 2rem; padding-right: 0.65rem; color: #687386; text-align: right; user-select: none; }
+  .code-excerpt-card__code { min-width: 0; overflow: hidden; }
+  .code-excerpt-card__code :global(pre) { margin: 0; overflow: hidden; background: transparent !important; font: inherit; line-height: inherit; white-space: pre; }
+  .code-excerpt-card__code :global(code) { font: inherit; }
+  .code-excerpt-card__fade { position: absolute; inset: auto 0 0; height: 2rem; background: linear-gradient(transparent, #0d1117); pointer-events: none; }
+
+  .code-excerpt-card--gallery { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(11rem, 1fr); min-height: 100%; margin: 0; gap: 0.8rem; }
+  .code-excerpt-card--gallery .code-excerpt-card__copy { padding: 0 0 0.35rem; }
+  .code-excerpt-card--gallery .code-excerpt-card__preview { min-height: 11rem; }
+
+  .code-excerpt-card__open { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; border: 0; border-radius: inherit; background: transparent; color: inherit; cursor: pointer; text-align: left; }
+  .code-excerpt-card__open:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
+  .code-excerpt-card__open-label { position: absolute; right: 1.15rem; bottom: 1.05rem; padding: 0.4rem 0.6rem; border: 1px solid #6478d9; border-radius: 999px; background: #202b42; color: #f5f7ff; font-size: 0.68rem; font-weight: 700; }
+  .code-excerpt-card__open-label span { color: #a7b5ff; }
+
+  .code-excerpt-card--lead {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(12rem, 1fr);
+    align-content: stretch;
+    gap: 1rem;
+    min-width: 0;
+    min-height: 100%;
+    margin: 0;
+    padding: clamp(1rem, 1.5vw, 1.5rem);
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    transition: none;
+  }
+
+  .code-excerpt-card--lead:hover,
+  .code-excerpt-card--lead:focus-within {
+    border-color: transparent;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .code-excerpt-card--lead .code-excerpt-card__copy { padding: 0 0 0.2rem; }
+  .code-excerpt-card--lead .code-excerpt-card__copy > p:not(.eyebrow) { max-width: 54ch; }
+  .code-excerpt-card--lead .code-excerpt-card__preview { min-height: 14rem; height: 100%; }
+  .code-excerpt-card--lead .code-excerpt-card__editor { height: calc(100% - 2.2rem); min-height: 11rem; overflow: auto; }
+  .code-excerpt-card--lead .code-excerpt-card__open-label { right: 1rem; bottom: 1rem; }
+
+  .code-excerpt-card--recording {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(11rem, 1fr);
+    align-content: stretch;
+    gap: 1rem;
+    min-width: 0;
+    min-height: 20rem;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    transition: none;
+  }
+
+  .code-excerpt-card--recording:hover,
+  .code-excerpt-card--recording:focus-within {
+    border-color: transparent;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .code-excerpt-card--recording .code-excerpt-card__copy { padding: 0.25rem 0.25rem 2.3rem; }
+  .code-excerpt-card--recording .code-excerpt-card__copy > p:not(.eyebrow) { max-width: 72ch; }
+  .code-excerpt-card--recording .code-excerpt-card__preview { min-height: 11rem; height: 100%; }
+  .code-excerpt-card--recording .code-excerpt-card__editor { height: calc(100% - 2.2rem); min-height: 9rem; overflow: auto; }
+  .code-excerpt-card--recording .code-excerpt-card__open-label { right: 1rem; bottom: 1rem; }
+
+  @media (max-width: 680px) {
+    .code-excerpt-card { grid-template-columns: minmax(0, 1fr); gap: 0.85rem; margin: -0.75rem 0 2rem; padding: 0.85rem; }
+    .code-excerpt-card--gallery { margin: 0; }
+    .code-excerpt-card__copy { padding: 0.15rem 0.1rem; }
+    .code-excerpt-card__preview { min-height: 9.5rem; }
+    .code-excerpt-card__editor { height: 7.5rem; }
+    .code-excerpt-card__open-label { right: 0.95rem; bottom: 0.9rem; }
+    .code-excerpt-card--lead { grid-template-rows: auto minmax(12rem, 1fr); gap: 0.85rem; min-height: 0; margin: 0; padding: 0.9rem; }
+    .code-excerpt-card--lead .code-excerpt-card__preview { min-height: 13rem; height: auto; }
+    .code-excerpt-card--lead .code-excerpt-card__editor { height: 10.5rem; min-height: 0; }
+    .code-excerpt-card--lead .code-excerpt-card__open-label { right: 0.8rem; bottom: 0.8rem; }
+    .code-excerpt-card--recording { grid-template-rows: auto minmax(12rem, 1fr); gap: 0.85rem; min-height: 0; height: auto; margin: 0; padding: 0; }
+    .code-excerpt-card--recording .code-excerpt-card__copy { padding: 0.1rem 0 2.2rem; }
+    .code-excerpt-card--recording .code-excerpt-card__preview { min-height: 12rem; height: auto; }
+    .code-excerpt-card--recording .code-excerpt-card__editor { height: 10rem; min-height: 0; }
+    .code-excerpt-card--recording .code-excerpt-card__open-label { right: 0.8rem; bottom: 0.8rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .code-excerpt-card { transition: none; }
+    .code-excerpt-card:hover, .code-excerpt-card:focus-within { transform: none; }
+  }
+</style>

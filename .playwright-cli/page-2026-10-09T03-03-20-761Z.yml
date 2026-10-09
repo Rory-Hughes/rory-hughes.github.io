@@ -1,0 +1,476 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "Rory Hughes home" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [aria-hidden] [ref=e6]: RH
+        - generic [ref=e7]: Rory Hughes
+      - navigation "Primary navigation" [ref=e8]:
+        - link "Projects" [ref=e9] [cursor=pointer]:
+          - /url: /projects/
+        - link "About" [ref=e10] [cursor=pointer]:
+          - /url: /about/
+        - link "Skills" [ref=e11] [cursor=pointer]:
+          - /url: /skills/
+        - link "Experience" [ref=e12] [cursor=pointer]:
+          - /url: /experience/
+        - link "Education" [ref=e13] [cursor=pointer]:
+          - /url: /education/
+        - link "Contact" [ref=e14] [cursor=pointer]:
+          - /url: /contact/
+  - main [ref=e15]:
+    - navigation "Breadcrumb" [ref=e16]:
+      - link "Home" [ref=e17] [cursor=pointer]:
+        - /url: /
+      - generic [aria-hidden] [ref=e18]: /
+      - link "Projects" [ref=e19] [cursor=pointer]:
+        - /url: /projects/
+      - generic [aria-hidden] [ref=e20]: /
+      - generic [ref=e21]: John Howard system
+    - article [ref=e22]:
+      - generic [ref=e23]:
+        - paragraph [ref=e24]: Client system / Case study
+        - heading "John Howard Program Management and Data Collection System" [level=1] [ref=e25]
+        - paragraph [ref=e26]: An offline Windows desktop prototype for nonprofit program operations. Separate Main Office and House apps share authorization, protected storage, and a signed file-exchange core.
+        - complementary [ref=e27]:
+          - heading "Current status Active development" [level=2] [ref=e28]:
+            - text: Current status
+            - generic [ref=e29]: Active development
+          - paragraph [ref=e30]: Active synthetic-data prototype. Workspace security is complete; administration and program-authoring work is partly accepted and partly under review. It is not deployed or production-approved.
+          - paragraph [ref=e31]: The case study and owner-approved application walkthrough use synthetic data. The recording shows development behavior in the Main Office and House apps.
+        - generic [ref=e32]:
+          - generic [ref=e33]:
+            - term [ref=e34]: Role
+            - definition [ref=e35]: Led stakeholder discovery, requirements, workflow design, architecture decisions, implementation, and verification.
+          - generic [ref=e36]:
+            - term [ref=e37]: Technologies
+            - definition [ref=e38]: C#, .NET, WPF, SQLite, Windows DPAPI, xUnit, FlaUI
+          - generic [ref=e39]:
+            - term [ref=e40]: People or intended audience
+            - definition [ref=e41]: Program staff, Main office administrator, Executive Director
+      - generic [ref=e42]:
+        - generic [ref=e43]:
+          - paragraph [ref=e44]: Application recording
+          - heading "Watch the application walkthrough" [level=2] [ref=e45]
+        - region "Watch the application walkthrough" [ref=e46]:
+          - 'figure "Main Office and House application walkthrough An 80-second walkthrough of the Windows development prototype: configure a program, select reusable fields, set reporting cadence and House assignments, preview and publish a version, then inspect House setup. All examples use synthetic data." [ref=e47]':
+            - generic "Synthetic-data demonstration of the John Howard Main Office program builder and House program setup." [ref=e49]: Your browser does not support this video player.
+            - generic [ref=e50]:
+              - strong [ref=e51]: Main Office and House application walkthrough
+              - generic [ref=e52]: "An 80-second walkthrough of the Windows development prototype: configure a program, select reusable fields, set reporting cadence and House assignments, preview and publish a version, then inspect House setup. All examples use synthetic data."
+        - region "Project overview" [ref=e53]:
+          - figure "Separate application shells share rules and protected storage. Architecture and engineering examples are approved for public display using synthetic data. The prototype is not deployed or production-approved; full participant and reporting workflows remain planned." [ref=e54]:
+            - generic [ref=e55]:
+              - text: Project overview
+              - generic [ref=e56]: Offline Windows architecture
+            - generic [ref=e57]:
+              - generic [ref=e58]:
+                - generic [aria-hidden] [ref=e59]: ▦
+                - generic [ref=e60]:
+                  - strong [ref=e61]: Main Office
+                  - generic [ref=e62]: Admin WPF shell
+              - generic [ref=e63]:
+                - generic [aria-hidden] [ref=e64]: ↔
+                - strong [ref=e65]: Signed transfer files
+                - generic [ref=e66]: Manual, recipient-bound exchange
+              - generic [ref=e67]:
+                - generic [aria-hidden] [ref=e68]: ▦
+                - generic [ref=e69]:
+                  - strong [ref=e70]: House
+                  - generic [ref=e71]: Program WPF shell
+            - generic [ref=e72]:
+              - strong [ref=e73]: Shared libraries
+              - generic [ref=e74]: Presentation · Application · Domain · Infrastructure · Transfer
+      - generic [ref=e76]:
+        - complementary [ref=e77]:
+          - navigation "Case study contents" [ref=e78]:
+            - paragraph [ref=e79]: In this case study
+            - list [ref=e80]:
+              - listitem [ref=e81]:
+                - link "Main Office and House application walkthrough" [ref=e82] [cursor=pointer]:
+                  - /url: "#lead-media-heading"
+              - listitem [ref=e83]:
+                - link "Project overview" [ref=e84] [cursor=pointer]:
+                  - /url: "#project-overview"
+              - listitem [ref=e85]:
+                - link "The problem" [ref=e86] [cursor=pointer]:
+                  - /url: "#problem-heading"
+              - listitem [ref=e87]:
+                - link "From an operational problem to a buildable system" [ref=e88] [cursor=pointer]:
+                  - /url: "#case-section-0"
+              - listitem [ref=e89]:
+                - link "Two applications, one shared core" [ref=e90] [cursor=pointer]:
+                  - /url: "#case-section-1"
+              - listitem [ref=e91]:
+                - link "A lock must invalidate work already in flight" [ref=e92] [cursor=pointer]:
+                  - /url: "#case-section-2"
+              - listitem [ref=e93]:
+                - link "An incoming file must earn trust" [ref=e94] [cursor=pointer]:
+                  - /url: "#case-section-3"
+              - listitem [ref=e95]:
+                - link "Review, confirmation, and persistence are separate" [ref=e96] [cursor=pointer]:
+                  - /url: "#case-section-4"
+              - listitem [ref=e97]:
+                - link "Protected storage and useful audit evidence" [ref=e98] [cursor=pointer]:
+                  - /url: "#case-section-5"
+              - listitem [ref=e99]:
+                - link "Verification that shows what was actually checked" [ref=e100] [cursor=pointer]:
+                  - /url: "#case-section-6"
+              - listitem [ref=e101]:
+                - link "Keeping engineering context honest" [ref=e102] [cursor=pointer]:
+                  - /url: "#case-section-7"
+              - listitem [ref=e103]:
+                - link "Code excerpts" [ref=e104] [cursor=pointer]:
+                  - /url: "#code-excerpts-heading"
+              - listitem [ref=e105]:
+                - link "Engineering evidence" [ref=e106] [cursor=pointer]:
+                  - /url: "#evidence-heading"
+              - listitem [ref=e107]:
+                - link "Limitations & remaining work" [ref=e108] [cursor=pointer]:
+                  - /url: "#limits-heading"
+              - listitem [ref=e109]:
+                - link "Project links" [ref=e110] [cursor=pointer]:
+                  - /url: "#links-heading"
+            - link "Discuss this project" [ref=e111] [cursor=pointer]:
+              - /url: /#contact
+              - text: Discuss this project
+              - generic [aria-hidden] [ref=e112]: ↗
+        - generic [ref=e113]:
+          - region [ref=e114]:
+            - generic [ref=e115]:
+              - paragraph [ref=e116]: Overview
+              - heading "The problem" [level=2] [ref=e117]
+            - paragraph [ref=e119]: Housing-program teams working across disconnected sites need to coordinate program definitions and eventually return participant information to a main office. Sensitive information and unreliable connectivity make local storage, explicit trust, and controlled file exchange central design concerns.
+          - region [ref=e120]:
+            - heading "From an operational problem to a buildable system" [level=2] [ref=e122]
+            - generic [ref=e123]:
+              - paragraph [ref=e124]: The project is for the John Howard Society of Saint John. Main Office and House staff have different responsibilities, and the intended workflow must operate without an always-on service. I translated stakeholder discussions and mockups into requirements, workflow states, architecture decisions, and testable acceptance criteria.
+              - paragraph [ref=e125]: "That work connects product thinking to implementation: establish who needs to do what, make the trust boundaries explicit, and distinguish a proposed workflow from something the application can demonstrate."
+          - region [ref=e126]:
+            - heading "Two applications, one shared core" [level=2] [ref=e128]
+            - generic [ref=e129]:
+              - paragraph [ref=e130]: The Main Office Admin console and House Program app are separate WPF applications. Neither shell references the other; a test enforces that separation. Five shared libraries hold presentation logic, application use cases, domain rules, infrastructure, and the transfer protocol.
+              - paragraph [ref=e131]: Authorization and storage rules live beneath the screens. The domain holds invariants; application services make capability and session decisions; infrastructure supplies protected storage; the transfer library validates signed, encrypted files. Both interfaces use these shared rules.
+              - list [ref=e132]:
+                - listitem [ref=e133]: "Main Office: administrative workspaces, House directory, projects, and program-authoring tools."
+                - listitem [ref=e134]: "House: its own installation identity, workspace security, and program-package review and activation foundations."
+                - listitem [ref=e135]: "Exchange: manually moved files with recipient binding and operator-confirmed signing trust."
+          - region [ref=e136]:
+            - heading "A lock must invalidate work already in flight" [level=2] [ref=e138]
+            - generic [ref=e139]:
+              - paragraph [ref=e140]: "An authorization check can be valid before an asynchronous operation and stale when it finishes. SecuritySession uses a session epoch: work captures the current session generation, and guarded paths check it again around asynchronous work. Lock, sign-out, and invalidation advance that generation."
+              - paragraph [ref=e141]: The checks also consider whether an actor is still present and whether a transition is pending. Callers can reject a stale completion instead of repopulating a locked workspace. This is the concurrency detail behind the visible lock behavior.
+          - region [ref=e142]:
+            - heading "An incoming file must earn trust" [level=2] [ref=e144]
+            - generic [ref=e145]:
+              - paragraph [ref=e146]: The transfer core treats a received package as untrusted input. A signing key is enrolled through a separately confirmed fingerprint; packages are signed, encrypted, and bound to their intended recipient and assignment. A filename or a file arriving on removable media does not establish trust.
+              - paragraph [ref=e147]: The parser rejects duplicate and unexpected properties, derives the fingerprint from the supplied public key, and compares the bytes with canonical serialization. Negative-path tests exercise tampering, substituted keys, incorrect recipients, and assignment mismatches.
+          - region [ref=e148]:
+            - heading "Review, confirmation, and persistence are separate" [level=2] [ref=e150]
+            - generic [ref=e151]:
+              - paragraph [ref=e152]: The program-data import service separates review, operator confirmation, and commit. Review and commit require different capabilities; commit refuses a missing review token or unconfirmed review. A generation counter prevents an older asynchronous review from replacing a newer one.
+              - paragraph [ref=e153]: These are transfer-service foundations. The complete data-return application workflow, conflict-resolution screens, and receipt lifecycle are still backlog work; the existence of a service does not make that entire user journey finished.
+          - region [ref=e154]:
+            - heading "Protected storage and useful audit evidence" [level=2] [ref=e156]
+            - generic [ref=e157]:
+              - paragraph [ref=e158]: Windows DPAPI protects local documents for the current Windows user. The implementation uses fresh entropy and clears temporary cryptographic buffers in finally blocks. Audit events use opaque identifiers and record authority, scope, and purpose rather than copying participant content.
+              - paragraph [ref=e159]: The audit store takes a single-writer file lease. If persistence fails, it restores the prior in-memory event list so memory does not claim that failed writes reached disk. The design makes failure behavior part of the storage contract.
+          - region [ref=e160]:
+            - heading "Verification that shows what was actually checked" [level=2] [ref=e162]
+            - generic [ref=e163]:
+              - paragraph [ref=e164]: The supplied October 7, 2026 verification log records 1,148 passing expanded cases across six test projects and a Debug build with zero warnings under TreatWarningsAsErrors. Another 130 cases were listed across two UI-automation suites, but those suites could not complete in the non-interactive session.
+              - paragraph [ref=e165]: Four end-to-end tests passed for the core provisioning and trust chain, beginning with an empty database and exercising real cryptography and SQLite. The FlaUI harnesses inspect the realized UI Automation tree rather than just declared XAML properties. Their existence is documented; this report does not establish a full passing UI or accessibility acceptance run.
+              - paragraph [ref=e166]: The approved package also documents eight known accessibility defects, with tests that deliberately assert their current presence. A green result from those tests records a known gap; it does not mean the interface is accessible.
+          - region [ref=e167]:
+            - heading "Keeping engineering context honest" [level=2] [ref=e169]
+            - generic [ref=e170]:
+              - paragraph [ref=e171]: I maintain repository guidance for AI-assisted development that records architecture decisions, known defects, verification commands, and lessons from earlier incorrect claims. It helps keep new changes consistent and makes decisions that are adopted but not built visible.
+              - paragraph [ref=e172]: One documented negative control removed the UI-test parallelization setting, rebuilt, and observed the control test fail because the expected assembly attribute was missing. The setting was then restored. This checks that the test detects the fault it is intended to catch; it is separate from the incomplete UI-suite execution recorded on October 7.
+              - paragraph [ref=e173]: The accompanying synthetic-data recording demonstrates the current Main Office authoring workflow and House setup. The next steps are to finish review and acceptance of the administration work and complete the remaining program and reporting journeys. The architecture described here supports that direction; it is not a claim that every planned capability is implemented.
+          - region [ref=e174]:
+            - generic [ref=e175]:
+              - paragraph [ref=e176]: Implementation
+              - heading "Selected code excerpts" [level=2] [ref=e177]
+            - generic [ref=e178]:
+              - paragraph [ref=e179]: These examples show the code paths behind the design decisions described above. Open a card to inspect the complete excerpt and its notes.
+              - generic [ref=e180]:
+                - article [ref=e181]:
+                  - generic [ref=e182]:
+                    - paragraph [ref=e183]: Code excerpt / C#
+                    - heading "End-to-End Trust Chain" [level=3] [ref=e184]
+                    - paragraph [ref=e185]: Follows assignment-bound program authoring, publication, trust enrollment, and House activation from genuinely empty stores.
+                    - 'link "Supports: Two applications, one shared core" [ref=e186] [cursor=pointer]':
+                      - /url: "#case-section-1"
+                    - paragraph [ref=e187]:
+                      - generic [ref=e188]: Source
+                      - code [ref=e189]: tests/JHS.Infrastructure.Tests/CoreWorkflow1EndToEndTests.cs
+                  - figure [aria-hidden] [ref=e190]:
+                    - generic [ref=e191]:
+                      - generic [ref=e192]: Preview
+                      - generic [ref=e193]: C#
+                    - generic [ref=e194]:
+                      - generic [ref=e195]:
+                        - generic [ref=e196]: "1"
+                        - generic [ref=e197]: "2"
+                        - generic [ref=e198]: "3"
+                        - generic [ref=e199]: "4"
+                        - generic [ref=e200]: "5"
+                        - generic [ref=e201]: "6"
+                        - generic [ref=e202]: "7"
+                        - generic [ref=e203]: "8"
+                        - generic [ref=e204]: "9"
+                        - generic [ref=e205]: "10"
+                      - code [ref=e208]:
+                        - generic [ref=e209]: TransferSigningTrustArtifact trust = exporter.CreateSigningTrustArtifact();
+                        - generic [ref=e210]: Assert.Equal(mainInstallation.Id, trust.InstallationId);
+                        - generic [ref=e211]: Assert.Equal(64, trust.KeyId.Value.Length); // 256-bit fingerprint
+                        - generic [ref=e212]: ProgramProvisioningExportResult export = await exporter.ExportAsync(assignmentId);
+                        - generic [ref=e213]: CreatedProgramProvisioningPackage package = Assert.IsType<CreatedProgramProvisioningPackage>(export.Package);
+                        - generic [ref=e214]: Assert.Equal(programId, package.Header.ProgramId);
+                        - generic [ref=e215]: Assert.Equal(programVersion, package.Header.ProgramVersion);
+                        - generic [ref=e216]: Assert.Equal(houseInstallation.Id, package.Header.RecipientInstallationId);
+                  - button "End-to-End Trust Chain" [ref=e217] [cursor=pointer]:
+                    - generic [ref=e218]: Open full excerpt ↗
+                - article [ref=e219]:
+                  - generic [ref=e220]:
+                    - paragraph [ref=e221]: Code excerpt / C#
+                    - heading "Session Epoch Pattern" [level=3] [ref=e222]
+                    - paragraph [ref=e223]: Captures a session generation before awaited work, then rejects completions if a lock or sign-out changed that session.
+                    - 'link "Supports: A lock must invalidate work already in flight" [ref=e224] [cursor=pointer]':
+                      - /url: "#case-section-2"
+                    - paragraph [ref=e225]:
+                      - generic [ref=e226]: Source
+                      - code [ref=e227]: src/JHS.Application/Security/SecuritySession.cs
+                  - figure [aria-hidden] [ref=e228]:
+                    - generic [ref=e229]:
+                      - generic [ref=e230]: Preview
+                      - generic [ref=e231]: C#
+                    - generic [ref=e232]:
+                      - generic [ref=e233]:
+                        - generic [ref=e234]: "1"
+                        - generic [ref=e235]: "2"
+                        - generic [ref=e236]: "3"
+                        - generic [ref=e237]: "4"
+                        - generic [ref=e238]: "5"
+                        - generic [ref=e239]: "6"
+                        - generic [ref=e240]: "7"
+                        - generic [ref=e241]: "8"
+                        - generic [ref=e242]: "9"
+                        - generic [ref=e243]: "10"
+                      - code [ref=e246]:
+                        - generic [ref=e247]: public async Task<bool> TryRunExclusiveAsync(
+                        - generic [ref=e248]: long expectedSessionEpoch,
+                        - generic [ref=e249]: Func<Task> operation,
+                        - generic [ref=e250]: CancellationToken cancellationToken = default)
+                        - generic [ref=e251]: "{"
+                        - generic [ref=e252]: ArgumentNullException.ThrowIfNull(operation);
+                        - generic [ref=e253]: await _gate.WaitAsync(cancellationToken);
+                        - generic [ref=e254]: try
+                        - generic [ref=e255]: "{"
+                  - button "Session Epoch Pattern" [ref=e256] [cursor=pointer]:
+                    - generic [ref=e257]: Open full excerpt ↗
+                - article [ref=e258]:
+                  - generic [ref=e259]:
+                    - paragraph [ref=e260]: Code excerpt / C#
+                    - heading "Strict Parsing of Untrusted Crypto Artifacts" [level=3] [ref=e261]
+                    - paragraph [ref=e262]: Rejects unknown and duplicate fields, recomputes key fingerprints, requires canonical bytes, and clears temporary cryptographic buffers.
+                    - 'link "Supports: An incoming file must earn trust" [ref=e263] [cursor=pointer]':
+                      - /url: "#case-section-3"
+                    - paragraph [ref=e264]:
+                      - generic [ref=e265]: Source
+                      - code [ref=e266]: src/JHS.Transfer/Signing/TransferSigningTrustArtifact.cs
+                  - figure [aria-hidden] [ref=e267]:
+                    - generic [ref=e268]:
+                      - generic [ref=e269]: Preview
+                      - generic [ref=e270]: C#
+                    - generic [ref=e271]:
+                      - generic [ref=e272]:
+                        - generic [ref=e273]: "1"
+                        - generic [ref=e274]: "2"
+                        - generic [ref=e275]: "3"
+                        - generic [ref=e276]: "4"
+                        - generic [ref=e277]: "5"
+                        - generic [ref=e278]: "6"
+                        - generic [ref=e279]: "7"
+                        - generic [ref=e280]: "8"
+                        - generic [ref=e281]: "9"
+                        - generic [ref=e282]: "10"
+                      - code [ref=e285]:
+                        - generic [ref=e286]: string[] expectedProperties =
+                        - generic [ref=e287]: "["
+                        - generic [ref=e288]: "\"format\","
+                        - generic [ref=e289]: "\"formatVersion\","
+                        - generic [ref=e290]: "\"sendingInstallationId\","
+                        - generic [ref=e291]: "\"signingKeyId\","
+                        - generic [ref=e292]: "\"signatureAlgorithm\","
+                        - generic [ref=e293]: "\"signingPublicKeyBase64\""
+                        - generic [ref=e294]: "];"
+                        - generic [ref=e295]: var names = new HashSet<string>(StringComparer.Ordinal);
+                  - button "Strict Parsing of Untrusted Crypto Artifacts" [ref=e296] [cursor=pointer]:
+                    - generic [ref=e297]: Open full excerpt ↗
+                - article [ref=e298]:
+                  - generic [ref=e299]:
+                    - paragraph [ref=e300]: Code excerpt / C#
+                    - heading "Three-Phase Review → Confirm → Commit" [level=3] [ref=e301]
+                    - paragraph [ref=e302]: Keeps review non-writing, requires explicit confirmation, and separately authorizes commit while invalidating superseded reviews.
+                    - 'link "Supports: Review, confirmation, and persistence are separate" [ref=e303] [cursor=pointer]':
+                      - /url: "#case-section-4"
+                    - paragraph [ref=e304]:
+                      - generic [ref=e305]: Source
+                      - code [ref=e306]: src/JHS.Transfer/ProgramData/ProgramDataImportReviewService.cs
+                  - figure [aria-hidden] [ref=e307]:
+                    - generic [ref=e308]:
+                      - generic [ref=e309]: Preview
+                      - generic [ref=e310]: C#
+                    - generic [ref=e311]:
+                      - generic [ref=e312]:
+                        - generic [ref=e313]: "1"
+                        - generic [ref=e314]: "2"
+                        - generic [ref=e315]: "3"
+                        - generic [ref=e316]: "4"
+                        - generic [ref=e317]: "5"
+                        - generic [ref=e318]: "6"
+                        - generic [ref=e319]: "7"
+                        - generic [ref=e320]: "8"
+                        - generic [ref=e321]: "9"
+                        - generic [ref=e322]: "10"
+                      - code [ref=e325]:
+                        - generic [ref=e326]: public async Task<ProgramDataImportCommitStatus> CommitConfirmedReviewAsync(
+                        - generic [ref=e327]: Guid reviewToken,
+                        - generic [ref=e328]: CancellationToken cancellationToken = default)
+                        - generic [ref=e329]: "{"
+                        - generic [ref=e330]: // Different capability from review — cannot be short-circuited.
+                        - generic [ref=e331]: if (!await IsAuthorizedAsync(
+                        - generic [ref=e332]: AccessCapability.CommitProgramDataImports, cancellationToken))
+                        - generic [ref=e333]: "{"
+                        - generic [ref=e334]: return ProgramDataImportCommitStatus.AccessDenied;
+                        - generic [ref=e335]: "}"
+                  - button "Three-Phase Review → Confirm → Commit" [ref=e336] [cursor=pointer]:
+                    - generic [ref=e337]: Open full excerpt ↗
+                - article [ref=e338]:
+                  - generic [ref=e339]:
+                    - paragraph [ref=e340]: Code excerpt / C#
+                    - heading "Encrypted Storage & Single-Writer Audit" [level=3] [ref=e341]
+                    - paragraph [ref=e342]: Shows per-write DPAPI protection and restoring the in-memory audit list when persistence fails.
+                    - 'link "Supports: Protected storage and useful audit evidence" [ref=e343] [cursor=pointer]':
+                      - /url: "#case-section-5"
+                    - paragraph [ref=e344]:
+                      - generic [ref=e345]: Source
+                      - code [ref=e346]: src/JHS.Infrastructure/Security/WindowsCurrentUserProtectedDocumentFile.cs; src/JHS.Infrastructure/Storage/ProtectedSyntheticAuditEventStore.cs
+                  - figure [aria-hidden] [ref=e347]:
+                    - generic [ref=e348]:
+                      - generic [ref=e349]: Preview
+                      - generic [ref=e350]: C#
+                    - generic [ref=e351]:
+                      - generic [ref=e352]:
+                        - generic [ref=e353]: "1"
+                        - generic [ref=e354]: "2"
+                        - generic [ref=e355]: "3"
+                        - generic [ref=e356]: "4"
+                        - generic [ref=e357]: "5"
+                        - generic [ref=e358]: "6"
+                        - generic [ref=e359]: "7"
+                        - generic [ref=e360]: "8"
+                        - generic [ref=e361]: "9"
+                        - generic [ref=e362]: "10"
+                      - code [ref=e365]:
+                        - generic [ref=e366]: PrivacySafeAuditEvent[] previous = _events.ToArray();
+                        - generic [ref=e367]: _events.AddRange(batch);
+                        - generic [ref=e368]: if (_events.Count > MaximumEvents)
+                        - generic [ref=e369]: "{"
+                        - generic [ref=e370]: _events.RemoveRange(0, _events.Count - MaximumEvents);
+                        - generic [ref=e371]: "}"
+                        - generic [ref=e372]: try
+                        - generic [ref=e373]: "{"
+                        - generic [ref=e374]: await PersistAsync(batch.Length, cancellationToken);
+                  - button "Encrypted Storage & Single-Writer Audit" [ref=e375] [cursor=pointer]:
+                    - generic [ref=e376]: Open full excerpt ↗
+                - article [ref=e377]:
+                  - generic [ref=e378]:
+                    - paragraph [ref=e379]: Code excerpt / C#
+                    - heading "Accessibility Testing Against the Realised Automation Tree" [level=3] [ref=e380]
+                    - paragraph [ref=e381]: Reads the UI Automation tree exposed by running WPF windows and pins known gaps as testable current behavior.
+                    - 'link "Supports: Verification that shows what was actually checked" [ref=e382] [cursor=pointer]':
+                      - /url: "#case-section-6"
+                    - paragraph [ref=e383]:
+                      - generic [ref=e384]: Source
+                      - code [ref=e385]: tests/JohnHowardAdminApp.UiTests/; tests/JohnHowardHouseApp.UiTests/; tests/Shared/UiAutomationChecks.cs
+                  - figure [aria-hidden] [ref=e386]:
+                    - generic [ref=e387]:
+                      - generic [ref=e388]: Preview
+                      - generic [ref=e389]: C#
+                    - generic [ref=e390]:
+                      - generic [ref=e391]:
+                        - generic [ref=e392]: "1"
+                        - generic [ref=e393]: "2"
+                        - generic [ref=e394]: "3"
+                        - generic [ref=e395]: "4"
+                        - generic [ref=e396]: "5"
+                        - generic [ref=e397]: "6"
+                        - generic [ref=e398]: "7"
+                        - generic [ref=e399]: "8"
+                        - generic [ref=e400]: "9"
+                        - generic [ref=e401]: "10"
+                      - code [ref=e404]:
+                        - generic [ref=e405]: // A jh-admin-session-start id IS reachable…
+                        - generic [ref=e406]: Assert.Contains("jh-admin-session-start", reachable);
+                        - generic [ref=e407]: // …while the locked surface's id is NOT published, because the container has no peer.
+                        - generic [ref=e408]: Assert.DoesNotContain("jh-admin-locked-surface", reachable);
+                        - generic [ref=e409]: // A live region is present…
+                        - generic [ref=e410]: Assert.Equal(FlaUI.Core.Definitions.LiveSetting.Polite,
+                        - generic [ref=e411]: status.Properties.LiveSetting.ValueOrDefault);
+                  - button "Accessibility Testing Against the Realised Automation Tree" [ref=e412] [cursor=pointer]:
+                    - generic [ref=e413]: Open full excerpt ↗
+          - region [ref=e414]:
+            - generic [ref=e415]:
+              - paragraph [ref=e416]: Verification
+              - heading "Engineering evidence" [level=2] [ref=e417]
+            - list [ref=e419]:
+              - listitem [ref=e420]: An 80-second synthetic-data walkthrough shows program authoring, reusable fields, reporting cadence, House assignment, form preview, publication, and House setup.
+              - listitem [ref=e421]: "Approved October 7, 2026 report: six executed suites, 1,148 passing cases; two additional UI suites list 130 cases without a completed run."
+              - listitem [ref=e422]: Four passing end-to-end tests exercise the provisioning/trust chain from blank state with real cryptography and SQLite.
+              - listitem [ref=e423]: A test enforces that the two WPF shells do not reference one another.
+              - listitem [ref=e424]: Workspace entry, lock, protected recovery, and audit are complete. Administration and authoring contain accepted work, implementation under review, and remaining backlog; participant and reporting journeys remain planned.
+          - region [ref=e425]:
+            - heading "Limitations & remaining work" [level=2] [ref=e427]
+            - list [ref=e429]:
+              - listitem [ref=e430]: Participant management, recurring submissions, the full data-return workflow, aggregate reporting, retention, and rollout remain planned work.
+              - listitem [ref=e431]: The October 7 verification report describes a modified working tree. Its measurements are a dated development snapshot, not results tied to a clean published commit.
+              - listitem [ref=e432]: The two UI-automation suites were not fully executed in that report. Narrator and 200% display-scale acceptance remain outstanding.
+              - listitem [ref=e433]: Receipt manifests, atomic package commits, and a revised receipt format are architecture decisions awaiting implementation.
+              - listitem [ref=e434]: No production deployment, live authentication/key-custody approval, or compliance assessment is claimed.
+          - region [ref=e435]:
+            - generic [ref=e436]:
+              - paragraph [ref=e437]: Explore further
+              - heading "Project links" [level=2] [ref=e438]
+            - generic [ref=e439]:
+              - paragraph [ref=e440]: Watch the owner-approved application demo above. A sanitized public source repository is pending approval; the private repository is not linked.
+              - generic [ref=e441]:
+                - link "Contact Rory" [ref=e442] [cursor=pointer]:
+                  - /url: /#contact
+                - link "All projects" [ref=e443] [cursor=pointer]:
+                  - /url: /projects/
+    - generic [ref=e444]:
+      - link "Return to the portfolio" [ref=e445] [cursor=pointer]:
+        - /url: /#projects
+      - link "Back to top ↑" [ref=e446] [cursor=pointer]:
+        - /url: "#top"
+  - contentinfo [ref=e447]:
+    - generic [ref=e448]:
+      - paragraph [ref=e449]: Rory Hughes · Saint John, New Brunswick
+      - generic [ref=e450]:
+        - link "Email" [ref=e451] [cursor=pointer]:
+          - /url: mailto:hughesrory8@gmail.com
+        - link "QA Software Intern resume (Word)" [ref=e452] [cursor=pointer]:
+          - /url: /downloads/Rory-Hughes-Resume.docx
+        - link "GitHub" [ref=e453] [cursor=pointer]:
+          - /url: https://github.com/Rory-Hughes
+        - link "Back to top" [ref=e454] [cursor=pointer]:
+          - /url: "#top"
+  - generic [ref=e457]:
+    - button [ref=e458]
+    - button [ref=e464]
+    - button [ref=e468]
+    - button [ref=e473]

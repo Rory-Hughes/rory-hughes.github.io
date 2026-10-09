@@ -1,0 +1,56 @@
+[
+  {
+    "id": "end-to-end-trust-chain",
+    "title": "End-to-End Trust Chain",
+    "description": "Follows assignment-bound program authoring, publication, trust enrollment, and House activation from genuinely empty stores.",
+    "sourcePath": "tests/JHS.Infrastructure.Tests/CoreWorkflow1EndToEndTests.cs",
+    "contentPath": "src/data/john-howard-excerpts/end-to-end-trust-chain.md",
+    "previewFenceIndex": 2,
+    "afterHeading": "Two applications, one shared core"
+  },
+  {
+    "id": "session-epoch",
+    "title": "Session Epoch Pattern",
+    "description": "Captures a session generation before awaited work, then rejects completions if a lock or sign-out changed that session.",
+    "sourcePath": "src/JHS.Application/Security/SecuritySession.cs",
+    "contentPath": "src/data/john-howard-excerpts/session-epoch.md",
+    "previewFenceIndex": 2,
+    "afterHeading": "A lock must invalidate work already in flight"
+  },
+  {
+    "id": "strict-artifact-parsing",
+    "title": "Strict Parsing of Untrusted Crypto Artifacts",
+    "description": "Rejects unknown and duplicate fields, recomputes key fingerprints, requires canonical bytes, and clears temporary cryptographic buffers.",
+    "sourcePath": "src/JHS.Transfer/Signing/TransferSigningTrustArtifact.cs",
+    "contentPath": "src/data/john-howard-excerpts/strict-artifact-parsing.md",
+    "previewFenceIndex": 0,
+    "afterHeading": "An incoming file must earn trust"
+  },
+  {
+    "id": "review-confirm-commit",
+    "title": "Three-Phase Review → Confirm → Commit",
+    "description": "Keeps review non-writing, requires explicit confirmation, and separately authorizes commit while invalidating superseded reviews.",
+    "sourcePath": "src/JHS.Transfer/ProgramData/ProgramDataImportReviewService.cs",
+    "contentPath": "src/data/john-howard-excerpts/review-confirm-commit.md",
+    "previewFenceIndex": 0,
+    "afterHeading": "Review, confirmation, and persistence are separate"
+  },
+  {
+    "id": "encrypted-storage-audit",
+    "title": "Encrypted Storage & Single-Writer Audit",
+    "description": "Shows per-write DPAPI protection and restoring the in-memory audit list when persistence fails.",
+    "sourcePath": "src/JHS.Infrastructure/Security/WindowsCurrentUserProtectedDocumentFile.cs; src/JHS.Infrastructure/Storage/ProtectedSyntheticAuditEventStore.cs",
+    "contentPath": "src/data/john-howard-excerpts/encrypted-storage-audit.md",
+    "previewFenceIndex": 2,
+    "afterHeading": "Protected storage and useful audit evidence"
+  },
+  {
+    "id": "accessibility-automation-testing",
+    "title": "Accessibility Testing Against the Realised Automation Tree",
+    "description": "Reads the UI Automation tree exposed by running WPF windows and pins known gaps as testable current behavior.",
+    "sourcePath": "tests/JohnHowardAdminApp.UiTests/; tests/JohnHowardHouseApp.UiTests/; tests/Shared/UiAutomationChecks.cs",
+    "contentPath": "src/data/john-howard-excerpts/accessibility-automation-testing.md",
+    "previewFenceIndex": 0,
+    "afterHeading": "Verification that shows what was actually checked"
+  }
+]

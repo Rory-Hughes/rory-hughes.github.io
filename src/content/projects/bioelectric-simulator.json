@@ -11,7 +11,7 @@
   "stakeholders": [
     "Readers exploring computational models of cell interactions"
   ],
-  "technologies": [],
+  "technologies": ["Python", "NumPy", "Matplotlib", "pytest"],
   "statusLabel": "Research in progress",
   "currentStatus": "A learning project in progress; no reproduction or validation of the cited paper's results is claimed.",
   "publicationState": "public",
@@ -19,7 +19,7 @@
   "limitations": [
     "No documented comparison with the paper's published results is available.",
     "No validated or reproduced scientific result is claimed.",
-    "The implementation details and tools are not asserted here."
+    "The current model is limited to passive membrane and gap-junction dynamics; ion-channel behavior, gene expression, cell mechanics, and morphogenesis are outside its scope."
   ],
   "claimPolicy": [
     "Describe this as a work-in-progress learning project only.",
@@ -27,8 +27,8 @@
     "Any future result claim requires a documented comparison and clear limitations."
   ],
   "evidence": [
-    "The cited paper is the research reference for this exploratory learning project.",
-    "No documented comparison between the simulator and the paper's published results is available."
+    "The public repository implements a passive cell network in Python with NumPy, plus Euler and fourth-order Runge-Kutta integration.",
+    "The test suite checks passive-cell behavior, pairwise gap-current symmetry, stimulus boundaries, and time-step endpoints; these internal checks do not compare results with the cited paper."
   ],
   "sections": [
     {
@@ -44,8 +44,14 @@
       ]
     }
   ],
-  "links": [],
-  "linkFallback": "No public implementation repository or interactive demo has been supplied.",
+  "links": [
+    {
+      "label": "Public implementation repository",
+      "href": "https://github.com/Rory-Hughes/simple-multicellular-bioelectric-simulator",
+      "kind": "repository"
+    }
+  ],
+  "linkFallback": "The public repository is linked above; no interactive demo is available.",
   "citations": [
     {
       "title": "Top-down perspectives on cell membrane potential and protein transcription",

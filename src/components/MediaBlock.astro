@@ -1,16 +1,30 @@
 ---
 import type { z } from "zod";
 import type { projectSchema } from "../lib/content-contract.mjs";
-import { videoMimeType } from "../lib/media-policy.mjs";
+import CodeExcerptCard from "./CodeExcerptCard.astro";
+import MediaFigure from "./MediaFigure.astro";
 
 type MediaSlot = z.infer<typeof projectSchema>["media"][number];
+
+interface CodeExcerpt {
+  id: string;
+  title: string;
+  description: string;
+  sourcePath: string;
+  sourceHref?: string;
+  language: "csharp" | "kotlin" | "python";
+  previewCode: string;
+  highlightedHtml: string;
+}
 
 interface Props {
   projectSlug: string;
   media: MediaSlot;
+  codeExcerpt?: CodeExcerpt;
+  leadCodeLayout?: boolean;
 }
 
-const { projectSlug, media } = Astro.props;
+const { projectSlug, media, codeExcerpt, leadCodeLayout = false } = Astro.props;
 const portraitAssetPaths = new Set([
   "media/mileage-dashboard-trip-review.mp4",
   "media/mileage-trip-records.mp4",
@@ -18,7 +32,8 @@ const portraitAssetPaths = new Set([
   "media/mileage-settings-and-vehicles.mp4",
   "media/mileage-reports-logbook.mp4",
 ]);
-const usesPortraitFrame = media.assetPath && portraitAssetPaths.has(media.assetPath);
+const usesPortraitFrame = Boolean(media.assetPath && portraitAssetPaths.has(media.assetPath));
+const recordingLayout = projectSlug === "mileage-tracker" && Boolean(codeExcerpt) && !leadCodeLayout;
 const headingId = "media-" + projectSlug + "-" + media.id;
 const statusLabel = media.reviewStatus === "withheld"
   ? "Withheld"
@@ -28,29 +43,14 @@ const statusLabel = media.reviewStatus === "withheld"
 ---
 
 {media.availability === "published" && media.assetPath && media.altText && media.caption ? (
-  <figure class:list={["media-figure", { "media-figure--portrait": usesPortraitFrame }]}>
-    {media.kind === "video" ? (
-      <div class="media-figure__player">
-      <video controls preload="metadata" playsinline aria-label={media.altText}>
-        <source src={"/" + media.assetPath} type={videoMimeType(media.assetPath)} />
-        Your browser does not support this video. The written transcript below
-        contains the same information.
-      </video>
-      </div>
-    ) : (
-      <img src={"/" + media.assetPath} alt={media.altText} loading="lazy" decoding="async" />
-    )}
-    <figcaption>
-      <strong>{media.label}</strong>
-      <span>{media.caption}</span>
-    </figcaption>
-    {media.kind === "video" && media.transcript && (
-      <details class="transcript">
-        <summary>Read the video transcript</summary>
-        <p>{media.transcript}</p>
-      </details>
-    )}
-  </figure>
+  codeExcerpt
+    ? recordingLayout
+      ? <div class="media-demo media-demo--recording" role="group" aria-labelledby={headingId}>
+          <MediaFigure media={media} usesPortraitFrame={usesPortraitFrame} captionId={headingId} />
+          <CodeExcerptCard excerpt={codeExcerpt} recordingLayout />
+        </div>
+      : <div class:list={["media-demo", { "media-demo--lead-code": leadCodeLayout }]}><MediaFigure media={media} usesPortraitFrame={usesPortraitFrame} showCaption={!leadCodeLayout} /><CodeExcerptCard excerpt={codeExcerpt} leadLayout={leadCodeLayout} /></div>
+    : <MediaFigure media={media} usesPortraitFrame={usesPortraitFrame} />
 ) : (
   <article class="media-fallback" aria-labelledby={headingId}>
     <div class="media-fallback__topline">

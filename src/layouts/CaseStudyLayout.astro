@@ -1,13 +1,139 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
+import CodeExcerptCard from "../components/CodeExcerptCard.astro";
+import CodeExcerptDialog from "../components/CodeExcerptDialog.astro";
 import MediaBlock from "../components/MediaBlock.astro";
 import ProjectOverview from "../components/ProjectOverview.astro";
+import BoundaryNote from "../components/BoundaryNote.astro";
+import excerptCatalog from "../data/john-howard-excerpts.json";
+import mileageTrackerExcerptCatalog from "../data/mileage-tracker-excerpts.json";
+import bioelectricExcerptCatalog from "../data/bioelectric-simulator-excerpts.json";
+import accessibilityTestingSource from "../data/john-howard-excerpts/accessibility-automation-testing.md?raw";
+import encryptedStorageAuditSource from "../data/john-howard-excerpts/encrypted-storage-audit.md?raw";
+import endToEndTrustChainSource from "../data/john-howard-excerpts/end-to-end-trust-chain.md?raw";
+import reviewConfirmCommitSource from "../data/john-howard-excerpts/review-confirm-commit.md?raw";
+import sessionEpochSource from "../data/john-howard-excerpts/session-epoch.md?raw";
+import strictArtifactParsingSource from "../data/john-howard-excerpts/strict-artifact-parsing.md?raw";
+import manualTrackingSource from "../data/mileage-tracker-excerpts/manual-tracking.md?raw";
+import summaryExportSource from "../data/mileage-tracker-excerpts/summary-export.md?raw";
+import tripClassificationSource from "../data/mileage-tracker-excerpts/trip-classification.md?raw";
+import tripSuggestionSource from "../data/mileage-tracker-excerpts/trip-suggestion.md?raw";
+import vehicleOdometerSource from "../data/mileage-tracker-excerpts/vehicle-odometer.md?raw";
+import currentBalanceSource from "../data/bioelectric-simulator-excerpts/current-balance.md?raw";
+import chainAndPulseSource from "../data/bioelectric-simulator-excerpts/chain-and-pulse.md?raw";
+import numericalIntegrationSource from "../data/bioelectric-simulator-excerpts/numerical-integration.md?raw";
+import internalChecksSource from "../data/bioelectric-simulator-excerpts/internal-checks.md?raw";
+import { extractCodeBlock, extractCSharpBlock } from "../lib/code-excerpt-content.mjs";
+import { highlightCode, highlightCSharp, type ExcerptLanguage } from "../lib/code-excerpt-renderer";
 import type { PublicProfile, ProjectRecord } from "../lib/types";
 
 interface Props { profile: PublicProfile; project: ProjectRecord; }
 const { profile, project } = Astro.props;
+const excerptSources: Record<string, string> = {
+  "end-to-end-trust-chain": endToEndTrustChainSource,
+  "session-epoch": sessionEpochSource,
+  "strict-artifact-parsing": strictArtifactParsingSource,
+  "review-confirm-commit": reviewConfirmCommitSource,
+  "encrypted-storage-audit": encryptedStorageAuditSource,
+  "accessibility-automation-testing": accessibilityTestingSource,
+};
+const mileageExcerptSources: Record<string, string> = {
+  "trip-suggestion": tripSuggestionSource,
+  "trip-classification": tripClassificationSource,
+  "manual-tracking": manualTrackingSource,
+  "vehicle-odometer": vehicleOdometerSource,
+  "summary-export": summaryExportSource,
+};
+const bioelectricExcerptSources: Record<string, string> = {
+  "current-balance": currentBalanceSource,
+  "chain-and-pulse": chainAndPulseSource,
+  "numerical-integration": numericalIntegrationSource,
+  "internal-checks": internalChecksSource,
+};
+interface ExcerptMetadata {
+  id: string;
+  title: string;
+  description: string;
+  sourcePath: string;
+  sourceHref?: string;
+  contentPath: string;
+  previewFenceIndex: number;
+  afterHeading?: string;
+  mediaId?: string;
+  language?: ExcerptLanguage;
+}
+const johnHowardExcerpts = project.slug === "john-howard"
+  ? await Promise.all((excerptCatalog as ExcerptMetadata[]).map(async (excerpt) => {
+      const source = excerptSources[excerpt.id];
+      const fullPreview = extractCSharpBlock(source, excerpt.previewFenceIndex);
+      const previewCode = fullPreview.split(/\r?\n/).slice(0, 10).join("\n");
+      return { ...excerpt, language: "csharp" as const, source, previewCode, highlightedHtml: await highlightCSharp(previewCode) };
+    }))
+  : [];
+const mileageTrackerExcerpts = project.slug === "mileage-tracker"
+  ? await Promise.all((mileageTrackerExcerptCatalog as ExcerptMetadata[]).map(async (excerpt) => {
+      const source = mileageExcerptSources[excerpt.id];
+      const language = excerpt.language ?? "kotlin";
+      const fullPreview = extractCodeBlock(source, language, excerpt.previewFenceIndex);
+      const previewCode = fullPreview.split(/\r?\n/).slice(0, 10).join("\n");
+      return {
+        ...excerpt,
+        language,
+        source,
+        previewCode,
+        highlightedHtml: await highlightCode(previewCode, language),
+      };
+    }))
+  : [];
+const bioelectricExcerpts = project.slug === "bioelectric-simulator"
+  ? await Promise.all((bioelectricExcerptCatalog as ExcerptMetadata[]).map(async (excerpt) => {
+      const source = bioelectricExcerptSources[excerpt.id];
+      const language = excerpt.language ?? "python";
+      const fullPreview = extractCodeBlock(source, language, excerpt.previewFenceIndex);
+      const previewCode = fullPreview.split(/\r?\n/).slice(0, 10).join("\n");
+      return {
+        ...excerpt,
+        language,
+        source,
+        previewCode,
+        highlightedHtml: await highlightCode(previewCode, language),
+      };
+    }))
+  : [];
+const johnHowardExcerptCards = johnHowardExcerpts.map((excerpt) => {
+  const sectionIndex = project.sections.findIndex((section) => section.heading === excerpt.afterHeading);
+  return {
+    excerpt,
+    relatedSection: sectionIndex >= 0 && excerpt.afterHeading
+      ? { href: "#case-section-" + sectionIndex, label: excerpt.afterHeading }
+      : undefined,
+  };
+});
+const bioelectricExcerptCards = bioelectricExcerpts.map((excerpt) => {
+  const sectionIndex = project.sections.findIndex((section) => section.heading === excerpt.afterHeading);
+  const supportsEvidence = excerpt.afterHeading === "Engineering evidence";
+  return {
+    excerpt,
+    relatedSection: sectionIndex >= 0 && excerpt.afterHeading
+      ? { href: "#case-section-" + sectionIndex, label: excerpt.afterHeading }
+      : supportsEvidence
+        ? { href: "#evidence-heading", label: excerpt.afterHeading! }
+        : undefined,
+  };
+});
+const projectExcerptCards = project.slug === "john-howard" ? johnHowardExcerptCards : bioelectricExcerptCards;
+const codeExcerptByMediaId = new Map(mileageTrackerExcerpts.map((excerpt) => [excerpt.mediaId, excerpt]));
+const activeExcerpts = project.slug === "john-howard"
+  ? johnHowardExcerpts
+  : project.slug === "bioelectric-simulator"
+    ? bioelectricExcerpts
+    : mileageTrackerExcerpts;
 const categoryLabels = { "client-system": "Client system", "mobile-application": "Android application", "research-project": "Learning project" };
-const leadMedia = project.slug === "mileage-tracker" ? project.media.find((slot) => slot.id === "trip-capture") : undefined;
+const leadMedia = project.slug === "mileage-tracker"
+  ? project.media.find((slot) => slot.id === "overview")
+  : project.slug === "john-howard"
+    ? project.media.find((slot) => slot.id === "overview" && slot.availability === "published")
+    : undefined;
 const remainingMedia = project.media.filter((slot) => slot !== leadMedia);
 const publishedMedia = remainingMedia.filter((slot) => slot.availability === "published");
 const pendingMedia = remainingMedia.filter((slot) => slot.availability !== "published");
@@ -18,6 +144,7 @@ const contents = [
   ...(hasOverview ? [{ id: "project-overview", label: "Project overview" }] : []),
   { id: "problem-heading", label: "The problem" },
   ...project.sections.map((section, index) => ({ id: "case-section-" + index, label: section.heading })),
+  ...(projectExcerptCards.length ? [{ id: "code-excerpts-heading", label: "Code excerpts" }] : []),
   { id: "evidence-heading", label: "Engineering evidence" },
   { id: "limits-heading", label: "Limitations & remaining work" },
   ...(remainingMedia.length ? [{ id: "media-heading", label: mediaHeading }] : []),
@@ -30,48 +157,119 @@ const contents = [
   <main class="site-frame case-study-page" id="main-content" tabindex="-1">
     <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/projects/">Projects</a><span aria-hidden="true">/</span><span aria-current="page">{project.shortTitle}</span></nav>
     <article class="case-study">
-      <header class="case-study__header">
+      <header class:list={["case-study__header", { "case-study__header--mileage": project.slug === "mileage-tracker", "case-study__header--john-howard": project.slug === "john-howard", "case-study__header--bioelectric": project.slug === "bioelectric-simulator" }]}>
         <p class="eyebrow">{categoryLabels[project.category]} / Case study</p>
         <h1>{project.title}</h1>
         <p class="case-study__summary">{project.summary}</p>
+        {(project.slug === "mileage-tracker" || project.slug === "john-howard") && <BoundaryNote headingId="boundary-heading" statusLabel={project.statusLabel} currentStatus={project.currentStatus} publicationBoundary={project.publicationBoundary} />}
         <dl class="case-metadata">
           <div><dt>Role</dt><dd>{project.role}</dd></div>
           <div><dt>Technologies</dt><dd>{project.technologies.length ? project.technologies.join(", ") : "No implementation stack is asserted in this case study."}</dd></div>
           <div><dt>People or intended audience</dt><dd>{project.stakeholders.join(", ")}</dd></div>
         </dl>
-        <aside class="boundary-note" aria-labelledby="boundary-heading">
-          <h2 id="boundary-heading">Current status <span class="status-chip">{project.statusLabel}</span></h2>
-          <p>{project.currentStatus}</p><p>{project.publicationBoundary}</p>
-        </aside>
+        {project.slug !== "mileage-tracker" && project.slug !== "john-howard" && <BoundaryNote headingId="boundary-heading" statusLabel={project.statusLabel} currentStatus={project.currentStatus} publicationBoundary={project.publicationBoundary} />}
       </header>
 
-      {leadMedia && <section class="case-study__lead-media" aria-labelledby="lead-media-heading"><p class="eyebrow">Application recording</p><h2 id="lead-media-heading">Captured trips, classification, and editing</h2><MediaBlock projectSlug={project.slug} media={leadMedia} /></section>}
-      {hasOverview && <section id="project-overview" class="case-study__overview-visual" aria-label="Project overview"><ProjectOverview slug={project.slug} /></section>}
+      {project.slug === "mileage-tracker" && leadMedia && hasOverview ? (
+        <div class="case-study__lead-overview case-study__lead-overview--mileage">
+          <div class="case-study__lead-media-heading">
+            <p class="eyebrow">Application recording</p>
+            <h2 id="lead-media-heading">{leadMedia.label}</h2>
+          </div>
+          <section class="case-study__lead-media case-study__lead-media--mileage" aria-labelledby="lead-media-heading">
+            <MediaBlock projectSlug={project.slug} media={leadMedia} codeExcerpt={codeExcerptByMediaId.get(leadMedia.id)} leadCodeLayout />
+          </section>
+          <section id="project-overview" class="case-study__overview-visual" aria-label="Project overview"><ProjectOverview slug={project.slug} /></section>
+        </div>
+      ) : project.slug === "john-howard" && leadMedia && hasOverview ? (
+        <div class="case-study__lead-overview case-study__lead-overview--john-howard">
+          <section id="lead-media-heading" class="case-study__lead-media case-study__lead-media--landscape" aria-label={leadMedia.label}>
+            <MediaBlock projectSlug={project.slug} media={leadMedia} codeExcerpt={codeExcerptByMediaId.get(leadMedia.id)} />
+          </section>
+          <div class="case-study__lead-side">
+            <section id="project-overview" class="case-study__overview-visual" aria-label="Project overview"><ProjectOverview slug={project.slug} /></section>
+            {johnHowardExcerptCards.length > 0 && <div class="case-section__heading case-code-excerpts__heading"><p class="eyebrow">Implementation</p><h2 id="code-excerpts-heading">Selected code excerpts</h2><p class="case-code-excerpts__intro">These examples show code paths behind decisions described below. Click a card’s Supports link to jump to the case-study section it supports, or open the card to inspect the full excerpt.</p></div>}
+          </div>
+        </div>
+      ) : (leadMedia || hasOverview) && <div class:list={["case-study__lead-overview", { "case-study__lead-overview--paired": leadMedia && hasOverview }]}>
+        {leadMedia && <section class:list={["case-study__lead-media", { "case-study__lead-media--landscape": project.slug === "john-howard" }]} aria-labelledby="lead-media-heading"><p class="eyebrow">Application recording</p><h2 id="lead-media-heading">Watch the application walkthrough</h2><MediaBlock projectSlug={project.slug} media={leadMedia} codeExcerpt={codeExcerptByMediaId.get(leadMedia.id)} /></section>}
+        {hasOverview && <section id="project-overview" class="case-study__overview-visual" aria-label="Project overview"><ProjectOverview slug={project.slug} /></section>}
+      </div>}
+
+      {johnHowardExcerptCards.length > 0 && <section class="case-section case-code-excerpts" aria-labelledby="code-excerpts-heading">
+        <div class="case-section__content">
+          <div class="case-code-excerpts__grid">
+            {johnHowardExcerptCards.map(({ excerpt, relatedSection }) => <CodeExcerptCard excerpt={excerpt} galleryLayout relatedSection={relatedSection} />)}
+          </div>
+        </div>
+      </section>}
 
       <details class="mobile-contents">
         <summary>In this case study</summary>
         <nav aria-label="Case study contents"><ul>{contents.map((item) => <li><a href={"#" + item.id}>{item.label}</a></li>)}</ul></nav>
       </details>
+
+      {project.slug === "mileage-tracker" && remainingMedia.length > 0 && <section class="case-section case-media case-media--promoted" aria-labelledby="media-heading">
+        <div class="case-section__heading"><p class="eyebrow">Application walkthroughs</p><h2 id="media-heading">{mediaHeading}</h2></div>
+        <div class="case-section__content">
+          <p>Each recording is paired with a Kotlin excerpt from the sanitized public repository. Open an excerpt to inspect its Markdown source or follow the direct GitHub link; the case study can also be read without video.</p>
+          <div class="media-grid">{remainingMedia.map((slot) => <MediaBlock projectSlug={project.slug} media={slot} codeExcerpt={codeExcerptByMediaId.get(slot.id)} />)}</div>
+        </div>
+      </section>}
       <div class="case-study__reading">
         <aside class="contents-rail"><nav aria-label="Case study contents"><p class="eyebrow">In this case study</p><ul>{contents.map((item) => <li><a href={"#" + item.id}>{item.label}</a></li>)}</ul><a class="text-link" href="/#contact">Discuss this project <span aria-hidden="true">↗</span></a></nav></aside>
         <div class="case-study__body">
-          <section class="case-section" aria-labelledby="problem-heading"><p class="eyebrow">Overview</p><h2 id="problem-heading">The problem</h2><p>{project.problem}</p></section>
-          {project.sections.map((section, index) => <section class="case-section" aria-labelledby={"case-section-" + index}><h2 id={"case-section-" + index}>{section.heading}</h2>{section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}{section.bullets && <ul class="evidence-list">{section.bullets.map((bullet) => <li>{bullet}</li>)}</ul>}</section>)}
-          <section class="case-section case-evidence" aria-labelledby="evidence-heading"><p class="eyebrow">Verification</p><h2 id="evidence-heading">Engineering evidence</h2><ul class="evidence-list">{project.evidence.map((item) => <li>{item}</li>)}</ul></section>
-          <section class="case-section case-limits" aria-labelledby="limits-heading"><h2 id="limits-heading">Limitations &amp; remaining work</h2><ul class="evidence-list">{project.limitations.map((limitation) => <li>{limitation}</li>)}</ul></section>
-          {remainingMedia.length > 0 && <section class="case-section case-media" aria-labelledby="media-heading">
-            <p class="eyebrow">Application walkthroughs</p>
-            <h2 id="media-heading">{mediaHeading}</h2>
-            {project.slug === "john-howard" ? <>
-              {publishedMedia.length > 0 && <div class="media-grid">{publishedMedia.map((slot) => <MediaBlock projectSlug={project.slug} media={slot} />)}</div>}
-              {pendingMedia.length > 0 && <details class="pending-recordings"><summary>{pendingMedia.length} {pendingMedia.length === 1 ? "recording" : "recordings"} awaiting publication</summary><div class="media-grid">{pendingMedia.map((slot) => <MediaBlock projectSlug={project.slug} media={slot} />)}</div></details>}
-            </> : <><p>Each recording has a caption and written transcript. The case study can also be read without video.</p><div class="media-grid">{remainingMedia.map((slot) => <MediaBlock projectSlug={project.slug} media={slot} />)}</div></>}
+          <section class="case-section" aria-labelledby="problem-heading">
+            <div class="case-section__heading"><p class="eyebrow">Overview</p><h2 id="problem-heading">The problem</h2></div>
+            <div class="case-section__content"><p>{project.problem}</p></div>
+          </section>
+          {project.sections.map((section, index) => (
+              <section class="case-section" aria-labelledby={"case-section-" + index}>
+                <div class="case-section__heading"><h2 id={"case-section-" + index}>{section.heading}</h2></div>
+                <div class="case-section__content">
+                  {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+                  {section.bullets && <ul class="evidence-list">{section.bullets.map((bullet) => <li>{bullet}</li>)}</ul>}
+                </div>
+              </section>
+          ))}
+          {bioelectricExcerptCards.length > 0 && <section class="case-section case-code-excerpts" aria-labelledby="code-excerpts-heading">
+            <div class="case-section__heading"><p class="eyebrow">Implementation</p><h2 id="code-excerpts-heading">Selected code excerpts</h2></div>
+            <div class="case-section__content">
+              <p>These excerpts show how the passive model is represented, stimulated, and integrated. Each Supports link jumps to the related case-study section. The tests shown check software behavior and internal consistency; they do not compare the simulator with the cited paper’s results.</p>
+              <div class="case-code-excerpts__grid">
+                {bioelectricExcerptCards.map(({ excerpt, relatedSection }) => <CodeExcerptCard excerpt={excerpt} galleryLayout relatedSection={relatedSection} />)}
+              </div>
+            </div>
           </section>}
-          {project.citations.length > 0 && <section class="case-section case-citations" aria-labelledby="citation-heading"><p class="eyebrow">Research reference</p><h2 id="citation-heading">Source material</h2><ul>{project.citations.map((citation) => <li><a href={citation.href}>{citation.title}</a><span>{citation.authors}. {citation.publication} ({citation.year}).</span></li>)}</ul></section>}
-          <section class="case-section case-links" aria-labelledby="links-heading"><p class="eyebrow">Explore further</p><h2 id="links-heading">Project links</h2>{project.links.length > 0 ? <ul class="link-list">{project.links.map((link) => <li><a href={link.href}>{link.label} <span aria-hidden="true">↗</span></a></li>)}</ul> : <p class="link-fallback">{project.linkFallback}</p>}<div class="action-row"><a class="button button--primary" href="/#contact">Contact Rory</a><a class="button button--secondary" href="/projects/">All projects</a></div></section>
+          <section class="case-section case-evidence" aria-labelledby="evidence-heading">
+            <div class="case-section__heading"><p class="eyebrow">Verification</p><h2 id="evidence-heading">Engineering evidence</h2></div>
+            <div class="case-section__content"><ul class="evidence-list">{project.evidence.map((item) => <li>{item}</li>)}</ul></div>
+          </section>
+          <section class="case-section case-limits" aria-labelledby="limits-heading">
+            <div class="case-section__heading"><h2 id="limits-heading">Limitations &amp; remaining work</h2></div>
+            <div class="case-section__content"><ul class="evidence-list">{project.limitations.map((limitation) => <li>{limitation}</li>)}</ul></div>
+          </section>
+          {remainingMedia.length > 0 && project.slug !== "mileage-tracker" && <section class="case-section case-media" aria-labelledby="media-heading">
+            <div class="case-section__heading"><p class="eyebrow">Application walkthroughs</p><h2 id="media-heading">{mediaHeading}</h2></div>
+            <div class="case-section__content">
+            {project.slug === "john-howard" ? <>
+              {publishedMedia.length > 0 && <div class="media-grid">{publishedMedia.map((slot) => <MediaBlock projectSlug={project.slug} media={slot} codeExcerpt={codeExcerptByMediaId.get(slot.id)} />)}</div>}
+              {pendingMedia.length > 0 && <details class="pending-recordings"><summary>{pendingMedia.length} {pendingMedia.length === 1 ? "recording" : "recordings"} awaiting publication</summary><div class="media-grid">{pendingMedia.map((slot) => <MediaBlock projectSlug={project.slug} media={slot} />)}</div></details>}
+            </> : <><p>Each recording is paired with a Kotlin excerpt from the sanitized public repository. Open an excerpt to inspect its Markdown source or follow the direct GitHub link; the case study can also be read without video.</p><div class="media-grid">{remainingMedia.map((slot) => <MediaBlock projectSlug={project.slug} media={slot} codeExcerpt={codeExcerptByMediaId.get(slot.id)} />)}</div></>}
+            </div>
+          </section>}
+          {project.citations.length > 0 && <section class="case-section case-citations" aria-labelledby="citation-heading">
+            <div class="case-section__heading"><p class="eyebrow">Research reference</p><h2 id="citation-heading">Source material</h2></div>
+            <div class="case-section__content"><ul>{project.citations.map((citation) => <li><a href={citation.href}>{citation.title}</a><span>{citation.authors}. {citation.publication} ({citation.year}).</span></li>)}</ul></div>
+          </section>}
+          <section class="case-section case-links" aria-labelledby="links-heading">
+            <div class="case-section__heading"><p class="eyebrow">Explore further</p><h2 id="links-heading">Project links</h2></div>
+            <div class="case-section__content">{project.links.length > 0 ? <ul class="link-list">{project.links.map((link) => <li><a href={link.href}>{link.label} <span aria-hidden="true">↗</span></a></li>)}</ul> : <p class="link-fallback">{project.linkFallback}</p>}<div class="action-row"><a class="button button--primary" href="/#contact">Contact Rory</a><a class="button button--secondary" href="/projects/">All projects</a></div></div>
+          </section>
         </div>
       </div>
     </article>
+    {activeExcerpts.length > 0 && <CodeExcerptDialog excerpts={activeExcerpts} projectTitle={project.shortTitle} projectSlug={project.slug} />}
     <div class="case-study__back"><a href="/#projects">Return to the portfolio</a><a href="#top">Back to top ↑</a></div>
   </main>
 </BaseLayout>

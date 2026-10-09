@@ -159,8 +159,23 @@ for (const sectionId of ["about", "skills", "projects", "experience", "education
 }
 
 const johnHtml = await readFile(path.join(outputDirectory, "projects", "john-howard", "index.html"), "utf8");
-assert.match(johnHtml, /public demo and sanitized repository are pending approval/i);
+assert.match(johnHtml, /sanitized public source repository is pending approval/i);
 assert.doesNotMatch(johnHtml, /href="[^"]*(john-howard-demo|john-howard-repository)[^"]*"/i);
+const johnVideo = "media/john-howard-application-walkthrough.mp4";
+assert.equal(attributeValues(johnHtml, "src").filter((src) => src === "/" + johnVideo).length, 1, "John Howard must render the approved walkthrough exactly once.");
+assert(johnHtml.indexOf("/" + johnVideo) < johnHtml.indexOf('class="case-study__reading"'), "John Howard's walkthrough must appear before the reading body.");
+assert.match(johnHtml, /<video\b[^>]*\bcontrols/i);
+assert.doesNotMatch(johnHtml, /Read the video transcript|class="[^"]*\btranscript\b/i, "John Howard recordings must not render transcript controls.");
+
+const bioelectricHtml = await readFile(path.join(outputDirectory, "projects", "bioelectric-simulator", "index.html"), "utf8");
+assert.match(bioelectricHtml, /href="https:\/\/github\.com\/Rory-Hughes\/simple-multicellular-bioelectric-simulator"/, "Bioelectric simulator must link to its public implementation repository.");
+assert.doesNotMatch(bioelectricHtml, /No public implementation repository or interactive demo has been supplied/i);
+assert.equal([...bioelectricHtml.matchAll(/data-code-excerpt-card=/g)].length, 4, "Bioelectric simulator must render four source-backed code excerpt cards.");
+assert.match(bioelectricHtml, /Code excerpt \/ Python/i, "Bioelectric excerpts must identify their Python language.");
+const bioelectricHeader = bioelectricHtml.match(/<header\b[^>]*case-study__header--bioelectric[^>]*>[\s\S]*?<\/header\s*>/i);
+assert(bioelectricHeader, "Bioelectric simulator must use its wide header layout.");
+assert.match(bioelectricHeader[0], /class="boundary-note"/, "The research status note must remain in the header.");
+assert.match(bioelectricHtml, /tests\/test_model\.py \(lines 36–69\)/, "The excerpt cards must identify the internal test source.");
 
 const mediaAssets = await validateMediaAssets(projects, outputDirectory);
 for (const file of outputFiles) {
@@ -191,21 +206,30 @@ const mileageHtml = await readFile(path.join(outputDirectory, "projects", "milea
 const liveMileageHtml = mileageHtml.replace(/<!--[\s\S]*?-->/g, "");
 const leadSection = [...liveMileageHtml.matchAll(/<section\b([^>]*)>([\s\S]*?)<\/section\s*>/gi)]
   .find(([, attributes]) => attributeValues(attributes, "class")[0]?.split(/\s+/).includes("case-study__lead-media"));
-assert(leadSection, "MileageTracker must show its trip-capture recording near the top.");
-const leadAsset = "media/mileage-trip-records.mp4";
+assert(leadSection, "MileageTracker must show its application overview recording near the top.");
+const leadAsset = "media/mileage-dashboard-trip-review.mp4";
+const overviewSlot = mileageProject.media.find((slot) => slot.id === "overview");
+assert.equal(overviewSlot?.assetPath, leadAsset, "The lead recording must be the approved application overview asset.");
 const tripCaptureSlot = mileageProject.media.find((slot) => slot.id === "trip-capture");
-assert.equal(tripCaptureSlot?.assetPath, leadAsset, "The lead recording must be the approved trip-capture asset.");
+const tripCaptureAsset = "media/mileage-trip-records.mp4";
+assert.equal(tripCaptureSlot?.assetPath, tripCaptureAsset, "The trip-capture recording must retain its approved asset.");
 assert.deepEqual(
   tagContents(leadSection[2], "source").map((source) => attributeValues(source, "src")[0]),
   ["/" + leadAsset],
-  "The lead section must contain only the trip-capture recording.",
+  "The lead section must contain only the application overview recording.",
 );
+assert.match(leadSection[2], /media-demo--lead-code/, "The lead video and excerpt must share a joined panel.");
+assert.match(leadSection[2], /code-excerpt-card--lead/, "The lead excerpt must use its vertically stacked presentation.");
+assert.match(liveMileageHtml, /class="case-study__lead-overview case-study__lead-overview--mileage"/, "MileageTracker must use the aligned lead/overview layout.");
+assert.doesNotMatch(liveMileageHtml, /Read the video transcript|class="[^"]*\btranscript\b/i, "MileageTracker recordings must not render transcript controls.");
 const readingBodyIndex = liveMileageHtml.search(/<div\b[^>]*\bclass="[^"]*\bcase-study__body\b[^"]*"/i);
-assert(readingBodyIndex >= 0 && leadSection.index + leadSection[0].length <= readingBodyIndex, "Trip capture must appear before the reading body.");
+assert(readingBodyIndex >= 0 && leadSection.index + leadSection[0].length <= readingBodyIndex, "Application overview must appear before the reading body.");
 const remainingSection = [...liveMileageHtml.matchAll(/<section\b([^>]*)>([\s\S]*?)<\/section\s*>/gi)]
   .find(([, attributes]) => attributeValues(attributes, "class")[0]?.split(/\s+/).includes("case-media"));
 assert(remainingSection, "MileageTracker must retain its remaining recordings section.");
-assert(!attributeValues(remainingSection[2], "src").includes("/" + leadAsset), "Trip capture must not be duplicated among remaining recordings.");
+const remainingAssets = tagContents(remainingSection[2], "source").map((source) => attributeValues(source, "src")[0]);
+assert(remainingAssets.includes("/" + tripCaptureAsset), "Trip capture must remain among the recordings.");
+assert(!remainingAssets.includes("/" + leadAsset), "Application overview must not be duplicated among the remaining recordings.");
 const mileageFigures = [...liveMileageHtml.matchAll(/<figure\b([^>]*)>([\s\S]*?)<\/figure\s*>/gi)]
   .filter(([, attributes]) => attributeValues(attributes, "class")[0]?.split(/\s+/).includes("media-figure"))
   .map(([, , body]) => body);
@@ -226,13 +250,13 @@ for (const slot of mileageVideoSlots) {
   assert.equal(attributeValues(videoTag, "aria-label")[0]?.trim(), slot.altText, slot.assetPath + " must have its own accessible name.");
 
   const captions = [...figure.matchAll(/<figcaption\b[^>]*>([\s\S]*?)<\/figcaption\s*>/gi)];
-  assert.equal(captions.length, 1, slot.assetPath + " must have exactly one caption.");
-  assert(captions[0][1].includes(slot.label) && captions[0][1].includes(slot.caption), slot.assetPath + " must render its own caption.");
-
-  const transcripts = [...figure.matchAll(/<details\b([^>]*)>([\s\S]*?)<\/details\s*>/gi)]
-    .filter(([, attributes]) => attributeValues(attributes, "class")[0]?.split(/\s+/).includes("transcript"));
-  assert.equal(transcripts.length, 1, slot.assetPath + " must have exactly one written transcript.");
-  assert(transcripts[0][2].includes(slot.transcript), slot.assetPath + " must render its own transcript.");
+  if (slot.id === "overview") {
+    assert.equal(captions.length, 0, slot.assetPath + " uses the excerpt card as the lead panel description.");
+  } else {
+    assert.equal(captions.length, 1, slot.assetPath + " must have exactly one caption.");
+    assert(captions[0][1].includes(slot.label) && captions[0][1].includes(slot.caption), slot.assetPath + " must render its own caption.");
+  }
+  assert.doesNotMatch(figure, /class="[^"]*\btranscript\b|Read the video transcript/i, slot.assetPath + " must not render a transcript disclosure.");
 }
 
 const fallbackArticles = [...liveMileageHtml.matchAll(/<article\b(?=[^>]*\bclass="[^"]*\bmedia-fallback\b[^"]*")[^>]*>([\s\S]*?)<\/article\s*>/gi)];

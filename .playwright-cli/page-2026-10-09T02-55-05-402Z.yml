@@ -1,0 +1,145 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "Rory Hughes home" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [aria-hidden] [ref=e6]: RH
+        - generic [ref=e7]: Rory Hughes
+      - navigation "Primary navigation" [ref=e8]:
+        - link "Projects" [ref=e9] [cursor=pointer]:
+          - /url: /projects/
+        - link "About" [ref=e10] [cursor=pointer]:
+          - /url: /about/
+        - link "Skills" [ref=e11] [cursor=pointer]:
+          - /url: /skills/
+        - link "Experience" [ref=e12] [cursor=pointer]:
+          - /url: /experience/
+        - link "Education" [ref=e13] [cursor=pointer]:
+          - /url: /education/
+        - link "Contact" [ref=e14] [cursor=pointer]:
+          - /url: /contact/
+  - main [ref=e15]:
+    - navigation "Breadcrumb" [ref=e16]:
+      - link "Home" [ref=e17] [cursor=pointer]:
+        - /url: /
+      - generic [aria-hidden] [ref=e18]: /
+      - generic [ref=e19]: Projects
+    - generic [ref=e20]:
+      - paragraph [ref=e21]: Portfolio / Project index
+      - heading "Selected projects" [level=1] [ref=e22]
+      - paragraph [ref=e23]: Android, Windows, and a learning project. Explore the workflow, implementation, and evidence behind each one.
+    - generic [ref=e24]:
+      - article [ref=e25]:
+        - generic [ref=e26]:
+          - generic [ref=e27]:
+            - paragraph [ref=e28]: Client system
+            - generic [ref=e29]: Active development
+          - heading [level=3] [ref=e30]:
+            - link "John Howard Program Management and Data Collection System" [ref=e31] [cursor=pointer]:
+              - /url: /projects/john-howard/
+          - figure "Separate application shells share rules and protected storage. Architecture and engineering examples are approved for public display using synthetic data. The prototype is not deployed or production-approved; full participant and reporting workflows remain planned." [ref=e32]:
+            - generic [ref=e33]:
+              - text: Project overview
+              - generic [ref=e34]: Offline Windows architecture
+            - generic [ref=e35]:
+              - generic [ref=e36]:
+                - generic [aria-hidden] [ref=e37]: ▦
+                - strong [ref=e38]: Main Office
+                - generic [ref=e39]: Admin WPF shell
+              - generic [ref=e40]:
+                - generic [aria-hidden] [ref=e41]: ↔
+                - strong [ref=e42]: Signed transfer files
+                - generic [ref=e43]: Manual, recipient-bound exchange
+              - generic [ref=e44]:
+                - generic [aria-hidden] [ref=e45]: ▦
+                - strong [ref=e46]: House
+                - generic [ref=e47]: Program WPF shell
+            - generic [ref=e48]:
+              - strong [ref=e49]: Shared libraries
+              - generic [ref=e50]: Presentation · Application · Domain · Infrastructure · Transfer
+          - paragraph [ref=e52]: An offline Windows desktop prototype for nonprofit program operations. Separate Main Office and House apps share authorization, protected storage, and a signed file-exchange core.
+          - paragraph [ref=e53]: An 80-second synthetic-data walkthrough shows program authoring, reusable fields, reporting cadence, House assignment, form preview, publication, and House setup.
+          - paragraph [ref=e54]:
+            - generic [ref=e55]: "Technologies:"
+            - text: C# · .NET · WPF · SQLite · Windows DPAPI · xUnit · FlaUI
+          - link "Read the case study" [ref=e56] [cursor=pointer]:
+            - /url: /projects/john-howard/
+            - text: Read the case study
+            - generic [aria-hidden] [ref=e57]: ↗
+          - link "Watch the demo" [ref=e58] [cursor=pointer]:
+            - /url: /projects/john-howard/#lead-media-heading
+            - text: Watch the demo
+            - generic [aria-hidden] [ref=e59]: ▶
+      - article [ref=e60]:
+        - generic [ref=e61]:
+          - generic [ref=e62]:
+            - paragraph [ref=e63]: Android application
+            - generic [ref=e64]: Closed-beta solo foundation
+          - heading [level=3] [ref=e65]:
+            - link "MileageTracker" [ref=e66] [cursor=pointer]:
+              - /url: /projects/mileage-tracker/
+          - figure "Captured trips start unclassified. Swipe to classify, or open editable details. Closed-beta foundation with device and release gates remaining." [ref=e67]:
+            - generic [ref=e68]:
+              - text: Project overview
+              - generic [ref=e69]: Android trip workflow
+            - list [ref=e70]:
+              - listitem [ref=e71]:
+                - generic [ref=e72]:
+                  - generic [aria-hidden] [ref=e73]: ⌖
+                  - strong [ref=e74]: GPS capture
+                  - generic [ref=e75]: Automatic trips
+              - listitem [ref=e76]:
+                - generic [ref=e77]:
+                  - generic [aria-hidden] [ref=e78]: ▤
+                  - strong [ref=e79]: Local storage
+                  - generic [ref=e80]: Room & recovery
+              - listitem [ref=e81]:
+                - generic [ref=e82]:
+                  - generic [aria-hidden] [ref=e83]: ↔
+                  - strong [ref=e84]: Classification
+                  - generic [ref=e85]: Business or personal
+              - listitem [ref=e86]:
+                - generic [ref=e87]:
+                  - generic [aria-hidden] [ref=e88]: ▥
+                  - strong [ref=e89]: Reporting
+                  - generic [ref=e90]: Review & export
+          - paragraph [ref=e92]: A Kotlin Android app for mileage, vehicle records, receipts, and exports. Local trip storage and recovery are central, with optional cloud sync and a sanitized public repository.
+          - paragraph [ref=e93]: Automated unit and Android UI coverage spans validation, interrupted-trip recovery, synchronization, authentication, exports, and core screens.
+          - paragraph [ref=e94]:
+            - generic [ref=e95]: "Technologies:"
+            - text: Kotlin · Jetpack Compose · Room · Hilt · Firebase
+          - link "Read the case study" [ref=e96] [cursor=pointer]:
+            - /url: /projects/mileage-tracker/
+            - text: Read the case study
+            - generic [aria-hidden] [ref=e97]: ↗
+      - article [ref=e98]:
+        - generic [ref=e99]:
+          - generic [ref=e100]:
+            - paragraph [ref=e101]: Learning project
+            - generic [ref=e102]: Research in progress
+          - heading [level=3] [ref=e103]:
+            - link "Multicellular bioelectric simulator" [ref=e104] [cursor=pointer]:
+              - /url: /projects/bioelectric-simulator/
+          - paragraph [ref=e105]: A work-in-progress learning simulator for passive membrane voltage spreading through a chain of gap-junction-coupled cells.
+          - paragraph [ref=e106]: No implementation stack is asserted here.
+          - link "Read the case study" [ref=e107] [cursor=pointer]:
+            - /url: /projects/bioelectric-simulator/
+            - text: Read the case study
+            - generic [aria-hidden] [ref=e108]: ↗
+    - paragraph [ref=e109]:
+      - link "Return to the portfolio overview" [ref=e110] [cursor=pointer]:
+        - /url: /
+  - contentinfo [ref=e111]:
+    - generic [ref=e112]:
+      - paragraph [ref=e113]: Rory Hughes · Saint John, New Brunswick
+      - generic [ref=e114]:
+        - link "Email" [ref=e115] [cursor=pointer]:
+          - /url: mailto:hughesrory8@gmail.com
+        - link "QA Software Intern resume (Word)" [ref=e116] [cursor=pointer]:
+          - /url: /downloads/Rory-Hughes-Resume.docx
+        - link "GitHub" [ref=e117] [cursor=pointer]:
+          - /url: https://github.com/Rory-Hughes
+        - link "Back to top" [ref=e118] [cursor=pointer]:
+          - /url: "#top"

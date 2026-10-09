@@ -1,0 +1,46 @@
+[
+  {
+    "id": "current-balance",
+    "title": "Passive membrane current balance",
+    "description": "Combines leak, gap-junction, and applied current, then divides by capacitance to calculate each cell's voltage change.",
+    "sourcePath": "src/bioelectric_sim/model.py (lines 93–116)",
+    "sourceHref": "https://github.com/Rory-Hughes/simple-multicellular-bioelectric-simulator/blob/master/src/bioelectric_sim/model.py#L93-L116",
+    "contentPath": "src/data/bioelectric-simulator-excerpts/current-balance.md",
+    "previewFenceIndex": 0,
+    "afterHeading": "Scope",
+    "language": "python"
+  },
+  {
+    "id": "chain-and-pulse",
+    "title": "Neighbour-only coupling and a bounded pulse",
+    "description": "Builds a line of cells connected to immediate neighbours and applies current over a half-open time interval.",
+    "sourcePath": "src/bioelectric_sim/scenarios.py (lines 12–56)",
+    "sourceHref": "https://github.com/Rory-Hughes/simple-multicellular-bioelectric-simulator/blob/master/src/bioelectric_sim/scenarios.py#L12-L56",
+    "contentPath": "src/data/bioelectric-simulator-excerpts/chain-and-pulse.md",
+    "previewFenceIndex": 0,
+    "afterHeading": "Scope",
+    "language": "python"
+  },
+  {
+    "id": "numerical-integration",
+    "title": "Euler and RK4 time integration",
+    "description": "Supports Euler and fourth-order Runge-Kutta updates, shortening the final step when needed to land on the requested end time.",
+    "sourcePath": "src/bioelectric_sim/model.py (lines 143–205)",
+    "sourceHref": "https://github.com/Rory-Hughes/simple-multicellular-bioelectric-simulator/blob/master/src/bioelectric_sim/model.py#L143-L205",
+    "contentPath": "src/data/bioelectric-simulator-excerpts/numerical-integration.md",
+    "previewFenceIndex": 0,
+    "afterHeading": "Scope",
+    "language": "python"
+  },
+  {
+    "id": "internal-checks",
+    "title": "Tests for current balance and pulse boundaries",
+    "description": "Checks equal-and-opposite junction currents and the pulse's start and end behavior as software invariants, not as a comparison with published research.",
+    "sourcePath": "tests/test_model.py (lines 36–69)",
+    "sourceHref": "https://github.com/Rory-Hughes/simple-multicellular-bioelectric-simulator/blob/master/tests/test_model.py#L36-L69",
+    "contentPath": "src/data/bioelectric-simulator-excerpts/internal-checks.md",
+    "previewFenceIndex": 2,
+    "afterHeading": "Engineering evidence",
+    "language": "python"
+  }
+]

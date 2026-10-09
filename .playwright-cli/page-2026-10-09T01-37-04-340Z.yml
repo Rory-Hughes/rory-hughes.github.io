@@ -1,0 +1,462 @@
+- generic [active] [ref=f8e1]:
+  - link "Skip to main content" [ref=f8e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=f8e3]:
+    - generic [ref=f8e4]:
+      - link "Rory Hughes home" [ref=f8e5] [cursor=pointer]:
+        - /url: /
+        - generic [aria-hidden] [ref=f8e6]: RH
+        - generic [ref=f8e7]: Rory Hughes
+      - navigation "Primary navigation" [ref=f8e8]:
+        - link "Projects" [ref=f8e9] [cursor=pointer]:
+          - /url: /projects/
+        - link "About" [ref=f8e10] [cursor=pointer]:
+          - /url: /about/
+        - link "Skills" [ref=f8e11] [cursor=pointer]:
+          - /url: /skills/
+        - link "Experience" [ref=f8e12] [cursor=pointer]:
+          - /url: /experience/
+        - link "Education" [ref=f8e13] [cursor=pointer]:
+          - /url: /education/
+        - link "Contact" [ref=f8e14] [cursor=pointer]:
+          - /url: /contact/
+  - main [ref=f8e15]:
+    - navigation "Breadcrumb" [ref=f8e16]:
+      - link "Home" [ref=f8e17] [cursor=pointer]:
+        - /url: /
+      - generic [aria-hidden] [ref=f8e18]: /
+      - link "Projects" [ref=f8e19] [cursor=pointer]:
+        - /url: /projects/
+      - generic [aria-hidden] [ref=f8e20]: /
+      - generic [ref=f8e21]: MileageTracker
+    - article [ref=f8e22]:
+      - generic [ref=f8e23]:
+        - paragraph [ref=f8e24]: Android application / Case study
+        - heading "MileageTracker" [level=1] [ref=f8e25]
+        - paragraph [ref=f8e26]: A Kotlin Android app for mileage, vehicle records, receipts, and exports. Local trip storage and recovery are central, with optional cloud sync and a sanitized public repository.
+        - generic [ref=f8e27]:
+          - generic [ref=f8e28]:
+            - term [ref=f8e29]: Role
+            - definition [ref=f8e30]: Solo developer building the Android application and maintaining its verification and closed-beta checklist.
+          - generic [ref=f8e31]:
+            - term [ref=f8e32]: Technologies
+            - definition [ref=f8e33]: Kotlin, Jetpack Compose, Room, Hilt, Firebase
+          - generic [ref=f8e34]:
+            - term [ref=f8e35]: People or intended audience
+            - definition [ref=f8e36]: Drivers recording personal or business mileage
+        - complementary [ref=f8e37]:
+          - heading "Current status Closed-beta solo foundation" [level=2] [ref=f8e38]:
+            - text: Current status
+            - generic [ref=f8e39]: Closed-beta solo foundation
+          - paragraph [ref=f8e40]: Closed-beta solo foundation with a sanitized public source repository. Device validation and release gates remain; it is not a general release.
+          - paragraph [ref=f8e41]: The supplied screen recordings and sanitized source repository are approved for public display. Reporting features are designed to support recordkeeping; no CRA acceptance is promised.
+      - generic [ref=f8e42]:
+        - generic [ref=f8e43]:
+          - paragraph [ref=f8e44]: Application recording
+          - heading "Application overview" [level=2] [ref=f8e45]
+        - region "Application overview" [ref=f8e46]:
+          - generic [ref=f8e47]:
+            - figure [ref=f8e48]:
+              - generic "The MileageTracker dashboard followed by a trip-detail screen with a suggested business classification, route, recorded distance, category options, vehicle selection, and notes." [ref=f8e50]: Your browser does not support this video player.
+            - article [ref=f8e51]:
+              - generic [ref=f8e52]:
+                - paragraph [ref=f8e53]: Code excerpt / Kotlin
+                - heading "Apply or dismiss a trip suggestion" [level=3] [ref=f8e54]
+                - paragraph [ref=f8e55]: Loads the top trip suggestion, applies it through a use case, and refreshes the details after a successful save.
+                - paragraph [ref=f8e56]:
+                  - generic [ref=f8e57]: Source
+                  - code [ref=f8e58]: app/src/main/java/com/example/mileagetracker/ui/viewmodel/TripDetailViewModel.kt (lines 251–287)
+                  - link "Open source lines" [ref=f8e59] [cursor=pointer]:
+                    - /url: https://github.com/Rory-Hughes/MilageTracker/blob/main/app/src/main/java/com/example/mileagetracker/ui/viewmodel/TripDetailViewModel.kt#L251-L287
+                    - text: Open source lines
+                    - generic [aria-hidden] [ref=f8e60]: ↗
+              - figure [aria-hidden] [ref=f8e61]:
+                - generic [ref=f8e62]:
+                  - generic [ref=f8e63]: Preview
+                  - generic [ref=f8e64]: Kotlin
+                - generic [ref=f8e65]:
+                  - generic [ref=f8e66]:
+                    - generic [ref=f8e67]: "1"
+                    - generic [ref=f8e68]: "2"
+                    - generic [ref=f8e69]: "3"
+                    - generic [ref=f8e70]: "4"
+                    - generic [ref=f8e71]: "5"
+                    - generic [ref=f8e72]: "6"
+                    - generic [ref=f8e73]: "7"
+                    - generic [ref=f8e74]: "8"
+                    - generic [ref=f8e75]: "9"
+                    - generic [ref=f8e76]: "10"
+                  - code [ref=f8e79]:
+                    - generic [ref=f8e80]: "private fun fetchSuggestion(drive: DriveEntity) {"
+                    - generic [ref=f8e81]: "viewModelScope.launch {"
+                    - generic [ref=f8e82]: val suggestions = getTripSuggestionsUseCase(
+                    - generic [ref=f8e83]: candidate = drive,
+                    - generic [ref=f8e84]: driverUid = driverUid,
+                    - generic [ref=f8e85]: )
+                    - generic [ref=f8e86]: _topSuggestion.value = suggestions.firstOrNull()
+                    - generic [ref=f8e87]: "}"
+                    - generic [ref=f8e88]: "}"
+              - button "Apply or dismiss a trip suggestion" [ref=f8e89] [cursor=pointer]:
+                - generic [ref=f8e90]: Open full excerpt ↗
+        - region "Project overview" [ref=f8e91]:
+          - figure "Captured trips start unclassified. Swipe to classify, or open editable details. Closed-beta foundation with device and release gates remaining." [ref=f8e92]:
+            - generic [ref=f8e93]:
+              - text: Project overview
+              - generic [ref=f8e94]: Android trip workflow
+            - list [ref=f8e95]:
+              - listitem [ref=f8e96]:
+                - generic [ref=f8e97]:
+                  - generic [aria-hidden] [ref=f8e98]: ⌖
+                  - strong [ref=f8e99]: GPS capture
+                  - generic [ref=f8e100]: Automatic trips
+                - generic [aria-hidden] [ref=f8e101]: ↓
+              - listitem [ref=f8e102]:
+                - generic [ref=f8e103]:
+                  - generic [aria-hidden] [ref=f8e104]: ▤
+                  - strong [ref=f8e105]: Local storage
+                  - generic [ref=f8e106]: Room & recovery
+                - generic [aria-hidden] [ref=f8e107]: ↓
+              - listitem [ref=f8e108]:
+                - generic [ref=f8e109]:
+                  - generic [aria-hidden] [ref=f8e110]: ↔
+                  - strong [ref=f8e111]: Classification
+                  - generic [ref=f8e112]: Business or personal
+                - generic [aria-hidden] [ref=f8e113]: ↓
+              - listitem [ref=f8e114]:
+                - generic [ref=f8e115]:
+                  - generic [aria-hidden] [ref=f8e116]: ▥
+                  - strong [ref=f8e117]: Reporting
+                  - generic [ref=f8e118]: Review & export
+      - region [ref=f8e120]:
+        - generic [ref=f8e121]:
+          - paragraph [ref=f8e122]: Application walkthroughs
+          - heading "Application recordings" [level=2] [ref=f8e123]
+        - generic [ref=f8e124]:
+          - paragraph [ref=f8e125]: Each recording is paired with a Kotlin excerpt from the sanitized public repository. Open an excerpt to inspect its Markdown source or follow the direct GitHub link; the case study can also be read without video.
+          - generic [ref=f8e126]:
+            - group [ref=f8e127]:
+              - figure "Captured trips, classification, and editing Review automatically captured, unclassified trips. Swipe left or right to classify them as business or personal, or open a trip to edit its details in a form." [ref=f8e128]:
+                - generic "Automatically captured trips awaiting classification, followed by a trip-detail form with classification options, vehicle selection, notes, attachments, and a route map." [ref=f8e130]: Your browser does not support this video player.
+                - generic [ref=f8e131]:
+                  - strong [ref=f8e132]: Captured trips, classification, and editing
+                  - generic [ref=f8e133]: Review automatically captured, unclassified trips. Swipe left or right to classify them as business or personal, or open a trip to edit its details in a form.
+              - article [ref=f8e134]:
+                - generic [ref=f8e135]:
+                  - paragraph [ref=f8e136]: Code excerpt / Kotlin
+                  - heading "Swipe to classify, tap to review" [level=3] [ref=f8e137]
+                  - paragraph [ref=f8e138]: Maps each swipe direction to a business or personal classification; tapping the trip opens its editable details.
+                  - paragraph [ref=f8e139]:
+                    - generic [ref=f8e140]: Source
+                    - code [ref=f8e141]: app/src/main/java/com/example/mileagetracker/ui/screen/UnclassifiedScreen.kt (lines 240–276)
+                    - link "Open source lines" [ref=f8e142] [cursor=pointer]:
+                      - /url: https://github.com/Rory-Hughes/MilageTracker/blob/main/app/src/main/java/com/example/mileagetracker/ui/screen/UnclassifiedScreen.kt#L240-L276
+                      - text: Open source lines
+                      - generic [aria-hidden] [ref=f8e143]: ↗
+                - figure [aria-hidden] [ref=f8e144]:
+                  - generic [ref=f8e145]:
+                    - generic [ref=f8e146]: Preview
+                    - generic [ref=f8e147]: Kotlin
+                  - generic [ref=f8e148]:
+                    - generic [ref=f8e149]:
+                      - generic [ref=f8e150]: "1"
+                      - generic [ref=f8e151]: "2"
+                      - generic [ref=f8e152]: "3"
+                      - generic [ref=f8e153]: "4"
+                      - generic [ref=f8e154]: "5"
+                      - generic [ref=f8e155]: "6"
+                      - generic [ref=f8e156]: "7"
+                      - generic [ref=f8e157]: "8"
+                      - generic [ref=f8e158]: "9"
+                      - generic [ref=f8e159]: "10"
+                    - code [ref=f8e162]:
+                      - generic [ref=f8e163]: private fun UnclassifiedDriveRow(
+                      - generic [ref=f8e164]: "drive: com.example.mileagetracker.data.local.entity.DriveEntity,"
+                      - generic [ref=f8e165]: "onTripTapped: (Int) -> Unit,"
+                      - generic [ref=f8e166]: "onClassifyDrive: (drive: com.example.mileagetracker.data.local.entity.DriveEntity, isBusiness: Boolean) -> Unit,"
+                      - generic [ref=f8e167]: ") {"
+                      - generic [ref=f8e168]: val display = DriveDisplayModel.from(drive)
+                      - generic [ref=f8e169]: val dismissState = rememberSwipeToDismissBoxState(
+                      - generic [ref=f8e170]: "confirmValueChange = { value ->"
+                      - generic [ref=f8e171]: "when (value) {"
+                      - generic [ref=f8e172]: "SwipeToDismissBoxValue.StartToEnd -> {"
+                - button "Swipe to classify, tap to review" [ref=f8e173] [cursor=pointer]:
+                  - generic [ref=f8e174]: Open full excerpt ↗
+            - group [ref=f8e175]:
+              - figure "Manual trip-tracking controls Manual tracking controls ready to start; the clip does not show a completed drive." [ref=f8e176]:
+                - generic "The Track a Trip screen with a map preview and a Start Tracking control in its ready state." [ref=f8e178]: Your browser does not support this video player.
+                - generic [ref=f8e179]:
+                  - strong [ref=f8e180]: Manual trip-tracking controls
+                  - generic [ref=f8e181]: Manual tracking controls ready to start; the clip does not show a completed drive.
+              - article [ref=f8e182]:
+                - generic [ref=f8e183]:
+                  - paragraph [ref=f8e184]: Code excerpt / Kotlin
+                  - heading "Manual tracking commands" [level=3] [ref=f8e185]
+                  - paragraph [ref=f8e186]: Connects the screen's start and stop controls to a tracking command dispatcher. The video shows the ready state only.
+                  - paragraph [ref=f8e187]:
+                    - generic [ref=f8e188]: Source
+                    - code [ref=f8e189]: app/src/main/java/com/example/mileagetracker/ui/viewmodel/ManualTripControlViewModel.kt (lines 49–74)
+                    - link "Open source lines" [ref=f8e190] [cursor=pointer]:
+                      - /url: https://github.com/Rory-Hughes/MilageTracker/blob/main/app/src/main/java/com/example/mileagetracker/ui/viewmodel/ManualTripControlViewModel.kt#L49-L74
+                      - text: Open source lines
+                      - generic [aria-hidden] [ref=f8e191]: ↗
+                - figure [aria-hidden] [ref=f8e192]:
+                  - generic [ref=f8e193]:
+                    - generic [ref=f8e194]: Preview
+                    - generic [ref=f8e195]: Kotlin
+                  - generic [ref=f8e196]:
+                    - generic [ref=f8e197]:
+                      - generic [ref=f8e198]: "1"
+                      - generic [ref=f8e199]: "2"
+                      - generic [ref=f8e200]: "3"
+                      - generic [ref=f8e201]: "4"
+                      - generic [ref=f8e202]: "5"
+                      - generic [ref=f8e203]: "6"
+                      - generic [ref=f8e204]: "7"
+                      - generic [ref=f8e205]: "8"
+                      - generic [ref=f8e206]: "9"
+                      - generic [ref=f8e207]: "10"
+                    - code [ref=f8e210]:
+                      - generic [ref=f8e211]: "val trackingState: StateFlow<TrackingState> = trackingStateBus.state"
+                      - generic [ref=f8e212]: /**
+                      - generic [ref=f8e213]: "* Latest GPS fix during recording, or null between trips / before first fix."
+                      - generic [ref=f8e214]: "* Observed by [ManualTripControlScreen] to update the live map position."
+                      - generic [ref=f8e215]: "*/"
+                      - generic [ref=f8e216]: "val liveLocation: StateFlow<LatLng?> = liveLocationBus.location"
+                      - generic [ref=f8e217]: /**
+                      - generic [ref=f8e218]: "* Sends [DriveTrackingService.ACTION_MANUAL_START] to begin recording."
+                - button "Manual tracking commands" [ref=f8e219] [cursor=pointer]:
+                  - generic [ref=f8e220]: Open full excerpt ↗
+            - group [ref=f8e221]:
+              - figure "Vehicle and odometer management Owner-approved profile and vehicle settings footage, including the account email and vehicle details." [ref=f8e222]:
+                - generic "Profile and vehicle settings screens with an account email, member-since date, saved vehicles, and odometer fields." [ref=f8e224]: Your browser does not support this video player.
+                - generic [ref=f8e225]:
+                  - strong [ref=f8e226]: Vehicle and odometer management
+                  - generic [ref=f8e227]: Owner-approved profile and vehicle settings footage, including the account email and vehicle details.
+              - article [ref=f8e228]:
+                - generic [ref=f8e229]:
+                  - paragraph [ref=f8e230]: Code excerpt / Kotlin
+                  - heading "Save a vehicle with opening odometer evidence" [level=3] [ref=f8e231]
+                  - paragraph [ref=f8e232]: Persists a vehicle, then records its optional opening odometer reading and photo through the odometer use case.
+                  - paragraph [ref=f8e233]:
+                    - generic [ref=f8e234]: Source
+                    - code [ref=f8e235]: app/src/main/java/com/example/mileagetracker/ui/viewmodel/VehicleManagementViewModel.kt (lines 85–125)
+                    - link "Open source lines" [ref=f8e236] [cursor=pointer]:
+                      - /url: https://github.com/Rory-Hughes/MilageTracker/blob/main/app/src/main/java/com/example/mileagetracker/ui/viewmodel/VehicleManagementViewModel.kt#L85-L125
+                      - text: Open source lines
+                      - generic [aria-hidden] [ref=f8e237]: ↗
+                - figure [aria-hidden] [ref=f8e238]:
+                  - generic [ref=f8e239]:
+                    - generic [ref=f8e240]: Preview
+                    - generic [ref=f8e241]: Kotlin
+                  - generic [ref=f8e242]:
+                    - generic [ref=f8e243]:
+                      - generic [ref=f8e244]: "1"
+                      - generic [ref=f8e245]: "2"
+                      - generic [ref=f8e246]: "3"
+                      - generic [ref=f8e247]: "4"
+                      - generic [ref=f8e248]: "5"
+                      - generic [ref=f8e249]: "6"
+                      - generic [ref=f8e250]: "7"
+                      - generic [ref=f8e251]: "8"
+                      - generic [ref=f8e252]: "9"
+                      - generic [ref=f8e253]: "10"
+                    - code [ref=f8e256]:
+                      - generic [ref=f8e257]: "fun saveVehicle(vehicle: VehicleEntity) {"
+                      - generic [ref=f8e258]: saveVehicle(VehicleSaveRequest(vehicle = vehicle))
+                      - generic [ref=f8e259]: "}"
+                      - generic [ref=f8e260]: "fun saveVehicle(request: VehicleSaveRequest) {"
+                      - generic [ref=f8e261]: "viewModelScope.launch {"
+                      - generic [ref=f8e262]: "try {"
+                      - generic [ref=f8e263]: val savedVehicleId = saveVehicleUseCase(request.vehicle)
+                      - generic [ref=f8e264]: saveOpeningCaptureIfNeeded(
+                      - generic [ref=f8e265]: request = request,
+                - button "Save a vehicle with opening odometer evidence" [ref=f8e266] [cursor=pointer]:
+                  - generic [ref=f8e267]: Open full excerpt ↗
+            - group [ref=f8e268]:
+              - figure "Summary and export Quarterly report view and export actions; the screen does not establish a filed or accepted tax return." [ref=f8e269]:
+                - generic "The Reports screen with reporting periods, vehicle filters, logbook and export actions, a review warning, and a period summary." [ref=f8e271]: Your browser does not support this video player.
+                - generic [ref=f8e272]:
+                  - strong [ref=f8e273]: Summary and export
+                  - generic [ref=f8e274]: Quarterly report view and export actions; the screen does not establish a filed or accepted tax return.
+              - article [ref=f8e275]:
+                - generic [ref=f8e276]:
+                  - paragraph [ref=f8e277]: Code excerpt / Kotlin
+                  - heading "Build and record a logbook export" [level=3] [ref=f8e278]
+                  - paragraph [ref=f8e279]: Chooses the PDF or CSV use case from the requested format and adds successful exports to report history.
+                  - paragraph [ref=f8e280]:
+                    - generic [ref=f8e281]: Source
+                    - code [ref=f8e282]: app/src/main/java/com/example/mileagetracker/ui/viewmodel/ExportViewModel.kt (lines 74–119)
+                    - link "Open source lines" [ref=f8e283] [cursor=pointer]:
+                      - /url: https://github.com/Rory-Hughes/MilageTracker/blob/main/app/src/main/java/com/example/mileagetracker/ui/viewmodel/ExportViewModel.kt#L74-L119
+                      - text: Open source lines
+                      - generic [aria-hidden] [ref=f8e284]: ↗
+                - figure [aria-hidden] [ref=f8e285]:
+                  - generic [ref=f8e286]:
+                    - generic [ref=f8e287]: Preview
+                    - generic [ref=f8e288]: Kotlin
+                  - generic [ref=f8e289]:
+                    - generic [ref=f8e290]:
+                      - generic [ref=f8e291]: "1"
+                      - generic [ref=f8e292]: "2"
+                      - generic [ref=f8e293]: "3"
+                      - generic [ref=f8e294]: "4"
+                      - generic [ref=f8e295]: "5"
+                      - generic [ref=f8e296]: "6"
+                      - generic [ref=f8e297]: "7"
+                      - generic [ref=f8e298]: "8"
+                      - generic [ref=f8e299]: "9"
+                      - generic [ref=f8e300]: "10"
+                    - code [ref=f8e303]:
+                      - generic [ref=f8e304]: fun exportLogbook(
+                      - generic [ref=f8e305]: "vehicleId: Int?,"
+                      - generic [ref=f8e306]: "taxYear: Int,"
+                      - generic [ref=f8e307]: "format: ExportFormat = ExportFormat.PDF,"
+                      - generic [ref=f8e308]: "categories: Set<TripCategory> = setOf(TripCategory.BUSINESS),"
+                      - generic [ref=f8e309]: "includeRouteDetails: Boolean = true,"
+                      - generic [ref=f8e310]: ") {"
+                      - generic [ref=f8e311]: if (_uiState.value is ExportUiState.Exporting) return
+                      - generic [ref=f8e312]: val request = LogbookExportRequest(
+                - button "Build and record a logbook export" [ref=f8e313] [cursor=pointer]:
+                  - generic [ref=f8e314]: Open full excerpt ↗
+      - generic [ref=f8e315]:
+        - complementary [ref=f8e316]:
+          - navigation "Case study contents" [ref=f8e317]:
+            - paragraph [ref=f8e318]: In this case study
+            - list [ref=f8e319]:
+              - listitem [ref=f8e320]:
+                - link "Application overview" [ref=f8e321] [cursor=pointer]:
+                  - /url: "#lead-media-heading"
+              - listitem [ref=f8e322]:
+                - link "Project overview" [ref=f8e323] [cursor=pointer]:
+                  - /url: "#project-overview"
+              - listitem [ref=f8e324]:
+                - link "The problem" [ref=f8e325] [cursor=pointer]:
+                  - /url: "#problem-heading"
+              - listitem [ref=f8e326]:
+                - link "The problem and my role" [ref=f8e327] [cursor=pointer]:
+                  - /url: "#case-section-0"
+              - listitem [ref=f8e328]:
+                - 'link "Architecture: screens through use cases to storage" [ref=f8e329] [cursor=pointer]':
+                  - /url: "#case-section-1"
+              - listitem [ref=f8e330]:
+                - link "Durability before connectivity" [ref=f8e331] [cursor=pointer]:
+                  - /url: "#case-section-2"
+              - listitem [ref=f8e332]:
+                - link "The application in the recordings" [ref=f8e333] [cursor=pointer]:
+                  - /url: "#case-section-3"
+              - listitem [ref=f8e334]:
+                - link "Verification and the remaining release work" [ref=f8e335] [cursor=pointer]:
+                  - /url: "#case-section-4"
+              - listitem [ref=f8e336]:
+                - link "Public source, with configuration kept separate" [ref=f8e337] [cursor=pointer]:
+                  - /url: "#case-section-5"
+              - listitem [ref=f8e338]:
+                - link "Engineering evidence" [ref=f8e339] [cursor=pointer]:
+                  - /url: "#evidence-heading"
+              - listitem [ref=f8e340]:
+                - link "Limitations & remaining work" [ref=f8e341] [cursor=pointer]:
+                  - /url: "#limits-heading"
+              - listitem [ref=f8e342]:
+                - link "Application recordings" [ref=f8e343] [cursor=pointer]:
+                  - /url: "#media-heading"
+              - listitem [ref=f8e344]:
+                - link "Project links" [ref=f8e345] [cursor=pointer]:
+                  - /url: "#links-heading"
+            - link "Discuss this project" [ref=f8e346] [cursor=pointer]:
+              - /url: /#contact
+              - text: Discuss this project
+              - generic [aria-hidden] [ref=f8e347]: ↗
+        - generic [ref=f8e348]:
+          - region [ref=f8e349]:
+            - generic [ref=f8e350]:
+              - paragraph [ref=f8e351]: Overview
+              - heading "The problem" [level=2] [ref=f8e352]
+            - paragraph [ref=f8e354]: Drivers need a dependable way to record trip details, organize mileage, and review information for their own records without losing sight of incomplete or unverified entries.
+          - region [ref=f8e355]:
+            - heading "The problem and my role" [level=2] [ref=f8e357]
+            - generic [ref=f8e358]:
+              - paragraph [ref=f8e359]: "Drivers need more than a distance total: trips need context, vehicles need accurate odometer records, and reports need entries that can be reviewed. I am the solo developer, responsible for the Android implementation, supporting services, verification work, and beta-readiness checklist."
+              - paragraph [ref=f8e360]: The scope includes GPS trip capture, business or personal classification, multiple vehicles, annual odometer records, expense and receipt capture, and PDF/CSV reporting. The aim is useful Canadian mileage recordkeeping, with incomplete entries and release limitations kept visible.
+          - region [ref=f8e361]:
+            - 'heading "Architecture: screens through use cases to storage" [level=2] [ref=f8e363]'
+            - paragraph [ref=f8e365]: Jetpack Compose screens receive StateFlow state from Hilt-injected view models. Use cases and repository interfaces separate business behavior from Room, DataStore, and Firebase implementations. Room owns local records; optional synchronization goes through an outbox rather than direct screen-to-cloud writes.
+          - region [ref=f8e366]:
+            - heading "Durability before connectivity" [level=2] [ref=f8e368]
+            - paragraph [ref=f8e370]: Tracking checkpoints the active session, then buffers a completed trip before persistence. WorkManager retries local writes independently of network access; cloud synchronization requires connectivity and consent. Keeping those paths separate supports recovery when a drive or connection is interrupted.
+          - region [ref=f8e371]:
+            - heading "The application in the recordings" [level=2] [ref=f8e373]
+            - generic [ref=f8e374]:
+              - paragraph [ref=f8e375]: The five recordings on this page show the dashboard, automatically captured trips awaiting classification, the trip-detail form, manual tracking controls, vehicle settings, and reports. On the Trips screen, swipe left or right to classify a trip as business or personal, or select it to edit its details in a form. Captions and written descriptions explain each recording.
+              - list [ref=f8e376]:
+                - listitem [ref=f8e377]: The overview shows a suggested trip classification and editable fields.
+                - listitem [ref=f8e378]: The Trips screen lists automatically captured, unclassified trips; selecting a trip opens its editable details and classification controls.
+                - listitem [ref=f8e379]: The tracking clip shows controls in their ready state; it does not demonstrate a completed drive.
+                - listitem [ref=f8e380]: Vehicle and report clips show their respective screens, rather than proving every background or export path.
+          - region [ref=f8e381]:
+            - heading "Verification and the remaining release work" [level=2] [ref=f8e383]
+            - generic [ref=f8e384]:
+              - paragraph [ref=f8e385]: The project includes unit and Android UI coverage for validation, interrupted-trip recovery, synchronization, authentication, exports, and core screens. A beta checklist distinguishes implementation evidence from device smoke tests and release approval.
+              - paragraph [ref=f8e386]: Physical-device tracking validation, complete synchronization coverage, Firebase and Google Play configuration, and release signing remain release gates. Team workflows and accounting integrations are disabled prototypes. Automated test results from the newly sanitized copy have not been re-run as part of this portfolio update.
+          - region [ref=f8e387]:
+            - heading "Public source, with configuration kept separate" [level=2] [ref=f8e389]
+            - paragraph [ref=f8e391]: The public repository is a sanitized copy with a fresh history, placeholder configuration, and a renamed example package ID. Its README documents the setup needed for a developer to supply their own configuration. The architecture and onboarding guides offer a route from the visible screens into the code.
+          - region [ref=f8e392]:
+            - generic [ref=f8e393]:
+              - paragraph [ref=f8e394]: Verification
+              - heading "Engineering evidence" [level=2] [ref=f8e395]
+            - list [ref=f8e397]:
+              - listitem [ref=f8e398]: Automated unit and Android UI coverage spans validation, interrupted-trip recovery, synchronization, authentication, exports, and core screens.
+              - listitem [ref=f8e399]: A closed-beta checklist separates implemented features, known blockers, device smoke tests, emulator-rule checks, and release gates.
+              - listitem [ref=f8e400]: Sanitized public source, architecture documentation, and a guided codebase tour are linked below.
+          - region [ref=f8e401]:
+            - heading "Limitations & remaining work" [level=2] [ref=f8e403]
+            - list [ref=f8e405]:
+              - listitem [ref=f8e406]: The project remains a closed-beta foundation with release gates still tracked.
+              - listitem [ref=f8e407]: No tax advice or CRA-acceptance promise is made.
+              - listitem [ref=f8e408]: The public screen recordings show owner-approved real trip, profile, and vehicle information; they do not change the project's closed-beta status.
+              - listitem [ref=f8e409]: The linked README uses CRA compliance language. This portfolio does not establish an independent compliance assessment or CRA acceptance.
+          - region [ref=f8e410]:
+            - generic [ref=f8e411]:
+              - paragraph [ref=f8e412]: Explore further
+              - heading "Project links" [level=2] [ref=f8e413]
+            - generic [ref=f8e414]:
+              - list [ref=f8e415]:
+                - listitem [ref=f8e416]:
+                  - link "Explore the MileageTracker source" [ref=f8e417] [cursor=pointer]:
+                    - /url: https://github.com/Rory-Hughes/MilageTracker
+                    - text: Explore the MileageTracker source ↗
+                - listitem [ref=f8e418]:
+                  - link "Read the architecture and trip-capture flow" [ref=f8e419] [cursor=pointer]:
+                    - /url: https://github.com/Rory-Hughes/MilageTracker/blob/main/docs/ARCHITECTURE.md
+                    - text: Read the architecture and trip-capture flow ↗
+                - listitem [ref=f8e420]:
+                  - link "Follow the codebase onboarding guide" [ref=f8e421] [cursor=pointer]:
+                    - /url: https://github.com/Rory-Hughes/MilageTracker/blob/main/docs/ONBOARDING.md
+                    - text: Follow the codebase onboarding guide ↗
+              - generic [ref=f8e422]:
+                - link "Contact Rory" [ref=f8e423] [cursor=pointer]:
+                  - /url: /#contact
+                - link "All projects" [ref=f8e424] [cursor=pointer]:
+                  - /url: /projects/
+    - generic [ref=f8e425]:
+      - link "Return to the portfolio" [ref=f8e426] [cursor=pointer]:
+        - /url: /#projects
+      - link "Back to top ↑" [ref=f8e427] [cursor=pointer]:
+        - /url: "#top"
+  - contentinfo [ref=f8e428]:
+    - generic [ref=f8e429]:
+      - paragraph [ref=f8e430]: Rory Hughes · Saint John, New Brunswick
+      - generic [ref=f8e431]:
+        - link "Email" [ref=f8e432] [cursor=pointer]:
+          - /url: mailto:hughesrory8@gmail.com
+        - link "QA Software Intern resume (Word)" [ref=f8e433] [cursor=pointer]:
+          - /url: /downloads/Rory-Hughes-Resume.docx
+        - link "GitHub" [ref=f8e434] [cursor=pointer]:
+          - /url: https://github.com/Rory-Hughes
+        - link "Back to top" [ref=f8e435] [cursor=pointer]:
+          - /url: "#top"
+  - generic [ref=f8e438]:
+    - button [ref=f8e439]
+    - button [ref=f8e445]
+    - button [ref=f8e449]
+    - button [ref=f8e454]

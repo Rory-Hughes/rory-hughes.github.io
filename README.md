@@ -44,9 +44,11 @@ precedence over its summaries: it reports 1,148 passing cases across six suites;
 dated working-tree observations, not a fresh acceptance run. Do not copy the
 package's contradictory "1,278 tests all passing" headline.
 
-John Howard recordings and public-repository destinations remain pending.
-The existing video slots can accept reviewed synthetic-data recordings with captions,
-alternative descriptions, and written transcripts. Do not publish the raw handoff,
+John Howard's owner-approved 80-second synthetic-data walkthrough is published locally
+as public/media/john-howard-application-walkthrough.mp4, unchanged from JHDemoVid3.mp4.
+It appears before the case-study reading body with a caption and written visual transcript.
+Its exact bytes are pinned in the publication-policy regression test. The public source
+repository remains pending approval. Do not publish the raw handoff,
 verification log, or internal context files as downloadable assets.
 
 See [docs/content-readiness.md](docs/content-readiness.md) for the content inventory,

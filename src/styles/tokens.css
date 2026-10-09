@@ -12,12 +12,12 @@
   --link: #263fc6;
   --focus: #3049d8;
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --text-body: 1rem;
-  --text-meta: 0.75rem;
+  --text-body: clamp(1rem, 0.98rem + 0.12vw, 1.1rem);
+  --text-meta: clamp(0.75rem, 0.73rem + 0.04vw, 0.8rem);
   --line-body: 1.7;
-  --content-max: 74rem;
-  --gutter: clamp(1rem, 4vw, 2.5rem);
-  --section-space: clamp(3rem, 7vw, 5.5rem);
+  --content-max: 92rem;
+  --gutter: clamp(1.25rem, 3vw, 3rem);
+  --section-space: clamp(3rem, 6vw, 6rem);
   --radius-sm: 0.2rem;
   --radius-md: 0.4rem;
   --shadow-soft: 0 0.8rem 2.5rem rgb(24 35 52 / 5%);

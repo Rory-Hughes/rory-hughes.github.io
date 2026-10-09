@@ -25,7 +25,7 @@
   "statusLabel": "Active development",
   "currentStatus": "Active synthetic-data prototype. Workspace security is complete; administration and program-authoring work is partly accepted and partly under review. It is not deployed or production-approved.",
   "publicationState": "public",
-  "publicationBoundary": "The case study describes approved architecture and engineering examples. All application examples use synthetic data.",
+  "publicationBoundary": "The case study and owner-approved application walkthrough use synthetic data. The recording shows development behavior in the Main Office and House apps.",
   "limitations": [
     "Participant management, recurring submissions, the full data-return workflow, aggregate reporting, retention, and rollout remain planned work.",
     "The October 7 verification report describes a modified working tree. Its measurements are a dated development snapshot, not results tied to a clean published commit.",
@@ -40,6 +40,7 @@
     "Describe automated checks as engineering evidence; do not imply accessibility, privacy, compliance, performance, or production approval."
   ],
   "evidence": [
+    "An 80-second synthetic-data walkthrough shows program authoring, reusable fields, reporting cadence, House assignment, form preview, publication, and House setup.",
     "Approved October 7, 2026 report: six executed suites, 1,148 passing cases; two additional UI suites list 130 cases without a completed run.",
     "Four passing end-to-end tests exercise the provisioning/trust chain from blank state with real cryptography and SQLite.",
     "A test enforces that the two WPF shells do not reference one another.",
@@ -106,40 +107,26 @@
       "paragraphs": [
         "I maintain repository guidance for AI-assisted development that records architecture decisions, known defects, verification commands, and lessons from earlier incorrect claims. It helps keep new changes consistent and makes decisions that are adopted but not built visible.",
         "One documented negative control removed the UI-test parallelization setting, rebuilt, and observed the control test fail because the expected assembly attribute was missing. The setting was then restored. This checks that the test detects the fault it is intended to catch; it is separate from the incomplete UI-suite execution recorded on October 7.",
-        "The next steps are to finish review and acceptance of the administration work, complete the remaining program and reporting journeys, and record representative synthetic-data workflows. The architecture described here supports that direction; it is not a claim that every planned capability is implemented."
+        "The accompanying synthetic-data recording demonstrates the current Main Office authoring workflow and House setup. The next steps are to finish review and acceptance of the administration work and complete the remaining program and reporting journeys. The architecture described here supports that direction; it is not a claim that every planned capability is implemented."
       ]
     }
   ],
   "links": [],
-  "linkFallback": "The public demo and sanitized repository are pending approval. Approved architecture and engineering examples are described above; recordings will be added when ready.",
+  "linkFallback": "Watch the owner-approved application demo above. A sanitized public source repository is pending approval; the private repository is not linked.",
   "citations": [],
   "media": [
     {
       "id": "overview",
-      "label": "Workspace entry and lock",
+      "label": "Main Office and House application walkthrough",
       "kind": "video",
-      "availability": "fallback",
-      "publicationState": "deferred",
-      "reviewStatus": "not-provided",
-      "fallbackText": "Recording planned: enter a synthetic workspace, inspect privacy-safe audit evidence, lock the application, and show that protected content clears. The session design is explained above."
-    },
-    {
-      "id": "program-workflow",
-      "label": "Program administration",
-      "kind": "video",
-      "availability": "fallback",
-      "publicationState": "deferred",
-      "reviewStatus": "not-provided",
-      "fallbackText": "Recording planned: a representative House-directory or program-authoring workflow using synthetic data. The published clip will identify the exact behavior shown and its current review status."
-    },
-    {
-      "id": "reporting-transfer",
-      "label": "Signed offline handoff",
-      "kind": "video",
-      "availability": "fallback",
-      "publicationState": "deferred",
-      "reviewStatus": "not-provided",
-      "fallbackText": "Recording planned: signing-trust confirmation and package review, with a rejection example if demonstrated. The current end-to-end test evidence is described above; no completed data-return UI is claimed."
+      "availability": "published",
+      "publicationState": "public",
+      "reviewStatus": "approved",
+      "assetPath": "media/john-howard-application-walkthrough.mp4",
+      "altText": "Synthetic-data demonstration of the John Howard Main Office program builder and House program setup.",
+      "caption": "An 80-second walkthrough of the Windows development prototype: configure a program, select reusable fields, set reporting cadence and House assignments, preview and publish a version, then inspect House setup. All examples use synthetic data.",
+      "transcript": "The opening identifies the John Howard Program Management and Data Collection System as a synthetic-data development prototype. In the Main Office app, the walkthrough opens the program builder, describes an example housing program, chooses fields from the reusable library, configures a monthly reporting cadence, and selects a House destination. The review and form-preview screens show the chosen fields and publication validation. The operator saves the draft, confirms publication, and opens the resulting immutable program version and its provisioning controls. The recording then switches to the House app, showing available program configurations, a protected signing identity, and signing-trust and package-import setup. The closing card identifies the offline Windows stack: C#, .NET, WPF, and SQLite, with two application shells and shared security and transfer foundations. The recording demonstrates authoring and setup; it does not demonstrate participant reporting, a complete data-return journey, or production acceptance.",
+      "fallbackText": "The written case study explains the authoring workflow, shared architecture, and current development limitations if video playback is unavailable."
     }
   ]
 }

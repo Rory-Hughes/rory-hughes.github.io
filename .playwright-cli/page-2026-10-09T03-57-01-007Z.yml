@@ -1,0 +1,327 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#main-content"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link "Rory Hughes home" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [aria-hidden] [ref=e6]: RH
+        - generic [ref=e7]: Rory Hughes
+      - navigation "Primary navigation" [ref=e8]:
+        - link "Projects" [ref=e9] [cursor=pointer]:
+          - /url: /projects/
+        - link "About" [ref=e10] [cursor=pointer]:
+          - /url: /about/
+        - link "Skills" [ref=e11] [cursor=pointer]:
+          - /url: /skills/
+        - link "Experience" [ref=e12] [cursor=pointer]:
+          - /url: /experience/
+        - link "Education" [ref=e13] [cursor=pointer]:
+          - /url: /education/
+        - link "Contact" [ref=e14] [cursor=pointer]:
+          - /url: /contact/
+  - main [ref=e15]:
+    - navigation "Breadcrumb" [ref=e16]:
+      - link "Home" [ref=e17] [cursor=pointer]:
+        - /url: /
+      - generic [aria-hidden] [ref=e18]: /
+      - link "Projects" [ref=e19] [cursor=pointer]:
+        - /url: /projects/
+      - generic [aria-hidden] [ref=e20]: /
+      - generic [ref=e21]: Bioelectric simulator
+    - article [ref=e22]:
+      - generic [ref=e23]:
+        - paragraph [ref=e24]: Learning project / Case study
+        - heading "Multicellular bioelectric simulator" [level=1] [ref=e25]
+        - paragraph [ref=e26]: A work-in-progress learning simulator for passive membrane voltage spreading through a chain of gap-junction-coupled cells.
+        - generic [ref=e27]:
+          - generic [ref=e28]:
+            - term [ref=e29]: Role
+            - definition [ref=e30]: Independent learning-project builder.
+          - generic [ref=e31]:
+            - term [ref=e32]: Technologies
+            - definition [ref=e33]: Python, NumPy, Matplotlib, pytest
+          - generic [ref=e34]:
+            - term [ref=e35]: People or intended audience
+            - definition [ref=e36]: Readers exploring computational models of cell interactions
+        - complementary [ref=e37]:
+          - heading "Current status Research in progress" [level=2] [ref=e38]:
+            - text: Current status
+            - generic [ref=e39]: Research in progress
+          - paragraph [ref=e40]: A learning project in progress; no reproduction or validation of the cited paper's results is claimed.
+          - paragraph [ref=e41]: This project is an independent learning exercise and must not be presented as validated research or as a reproduction of the cited paper.
+      - generic [ref=e42]:
+        - complementary [ref=e43]:
+          - navigation "Case study contents" [ref=e44]:
+            - paragraph [ref=e45]: In this case study
+            - list [ref=e46]:
+              - listitem [ref=e47]:
+                - link "The problem" [ref=e48] [cursor=pointer]:
+                  - /url: "#problem-heading"
+              - listitem [ref=e49]:
+                - link "Scope" [ref=e50] [cursor=pointer]:
+                  - /url: "#case-section-0"
+              - listitem [ref=e51]:
+                - link "Research reference and limits" [ref=e52] [cursor=pointer]:
+                  - /url: "#case-section-1"
+              - listitem [ref=e53]:
+                - link "Code excerpts" [ref=e54] [cursor=pointer]:
+                  - /url: "#code-excerpts-heading"
+              - listitem [ref=e55]:
+                - link "Engineering evidence" [ref=e56] [cursor=pointer]:
+                  - /url: "#evidence-heading"
+              - listitem [ref=e57]:
+                - link "Limitations & remaining work" [ref=e58] [cursor=pointer]:
+                  - /url: "#limits-heading"
+              - listitem [ref=e59]:
+                - link "Source material" [ref=e60] [cursor=pointer]:
+                  - /url: "#citation-heading"
+              - listitem [ref=e61]:
+                - link "Project links" [ref=e62] [cursor=pointer]:
+                  - /url: "#links-heading"
+            - link "Discuss this project" [ref=e63] [cursor=pointer]:
+              - /url: /#contact
+              - text: Discuss this project
+              - generic [aria-hidden] [ref=e64]: ↗
+        - generic [ref=e65]:
+          - region [ref=e66]:
+            - generic [ref=e67]:
+              - paragraph [ref=e68]: Overview
+              - heading "The problem" [level=2] [ref=e69]
+            - paragraph [ref=e71]: I am exploring how a small computational model can make a research description of multicellular bioelectric interactions easier to reason about.
+          - region [ref=e72]:
+            - heading "Scope" [level=2] [ref=e74]
+            - paragraph [ref=e76]: The executable learning model represents a chain of cells as passive electrical membranes coupled by gap junctions. It applies a current pulse and visualizes how membrane voltage changes and spreads over time. It does not simulate gene expression or protein transcription.
+          - region [ref=e77]:
+            - heading "Research reference and limits" [level=2] [ref=e79]
+            - paragraph [ref=e81]: The project is informed by the cited paper but is not presented as a reproduction of its simulations or findings. No documented comparison, validated output, or reproduced result is claimed.
+          - region [ref=e82]:
+            - generic [ref=e83]:
+              - paragraph [ref=e84]: Implementation
+              - heading "Selected code excerpts" [level=2] [ref=e85]
+            - generic [ref=e86]:
+              - paragraph [ref=e87]: These excerpts show how the passive model is represented, stimulated, and integrated. Each Supports link jumps to the related case-study section. The tests shown check software behavior and internal consistency; they do not compare the simulator with the cited paper’s results.
+              - generic [ref=e88]:
+                - article [ref=e89]:
+                  - generic [ref=e90]:
+                    - paragraph [ref=e91]: Code excerpt / Python
+                    - heading "Passive membrane current balance" [level=3] [ref=e92]
+                    - paragraph [ref=e93]: Combines leak, gap-junction, and applied current, then divides by capacitance to calculate each cell's voltage change.
+                    - 'link "Supports: Scope" [ref=e94] [cursor=pointer]':
+                      - /url: "#case-section-0"
+                    - paragraph [ref=e95]:
+                      - generic [ref=e96]: Source
+                      - code [ref=e97]: src/bioelectric_sim/model.py (lines 93–116)
+                      - link "Open source lines" [ref=e98] [cursor=pointer]:
+                        - /url: https://github.com/Rory-Hughes/simple-multicellular-bioelectric-simulator/blob/master/src/bioelectric_sim/model.py#L93-L116
+                        - text: Open source lines
+                        - generic [aria-hidden] [ref=e99]: ↗
+                  - figure [aria-hidden] [ref=e100]:
+                    - generic [ref=e101]:
+                      - generic [ref=e102]: Preview
+                      - generic [ref=e103]: Python
+                    - generic [ref=e104]:
+                      - generic [ref=e105]:
+                        - generic [ref=e106]: "1"
+                        - generic [ref=e107]: "2"
+                        - generic [ref=e108]: "3"
+                        - generic [ref=e109]: "4"
+                        - generic [ref=e110]: "5"
+                        - generic [ref=e111]: "6"
+                        - generic [ref=e112]: "7"
+                        - generic [ref=e113]: "8"
+                        - generic [ref=e114]: "9"
+                        - generic [ref=e115]: "10"
+                      - code [ref=e118]:
+                        - generic [ref=e119]: "def gap_current_matrix_nA(self, voltage_mV: ArrayLike) -> FloatArray:"
+                        - generic [ref=e120]: "\"\"\"Return current into cell i from cell j at matrix position [i, j].\"\"\""
+                        - generic [ref=e121]: voltage = _vector("voltage_mV", voltage_mV, self.cell_count)
+                        - generic [ref=e122]: voltage_difference = voltage[np.newaxis, :] - voltage[:, np.newaxis]
+                        - generic [ref=e123]: return self.gap_conductance_uS * voltage_difference
+                        - generic [ref=e124]: def current_components(
+                        - generic [ref=e125]: "self, voltage_mV: ArrayLike, external_current_nA: ArrayLike | None = None"
+                        - generic [ref=e126]: ") -> CurrentComponents:"
+                  - button "Passive membrane current balance" [ref=e127] [cursor=pointer]:
+                    - generic [ref=e128]: Open full excerpt ↗
+                - article [ref=e129]:
+                  - generic [ref=e130]:
+                    - paragraph [ref=e131]: Code excerpt / Python
+                    - heading "Neighbour-only coupling and a bounded pulse" [level=3] [ref=e132]
+                    - paragraph [ref=e133]: Builds a line of cells connected to immediate neighbours and applies current over a half-open time interval.
+                    - 'link "Supports: Scope" [ref=e134] [cursor=pointer]':
+                      - /url: "#case-section-0"
+                    - paragraph [ref=e135]:
+                      - generic [ref=e136]: Source
+                      - code [ref=e137]: src/bioelectric_sim/scenarios.py (lines 12–56)
+                      - link "Open source lines" [ref=e138] [cursor=pointer]:
+                        - /url: https://github.com/Rory-Hughes/simple-multicellular-bioelectric-simulator/blob/master/src/bioelectric_sim/scenarios.py#L12-L56
+                        - text: Open source lines
+                        - generic [aria-hidden] [ref=e139]: ↗
+                  - figure [aria-hidden] [ref=e140]:
+                    - generic [ref=e141]:
+                      - generic [ref=e142]: Preview
+                      - generic [ref=e143]: Python
+                    - generic [ref=e144]:
+                      - generic [ref=e145]:
+                        - generic [ref=e146]: "1"
+                        - generic [ref=e147]: "2"
+                        - generic [ref=e148]: "3"
+                        - generic [ref=e149]: "4"
+                        - generic [ref=e150]: "5"
+                        - generic [ref=e151]: "6"
+                        - generic [ref=e152]: "7"
+                        - generic [ref=e153]: "8"
+                        - generic [ref=e154]: "9"
+                        - generic [ref=e155]: "10"
+                      - code [ref=e158]:
+                        - generic [ref=e159]: def make_chain(
+                        - generic [ref=e160]: "cell_count: int = 10,"
+                        - generic [ref=e161]: "*,"
+                        - generic [ref=e162]: "capacitance_nF: float = 1.0,"
+                        - generic [ref=e163]: "leak_conductance_uS: float = 0.025,"
+                        - generic [ref=e164]: "leak_reversal_mV: float = -70.0,"
+                        - generic [ref=e165]: "gap_conductance_uS: float = 0.05,"
+                        - generic [ref=e166]: ") -> ElectricalNetwork:"
+                        - generic [ref=e167]: "\"\"\"Create a line of identical cells coupled to immediate neighbours.\"\"\""
+                        - generic [ref=e168]: "if cell_count < 1:"
+                  - button "Neighbour-only coupling and a bounded pulse" [ref=e169] [cursor=pointer]:
+                    - generic [ref=e170]: Open full excerpt ↗
+                - article [ref=e171]:
+                  - generic [ref=e172]:
+                    - paragraph [ref=e173]: Code excerpt / Python
+                    - heading "Euler and RK4 time integration" [level=3] [ref=e174]
+                    - paragraph [ref=e175]: Supports Euler and fourth-order Runge-Kutta updates, shortening the final step when needed to land on the requested end time.
+                    - 'link "Supports: Scope" [ref=e176] [cursor=pointer]':
+                      - /url: "#case-section-0"
+                    - paragraph [ref=e177]:
+                      - generic [ref=e178]: Source
+                      - code [ref=e179]: src/bioelectric_sim/model.py (lines 143–205)
+                      - link "Open source lines" [ref=e180] [cursor=pointer]:
+                        - /url: https://github.com/Rory-Hughes/simple-multicellular-bioelectric-simulator/blob/master/src/bioelectric_sim/model.py#L143-L205
+                        - text: Open source lines
+                        - generic [aria-hidden] [ref=e181]: ↗
+                  - figure [aria-hidden] [ref=e182]:
+                    - generic [ref=e183]:
+                      - generic [ref=e184]: Preview
+                      - generic [ref=e185]: Python
+                    - generic [ref=e186]:
+                      - generic [ref=e187]:
+                        - generic [ref=e188]: "1"
+                        - generic [ref=e189]: "2"
+                        - generic [ref=e190]: "3"
+                        - generic [ref=e191]: "4"
+                        - generic [ref=e192]: "5"
+                        - generic [ref=e193]: "6"
+                        - generic [ref=e194]: "7"
+                        - generic [ref=e195]: "8"
+                        - generic [ref=e196]: "9"
+                        - generic [ref=e197]: "10"
+                      - code [ref=e200]:
+                        - generic [ref=e201]: "def _time_points(duration_ms: float, dt_ms: float) -> FloatArray:"
+                        - generic [ref=e202]: "if not np.isfinite(duration_ms) or duration_ms <= 0:"
+                        - generic [ref=e203]: raise ValueError("duration_ms must be finite and positive")
+                        - generic [ref=e204]: "if not np.isfinite(dt_ms) or dt_ms <= 0:"
+                        - generic [ref=e205]: raise ValueError("dt_ms must be finite and positive")
+                        - generic [ref=e206]: full_step_count = int(np.floor(duration_ms / dt_ms))
+                        - generic [ref=e207]: points = np.arange(full_step_count + 1, dtype=float) * dt_ms
+                        - generic [ref=e208]: tolerance = np.finfo(float).eps * max(duration_ms, 1.0) * 8
+                        - generic [ref=e209]: "if duration_ms - points[-1] > tolerance:"
+                        - generic [ref=e210]: points = np.append(points, duration_ms)
+                  - button "Euler and RK4 time integration" [ref=e211] [cursor=pointer]:
+                    - generic [ref=e212]: Open full excerpt ↗
+                - article [ref=e213]:
+                  - generic [ref=e214]:
+                    - paragraph [ref=e215]: Code excerpt / Python
+                    - heading "Tests for current balance and pulse boundaries" [level=3] [ref=e216]
+                    - paragraph [ref=e217]: Checks equal-and-opposite junction currents and the pulse's start and end behavior as software invariants, not as a comparison with published research.
+                    - 'link "Supports: Engineering evidence" [ref=e218] [cursor=pointer]':
+                      - /url: "#evidence-heading"
+                    - paragraph [ref=e219]:
+                      - generic [ref=e220]: Source
+                      - code [ref=e221]: tests/test_model.py (lines 36–69)
+                      - link "Open source lines" [ref=e222] [cursor=pointer]:
+                        - /url: https://github.com/Rory-Hughes/simple-multicellular-bioelectric-simulator/blob/master/tests/test_model.py#L36-L69
+                        - text: Open source lines
+                        - generic [aria-hidden] [ref=e223]: ↗
+                  - figure [aria-hidden] [ref=e224]:
+                    - generic [ref=e225]:
+                      - generic [ref=e226]: Preview
+                      - generic [ref=e227]: Python
+                    - generic [ref=e228]:
+                      - generic [ref=e229]:
+                        - generic [ref=e230]: "1"
+                        - generic [ref=e231]: "2"
+                        - generic [ref=e232]: "3"
+                        - generic [ref=e233]: "4"
+                        - generic [ref=e234]: "5"
+                        - generic [ref=e235]: "6"
+                        - generic [ref=e236]: "7"
+                        - generic [ref=e237]: "8"
+                        - generic [ref=e238]: "9"
+                        - generic [ref=e239]: "10"
+                      - code [ref=e242]:
+                        - generic [ref=e243]: "def test_gap_current_is_pairwise_equal_and_opposite():"
+                        - generic [ref=e244]: network = make_chain(cell_count=4)
+                        - generic [ref=e245]: current = network.gap_current_matrix_nA([-70.0, -50.0, -80.0, -65.0])
+                        - generic [ref=e246]: np.testing.assert_allclose(current, -current.T, atol=1e-12)
+                        - generic [ref=e247]: assert np.sum(current) == pytest.approx(0.0, abs=1e-12)
+                        - generic [ref=e248]: "def test_gap_only_network_conserves_capacitance_weighted_voltage():"
+                        - generic [ref=e249]: network = ElectricalNetwork(
+                        - generic [ref=e250]: capacitance_nF=[1.0, 2.0, 0.5],
+                        - generic [ref=e251]: leak_conductance_uS=[0.0, 0.0, 0.0],
+                  - button "Tests for current balance and pulse boundaries" [ref=e252] [cursor=pointer]:
+                    - generic [ref=e253]: Open full excerpt ↗
+          - region [ref=e254]:
+            - generic [ref=e255]:
+              - paragraph [ref=e256]: Verification
+              - heading "Engineering evidence" [level=2] [ref=e257]
+            - list [ref=e259]:
+              - listitem [ref=e260]: The public repository implements a passive cell network in Python with NumPy, plus Euler and fourth-order Runge-Kutta integration.
+              - listitem [ref=e261]: The test suite checks passive-cell behavior, pairwise gap-current symmetry, stimulus boundaries, and time-step endpoints; these internal checks do not compare results with the cited paper.
+          - region [ref=e262]:
+            - heading "Limitations & remaining work" [level=2] [ref=e264]
+            - list [ref=e266]:
+              - listitem [ref=e267]: No documented comparison with the paper's published results is available.
+              - listitem [ref=e268]: No validated or reproduced scientific result is claimed.
+              - listitem [ref=e269]: The current model is limited to passive membrane and gap-junction dynamics; ion-channel behavior, gene expression, cell mechanics, and morphogenesis are outside its scope.
+          - region [ref=e270]:
+            - generic [ref=e271]:
+              - paragraph [ref=e272]: Research reference
+              - heading "Source material" [level=2] [ref=e273]
+            - list [ref=e275]:
+              - listitem [ref=e276]:
+                - link "Top-down perspectives on cell membrane potential and protein transcription" [ref=e277] [cursor=pointer]:
+                  - /url: https://doi.org/10.1038/s41598-025-31696-6
+                - generic [ref=e278]: Javier Cervera, Michael Levin, and Salvador Mafe. Scientific Reports (2026).
+          - region [ref=e279]:
+            - generic [ref=e280]:
+              - paragraph [ref=e281]: Explore further
+              - heading "Project links" [level=2] [ref=e282]
+            - generic [ref=e283]:
+              - list [ref=e284]:
+                - listitem [ref=e285]:
+                  - link "Public implementation repository" [ref=e286] [cursor=pointer]:
+                    - /url: https://github.com/Rory-Hughes/simple-multicellular-bioelectric-simulator
+                    - text: Public implementation repository ↗
+              - generic [ref=e287]:
+                - link "Contact Rory" [ref=e288] [cursor=pointer]:
+                  - /url: /#contact
+                - link "All projects" [ref=e289] [cursor=pointer]:
+                  - /url: /projects/
+    - generic [ref=e290]:
+      - link "Return to the portfolio" [ref=e291] [cursor=pointer]:
+        - /url: /#projects
+      - link "Back to top ↑" [ref=e292] [cursor=pointer]:
+        - /url: "#top"
+  - contentinfo [ref=e293]:
+    - generic [ref=e294]:
+      - paragraph [ref=e295]: Rory Hughes · Saint John, New Brunswick
+      - generic [ref=e296]:
+        - link "Email" [ref=e297] [cursor=pointer]:
+          - /url: mailto:hughesrory8@gmail.com
+        - link "QA Software Intern resume (Word)" [ref=e298] [cursor=pointer]:
+          - /url: /downloads/Rory-Hughes-Resume.docx
+        - link "GitHub" [ref=e299] [cursor=pointer]:
+          - /url: https://github.com/Rory-Hughes
+        - link "Back to top" [ref=e300] [cursor=pointer]:
+          - /url: "#top"

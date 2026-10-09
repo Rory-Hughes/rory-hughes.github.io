@@ -1,0 +1,98 @@
+---
+interface ExcerptSource {
+  id: string;
+  title: string;
+  source: string;
+}
+
+interface Props {
+  excerpts: ExcerptSource[];
+  projectTitle: string;
+  projectSlug: string;
+}
+const { excerpts, projectTitle, projectSlug } = Astro.props;
+const encodeBase64 = (value: string) => {
+  const bytes = new TextEncoder().encode(value);
+  let binary = "";
+  for (const byte of bytes) binary += String.fromCharCode(byte);
+  return btoa(binary);
+};
+const encodedSources = Object.fromEntries(
+  excerpts.map((excerpt) => [excerpt.id, encodeBase64(excerpt.source)]),
+);
+---
+
+<script type="application/json" id="code-excerpt-sources" set:html={JSON.stringify(encodedSources)}></script>
+
+<dialog class="code-excerpt-dialog" data-project-slug={projectSlug} aria-labelledby="code-excerpt-dialog-title" aria-describedby="code-excerpt-dialog-description">
+  <div class="code-excerpt-dialog__panel">
+    <header class="code-excerpt-dialog__header">
+      <div class="code-excerpt-dialog__heading">
+        <p class="eyebrow">{projectTitle} / Code excerpt</p>
+        <h2 id="code-excerpt-dialog-title">Code excerpt</h2>
+        <p id="code-excerpt-dialog-description">Edit this visitor-side draft. Changes are stored in this browser and never update the source repository.</p>
+      </div>
+      <div class="code-excerpt-dialog__actions">
+        <button type="button" data-excerpt-copy disabled>Copy</button>
+        <button type="button" data-excerpt-reset disabled>Reset to original</button>
+        <button type="button" class="code-excerpt-dialog__close" data-excerpt-close aria-label="Close code editor">Close</button>
+      </div>
+    </header>
+    <p class="code-excerpt-dialog__status" data-excerpt-status role="status" aria-live="polite">The original Markdown file will open in an editor.</p>
+    <div class="code-excerpt-dialog__editor-frame">
+      <div class="code-excerpt-dialog__loading" data-excerpt-loading>Preparing the editor…</div>
+      <div class="code-excerpt-dialog__editor" data-excerpt-editor></div>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  import "../scripts/code-excerpt-dialog.ts";
+</script>
+
+<style>
+  .code-excerpt-dialog { width: min(76rem, calc(100vw - 2rem)); max-width: none; height: min(92dvh, 62rem); max-height: 92dvh; padding: 0; overflow: hidden; border: 1px solid #3b4659; border-radius: 1rem; background: #111827; color: #eef3fb; box-shadow: 0 2rem 6rem rgb(6 13 25 / 55%); }
+  .code-excerpt-dialog::backdrop { background: rgb(10 18 31 / 68%); backdrop-filter: blur(3px); }
+  .code-excerpt-dialog__panel { display: grid; grid-template-rows: auto auto minmax(0, 1fr); height: 100%; }
+  .code-excerpt-dialog__header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1.25rem; padding: 1.15rem 1.3rem 0.9rem; border-bottom: 1px solid #303b4d; }
+  .code-excerpt-dialog__heading { min-width: 0; }
+  .code-excerpt-dialog__heading .eyebrow { margin: 0 0 0.45rem; color: #a7b5ff; font-size: 0.67rem; }
+  .code-excerpt-dialog__heading h2 { margin: 0; color: #f4f7fc; font-size: clamp(1.1rem, 2vw, 1.45rem); line-height: 1.25; }
+  .code-excerpt-dialog__heading > p:last-child { max-width: 70ch; margin: 0.45rem 0 0; color: #b8c2d1; font-size: 0.8rem; line-height: 1.5; }
+  .code-excerpt-dialog__actions { display: flex; flex: 0 0 auto; flex-wrap: wrap; justify-content: flex-end; gap: 0.5rem; }
+  .code-excerpt-dialog__actions button { min-height: 2.65rem; padding: 0.55rem 0.8rem; border: 1px solid #465267; border-radius: 0.55rem; background: #1b2638; color: #ecf2fb; font: inherit; font-size: 0.78rem; font-weight: 700; cursor: pointer; }
+  .code-excerpt-dialog__actions button:hover:not(:disabled) { border-color: #95a4ff; background: #273652; }
+  .code-excerpt-dialog__actions button:focus-visible { outline: 3px solid #a7b5ff; outline-offset: 2px; }
+  .code-excerpt-dialog__actions button:disabled { cursor: progress; opacity: 0.55; }
+  .code-excerpt-dialog__close { background: #263247 !important; }
+  .code-excerpt-dialog__status { min-height: 2.7rem; margin: 0; padding: 0.65rem 1.3rem; border-bottom: 1px solid #303b4d; color: #c5d1e2; font-size: 0.77rem; }
+  .code-excerpt-dialog__status[data-kind="saved"] { color: #8ce0bb; }
+  .code-excerpt-dialog__status[data-kind="warning"] { color: #ffd188; }
+  .code-excerpt-dialog__editor-frame { position: relative; min-height: 0; overflow: hidden; background: #282c34; }
+  .code-excerpt-dialog__editor { height: 100%; min-height: 0; }
+  .code-excerpt-dialog__editor :global(.cm-editor) { height: 100%; min-height: 0; color: #abb2bf; font-size: 0.86rem; }
+  .code-excerpt-dialog__editor :global(.cm-scroller) { min-height: 0; overflow: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .code-excerpt-dialog__editor :global(.cm-content) { padding: 1rem 0 4rem; }
+  .code-excerpt-dialog__editor :global(.cm-gutters) { border-right: 1px solid #3a3f4b; background: #21252b; }
+  .code-excerpt-dialog__loading { position: absolute; z-index: 1; inset: 0; display: grid; place-items: center; background: #282c34; color: #c5ceda; font-size: 0.9rem; }
+  .code-excerpt-dialog__loading[hidden] { display: none; }
+
+  @media (max-width: 720px) {
+    .code-excerpt-dialog { width: calc(100vw - 0.75rem); height: calc(100dvh - 0.75rem); max-height: calc(100dvh - 0.75rem); border-radius: 0.75rem; }
+    .code-excerpt-dialog__panel { grid-template-rows: auto auto minmax(0, 1fr); }
+    .code-excerpt-dialog__header { display: grid; gap: 0.8rem; padding: 0.95rem; }
+    .code-excerpt-dialog__actions { justify-content: flex-start; }
+    .code-excerpt-dialog__actions button { min-height: 2.75rem; }
+    .code-excerpt-dialog__status { padding-inline: 0.95rem; }
+    .code-excerpt-dialog__editor-frame, .code-excerpt-dialog__editor { min-height: 0; }
+    .code-excerpt-dialog__editor :global(.cm-editor) { height: 100%; min-height: 0; font-size: 0.78rem; }
+  }
+
+  @media (max-width: 420px) {
+    .code-excerpt-dialog { width: calc(100vw - 0.5rem); height: calc(100dvh - 0.5rem); max-height: calc(100dvh - 0.5rem); }
+    .code-excerpt-dialog__header { padding: 0.75rem; }
+    .code-excerpt-dialog__actions { display: grid; grid-template-columns: 1fr 1fr auto; width: 100%; }
+    .code-excerpt-dialog__actions button { padding-inline: 0.55rem; font-size: 0.7rem; }
+    .code-excerpt-dialog__status { padding-inline: 0.75rem; }
+  }
+</style>

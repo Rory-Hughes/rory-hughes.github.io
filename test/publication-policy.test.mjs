@@ -52,12 +52,20 @@ test("public project compilation validates stable IDs and excludes deferred reco
   assert.throws(() => compilePublicProjects([{ ...projectEntries[0], data: { ...projectEntries[0].data, unexpected: true } }]), /Unrecognized key/);
 });
 
-test("John Howard stays text-first with no fabricated demo or repository links", () => {
+test("John Howard publishes only the owner-approved walkthrough without fabricated repository links", async () => {
   const johnHoward = projectEntries.find((entry) => entry.id === "john-howard").data;
   assert.match(johnHoward.currentStatus, /synthetic-data prototype/i);
   assert.match(johnHoward.linkFallback, /pending/i);
   assert.deepEqual(johnHoward.links, []);
-  assert(johnHoward.media.every((slot) => slot.availability !== "published" && !slot.assetPath && slot.fallbackText.length >= 24));
+  const published = johnHoward.media.filter((slot) => slot.availability === "published");
+  assert.equal(published.length, 1);
+  assert.equal(published[0].assetPath, "media/john-howard-application-walkthrough.mp4");
+  assert.equal(published[0].publicationState, "public");
+  assert.equal(published[0].reviewStatus, "approved");
+  assert(published[0].altText && published[0].caption && published[0].transcript);
+  const bytes = await readFile(path.join(repositoryRoot, "public", published[0].assetPath));
+  assert.equal(bytes.length, 8701124);
+  assert.equal(createHash("sha256").update(bytes).digest("hex"), "65fc7b3093b594e72e4643a591f230705c9c1f382d3efb2364812ef90dd5a1fe");
 });
 
 test("the five approved MileageTracker recordings include classification without a redundant placeholder", async () => {
@@ -98,7 +106,7 @@ test("the five approved MileageTracker recordings include classification without
   }
   assert.deepEqual(
     await validateMediaAssets(compilePublicProjects(projectEntries), path.join(repositoryRoot, "public")),
-    expectedAssets,
+    ["media/john-howard-application-walkthrough.mp4", ...expectedAssets],
   );
 });
 
