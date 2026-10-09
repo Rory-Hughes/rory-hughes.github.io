@@ -1,7 +1,8 @@
 # Portfolio content baseline — October 7, 2026
 
 Assignment target: Friday, October 9, 2026, as supplied by Rory. The assignment rubric
-and submission instructions have not been supplied in this update.
+and portfolio critique were supplied on October 9. Submission-format instructions
+remain outside the supplied material.
 
 ## What is on the site
 
@@ -83,7 +84,7 @@ placement after Rory reviews the content.
 
 ## Before assignment submission or public release
 
-- Compare the site with the actual assignment rubric and submit the requested format.
+- Submit the portfolio in the format requested by the instructor.
 - Review wording, contact information, research ambitions, and resume framing.
 - Add the planned clips if ready; the existing written case study remains usable.
 - Review keyboard navigation, 320px reflow, zoom, and the chosen design in real browsers.
@@ -122,3 +123,56 @@ The desktop homepage was visually inspected in Chromium. The homepage and John H
 case study had no horizontal overflow at 320px; all six homepage sections were present,
 and keyboard focus reached the skip link with a visible outline. This is a focused
 local check, not the complete manual/browser/deployed acceptance gate.
+
+## October 9 critique improvements
+
+The homepage now identifies Kotlin, C#, and Python and presents concrete project
+accomplishments and responsibilities. It displays the approved application recordings
+directly on the project cards, while diagrams remain in the case studies. No review
+frames were promoted to public assets, and all six source recordings remain unchanged.
+
+The case studies begin with the problem, Rory's role, and concise accomplishments.
+Implementation examples are collapsed initially, retain the full excerpt viewer,
+and link to public source where it exists. The private-source explanation and project
+limitations remain visible. Recordings have their own captions independently of code.
+
+Relevant Fall 2026 coursework was checked against the local course materials. Skills
+now put programming languages first, include Python/NumPy/Matplotlib and Java, and
+separate introductory browser-automation exposure from demonstrated project work.
+
+Rory supplied the experience dates directly: Home Hardware October 2014 - July 2015;
+Mackies Moving July 2016 - October 2018; Boys and Girls Club September - October 2025.
+No LinkedIn URL was supplied. The profile supports adding one later without a placeholder.
+
+Rory replaced the earlier resume with Portfolio_Resume.docx and explicitly approved
+using it for both formats. The Word file is retained without content or byte changes;
+the primary PDF download is Word's native export of that same document. Each format
+has a reviewed asset manifest and build validation. The export retains all 36 nonempty
+source paragraphs and both source hyperlinks; its single page was rendered and visually
+inspected. The Word source's SHA-256 remained unchanged. Social metadata now
+includes a 1200x630 branded sharing image, and the build produces a sitemap covering
+the rendered public routes. The error page is excluded from the sitemap and marked
+noindex. Search Console indexing and deployed Lighthouse runs require the eventual
+public release; local checks do not establish those results.
+
+Local verification on October 9 passed npm run ci:validate: 47 checked files with
+no Astro diagnostics, 21 passing tests, 11 static HTML pages, a 10-page sitemap,
+and a release manifest covering 149 output files. This run used bundled Node
+24.19.0; the release workflow remains pinned to Node 24.21.0.
+
+Chromium keyboard checks verified the skip link, mobile navigation, persisted theme
+selection, and opening/closing the excerpt editor with focus returned to its trigger
+on all three case studies. Home, Skills, Contact, and the three case studies also
+had no horizontal overflow with 200% root text sizing at a 1280px viewport.
+The navigation now wraps complete links at that text size; its final header checks
+also returned zero violations or overflow in both themes at desktop and mobile widths.
+
+An axe-core sweep covered all 10 public routes in light/dark themes at 1440px and
+320px, including expanded mobile navigation and code examples. Header naming,
+dark link contrast, preview focusability, and small code links were corrected.
+All 12 updated case-study combinations then returned zero automated violations,
+page errors, or horizontal overflow; the other 28 combinations were already clean.
+This is a local Chromium check, not a certification of accessibility across browsers.
+
+FFmpeg inspection confirmed silent audio in all six unchanged recordings (maximum
+reported level -91 dB). Each complete recording retains its written visual transcript.

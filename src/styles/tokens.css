@@ -11,6 +11,21 @@
   --accent-soft: #edf0ff;
   --link: #263fc6;
   --focus: #3049d8;
+  --button-hover: #2438ab;
+  --status-text: #263ab0;
+  --overview-background: linear-gradient(135deg, #f0f3ff, #e7edfa);
+  --overview-border: #bac7eb;
+  --overview-node-background: rgb(255 255 255 / 90%);
+  --overview-label: #293d98;
+  --overview-core-background: #dfe7fb;
+  --overview-core-copy: #405273;
+  --overview-caption: #465875;
+  --contact-border: #c4cef4;
+  --case-copy: #34445a;
+  --case-evidence-border: #c4cef4;
+  --recording-background: linear-gradient(135deg, #f0f3ff, #e7edfa);
+  --player-background: #e8ecf5;
+  --media-caption-background: rgb(255 255 255 / 72%);
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --text-body: clamp(1rem, 0.98rem + 0.12vw, 1.1rem);
   --text-meta: clamp(0.75rem, 0.73rem + 0.04vw, 0.8rem);
@@ -21,4 +36,68 @@
   --radius-sm: 0.2rem;
   --radius-md: 0.4rem;
   --shadow-soft: 0 0.8rem 2.5rem rgb(24 35 52 / 5%);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --canvas: #0f1724;
+  --surface: #172233;
+  --text: #edf2fa;
+  --muted: #b4c1d3;
+  --border: #35445a;
+  --primary: #5269e9;
+  --on-primary: #ffffff;
+  --accent: #a2b1ff;
+  --accent-soft: #243252;
+  --link: #b7c3ff;
+  --focus: #a7b5ff;
+  --button-hover: #4058cf;
+  --status-text: #c4ceff;
+  --overview-background: linear-gradient(135deg, #1a2841, #22324f);
+  --overview-border: #465a80;
+  --overview-node-background: rgb(15 23 36 / 72%);
+  --overview-label: #c1ccff;
+  --overview-core-background: #263757;
+  --overview-core-copy: #c0cce0;
+  --overview-caption: #c0cce0;
+  --contact-border: #405477;
+  --case-copy: #d3ddec;
+  --case-evidence-border: #4a5d86;
+  --recording-background: linear-gradient(135deg, #1a2841, #22324f);
+  --player-background: #111c2b;
+  --media-caption-background: rgb(17 26 41 / 82%);
+  --shadow-soft: 0 0.8rem 2.5rem rgb(0 0 0 / 24%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --canvas: #0f1724;
+    --surface: #172233;
+    --text: #edf2fa;
+    --muted: #b4c1d3;
+    --border: #35445a;
+    --primary: #5269e9;
+    --on-primary: #ffffff;
+    --accent: #a2b1ff;
+    --accent-soft: #243252;
+    --link: #b7c3ff;
+    --focus: #a7b5ff;
+    --button-hover: #4058cf;
+    --status-text: #c4ceff;
+    --overview-background: linear-gradient(135deg, #1a2841, #22324f);
+    --overview-border: #465a80;
+    --overview-node-background: rgb(15 23 36 / 72%);
+    --overview-label: #c1ccff;
+    --overview-core-background: #263757;
+    --overview-core-copy: #c0cce0;
+    --overview-caption: #c0cce0;
+    --contact-border: #405477;
+    --case-copy: #d3ddec;
+    --case-evidence-border: #4a5d86;
+    --recording-background: linear-gradient(135deg, #1a2841, #22324f);
+    --player-background: #111c2b;
+    --media-caption-background: rgb(17 26 41 / 82%);
+    --shadow-soft: 0 0.8rem 2.5rem rgb(0 0 0 / 24%);
+  }
 }

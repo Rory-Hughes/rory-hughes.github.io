@@ -20,6 +20,7 @@ const { excerpt, leadLayout = false, recordingLayout = false, galleryLayout = fa
 const lineNumbers = excerpt.previewCode.split(/\r?\n/).map((_, index) => index + 1);
 const languageLabel = { csharp: "C#", kotlin: "Kotlin", python: "Python" }[excerpt.language];
 const titleId = "excerpt-title-" + excerpt.id;
+const openLabelId = "excerpt-open-" + excerpt.id;
 const descriptionId = "excerpt-description-" + excerpt.id;
 const sourceId = "excerpt-source-" + excerpt.id;
 ---
@@ -36,7 +37,7 @@ const sourceId = "excerpt-source-" + excerpt.id;
       {excerpt.sourceHref && <a href={excerpt.sourceHref} target="_blank" rel="noreferrer">Open source lines <span aria-hidden="true">↗</span></a>}
     </p>
   </div>
-  <figure class="code-excerpt-card__preview" aria-hidden="true">
+  <figure class="code-excerpt-card__preview" aria-hidden="true" inert>
     <figcaption><span>Preview</span><span>{languageLabel}</span></figcaption>
     <div class="code-excerpt-card__editor">
       <div class="code-excerpt-card__gutter">{lineNumbers.map((line) => <span>{line}</span>)}</div>
@@ -49,10 +50,10 @@ const sourceId = "excerpt-source-" + excerpt.id;
     type="button"
     data-code-excerpt-trigger
     data-excerpt-id={excerpt.id}
-    aria-labelledby={titleId}
+    aria-labelledby={openLabelId + " " + titleId}
     aria-describedby={descriptionId + " " + sourceId}
   >
-    <span class="code-excerpt-card__open-label">Open full excerpt <span aria-hidden="true">↗</span></span>
+    <span class="code-excerpt-card__open-label" id={openLabelId}>Open full excerpt <span aria-hidden="true">↗</span></span>
   </button>
 </article>
 
@@ -86,8 +87,8 @@ const sourceId = "excerpt-source-" + excerpt.id;
   .code-excerpt-card__copy .code-excerpt-card__source { display: grid; gap: 0.3rem; margin-top: 0.8rem; }
   .code-excerpt-card__source span { color: var(--text); font-size: 0.65rem; font-weight: 750; letter-spacing: 0.07em; text-transform: uppercase; }
   .code-excerpt-card__source code { overflow-wrap: anywhere; color: var(--muted); font-size: 0.67rem; line-height: 1.45; }
-  .code-excerpt-card__source a { position: relative; z-index: 2; display: inline-flex; justify-self: start; align-self: start; width: max-content; max-width: 100%; gap: 0.25rem; color: var(--primary); font-size: 0.67rem; font-weight: 700; line-height: 1.45; text-decoration: underline; text-underline-offset: 0.15em; }
-  .code-excerpt-card__context { position: relative; z-index: 2; display: inline-flex; max-width: 100%; margin-top: 0.6rem; color: var(--primary); font-size: 0.65rem; font-weight: 700; line-height: 1.4; text-decoration: underline; text-underline-offset: 0.15em; }
+  .code-excerpt-card__source a { position: relative; z-index: 2; display: inline-flex; justify-self: start; align-self: start; align-items: center; width: max-content; max-width: 100%; min-height: 44px; gap: 0.25rem; color: var(--accent); font-size: 0.75rem; font-weight: 700; line-height: 1.45; text-decoration: underline; text-underline-offset: 0.15em; }
+  .code-excerpt-card__context { position: relative; z-index: 2; display: inline-flex; align-items: center; max-width: 100%; min-height: 44px; margin-top: 0.6rem; color: var(--accent); font-size: 0.75rem; font-weight: 700; line-height: 1.4; text-decoration: underline; text-underline-offset: 0.15em; }
 
   .code-excerpt-card__preview { position: relative; min-width: 0; min-height: 11rem; margin: 0; overflow: hidden; border: 1px solid #343d4d; border-radius: 0.55rem; background: #0d1117; color: #e6edf3; }
   .code-excerpt-card__preview figcaption { display: flex; justify-content: space-between; padding: 0.55rem 0.75rem; border-bottom: 1px solid #303846; color: #a9b6c8; font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase; }

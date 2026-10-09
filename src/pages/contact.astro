@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import ProfileDetailLayout from "../layouts/ProfileDetailLayout.astro";
+import ResumeDownloads from "../components/ResumeDownloads.astro";
 import { compilePublicProfile } from "../lib/publication-compiler.mjs";
 
 const profile = compilePublicProfile(await getCollection("profile"));
@@ -20,15 +21,12 @@ const profile = compilePublicProfile(await getCollection("profile"));
         <p class="eyebrow">Contact</p>
         <h2 id="contact-detail-heading">Let's build something useful.</h2>
       </div>
-      <div class="action-row">
-        <a class="button button--primary" href={"mailto:" + profile.email}>Email Rory <span aria-hidden="true">↗</span></a>
-        <a class="button button--secondary" href={profile.resumeHref} download>QA Software Intern resume (Word) <span aria-hidden="true">↓</span></a>
-      </div>
-      <p class="resume-note">QA Software Intern resume · Word document</p>
+      <ResumeDownloads profile={profile} />
       <div class="contact-panel__details">
         <a href={"mailto:" + profile.email}>{profile.email}</a>
         <a href={profile.phoneHref}>{profile.phoneDisplay}</a>
         <a href={profile.githubUrl}>GitHub / Rory-Hughes <span aria-hidden="true">↗</span></a>
+        {profile.linkedinUrl && <a href={profile.linkedinUrl}>LinkedIn <span aria-hidden="true">↗</span></a>}
       </div>
     </div>
   </section>

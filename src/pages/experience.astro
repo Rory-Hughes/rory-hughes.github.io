@@ -24,6 +24,7 @@ const profile = compilePublicProfile(await getCollection("profile"));
         <article class="experience-item">
           <p class="eyebrow">{entry.organization} / {entry.location}</p>
           <h3>{entry.role}</h3>
+          {entry.dateLabel && <p class="experience-item__dates">{entry.dateLabel}</p>}
           <p>{entry.description}</p>
         </article>
       ))}

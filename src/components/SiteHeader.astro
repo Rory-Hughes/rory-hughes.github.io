@@ -19,24 +19,32 @@ const currentPath = Astro.url.pathname;
 
 <header class="site-header">
   <div class="site-header__inner">
-    <a class="brand" href="/" aria-label={profile.displayName + " home"}>
+    <a class="brand" href="/">
       <span class="brand__mark" aria-hidden="true">RH</span>
       <span>{profile.displayName}</span>
     </a>
 
-    <nav class="desktop-nav" aria-label="Primary navigation">
-      {links.map((link) => <a href={link.href} aria-current={currentPath === link.href ? "page" : undefined}>{link.label}</a>)}
-    </nav>
-
-    <details class="mobile-menu" data-mobile-menu>
-      <summary>
-        <span>Menu</span>
-        <span class="mobile-menu__icon" aria-hidden="true">☰</span>
-      </summary>
-      <nav aria-label="Mobile primary navigation">
+    <div class="site-header__actions">
+      <nav class="desktop-nav" aria-label="Primary navigation">
         {links.map((link) => <a href={link.href} aria-current={currentPath === link.href ? "page" : undefined}>{link.label}</a>)}
       </nav>
-    </details>
+
+      <button class="theme-toggle" type="button" aria-label="Dark mode" aria-pressed="false" data-theme-toggle>
+        <span class="theme-toggle__icon" aria-hidden="true" data-theme-toggle-icon>☾</span>
+        <span class="theme-toggle__label">Dark mode</span>
+        <span class="theme-toggle__track" aria-hidden="true"></span>
+      </button>
+
+      <details class="mobile-menu" data-mobile-menu>
+        <summary>
+          <span>Menu</span>
+          <span class="mobile-menu__icon" aria-hidden="true">☰</span>
+        </summary>
+        <nav aria-label="Mobile primary navigation">
+          {links.map((link) => <a href={link.href} aria-current={currentPath === link.href ? "page" : undefined}>{link.label}</a>)}
+        </nav>
+      </details>
+    </div>
   </div>
 </header>
 
@@ -49,4 +57,52 @@ const currentPath = Astro.url.pathname;
       });
     }
   }
+
+  const root = document.documentElement;
+  const themeButtons = document.querySelectorAll<HTMLButtonElement>("[data-theme-toggle]");
+  const themeMedia = window.matchMedia("(prefers-color-scheme: dark)");
+  const themeStorageKey = "rory-hughes-theme";
+  let hasSavedTheme = false;
+
+  try {
+    const storedTheme = window.localStorage.getItem(themeStorageKey);
+    hasSavedTheme = storedTheme === "light" || storedTheme === "dark";
+  } catch {
+    // Theme switching still works for this page if browser storage is unavailable.
+  }
+
+  const updateThemeControls = () => {
+    const darkThemeEnabled = root.dataset.theme === "dark";
+    for (const button of themeButtons) {
+      button.setAttribute("aria-pressed", String(darkThemeEnabled));
+      const icon = button.querySelector<HTMLElement>("[data-theme-toggle-icon]");
+      if (icon) icon.textContent = darkThemeEnabled ? "☀" : "☾";
+    }
+  };
+
+  const applyTheme = (theme: "light" | "dark", savePreference = false) => {
+    root.dataset.theme = theme;
+    root.style.colorScheme = theme;
+    document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#0f1724" : "#f7f8fc");
+    if (savePreference) {
+      try {
+        window.localStorage.setItem(themeStorageKey, theme);
+        hasSavedTheme = true;
+      } catch {
+        // Keep the selected theme for this page when persistence is unavailable.
+      }
+    }
+    updateThemeControls();
+  };
+
+  updateThemeControls();
+  for (const button of themeButtons) {
+    button.addEventListener("click", () => {
+      applyTheme(root.dataset.theme === "dark" ? "light" : "dark", true);
+    });
+  }
+
+  themeMedia.addEventListener("change", (event) => {
+    if (!hasSavedTheme) applyTheme(event.matches ? "dark" : "light");
+  });
 </script>

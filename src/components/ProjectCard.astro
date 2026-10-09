@@ -1,6 +1,6 @@
 ---
 import type { ProjectRecord } from "../lib/types";
-import ProjectOverview from "./ProjectOverview.astro";
+import { videoMimeType } from "../lib/media-policy.mjs";
 
 interface Props {
   project: ProjectRecord;
@@ -8,6 +8,8 @@ interface Props {
 }
 
 const { project, compact = false } = Astro.props;
+const preview = project.media.find((slot) => slot.id === "overview" && slot.kind === "video" && slot.availability === "published");
+const repository = project.links.find((link) => link.kind === "repository");
 const categoryLabels = {
   "client-system": "Client system",
   "mobile-application": "Android application",
@@ -21,12 +23,16 @@ const categoryLabels = {
     <p class="eyebrow">{categoryLabels[project.category]}</p>
     <span class="status-chip">{project.statusLabel}</span>
   </div>
-  <h3><a href={"/projects/" + project.slug + "/"}>{project.title}</a></h3>
-  {!compact && <ProjectOverview slug={project.slug} />}
+  <h3><a href={"/projects/" + project.slug + "/"}>{project.shortTitle}</a></h3>
+  {!compact && preview && <figure class:list={["project-card__visual", { "project-card__visual--portrait": project.slug === "mileage-tracker" }]}>
+    <video controls preload="metadata" playsinline aria-label={preview.altText} aria-describedby={"preview-caption-" + project.slug}>
+      <source src={"/" + preview.assetPath + (project.slug === "john-howard" ? "#t=15" : "#t=0.1")} type={videoMimeType(preview.assetPath)} />
+      Your browser does not support video. <a href={"/projects/" + project.slug + "/"}>Read the case study</a>.
+    </video>
+    <figcaption id={"preview-caption-" + project.slug}>{project.slug === "john-howard" ? "Program-authoring demo · synthetic data" : "Android dashboard and trip-review demo"}</figcaption>
+  </figure>}
   <p class="project-card__summary">{project.summary}</p>
-  {!compact && (
-    <p class="project-card__evidence">{project.evidence[0]}</p>
-  )}
+  {!compact && <><p class="project-card__role"><strong>My role</strong> {project.role}</p><ul class="project-card__accomplishments">{project.accomplishments.map((item) => <li>{item}</li>)}</ul></>}
   {project.technologies.length > 0 && (
     <p class="project-card__stack"><span class="visually-hidden">Technologies: </span>{project.technologies.join(" · ")}</p>
   )}
@@ -36,5 +42,6 @@ const categoryLabels = {
   <a class="text-link project-card__link" href={"/projects/" + project.slug + "/"}>
     Read the case study <span aria-hidden="true">↗</span>
   </a>
+  {repository && <a class="text-link project-card__source" href={repository.href}>View source on GitHub <span aria-hidden="true">↗</span></a>}
   </div>
 </article>

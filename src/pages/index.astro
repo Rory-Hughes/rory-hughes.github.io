@@ -1,6 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 import ProjectCard from "../components/ProjectCard.astro";
+import EducationCard from "../components/EducationCard.astro";
+import ResumeDownloads from "../components/ResumeDownloads.astro";
 import SectionHeading from "../components/SectionHeading.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { compilePublicProfile, compilePublicProjects } from "../lib/publication-compiler.mjs";
@@ -11,17 +13,17 @@ const featuredProjects = projects.filter((project) => project.featured);
 const additionalProjects = projects.filter((project) => !project.featured);
 ---
 
-<BaseLayout title={profile.displayName + " | Android and Windows software development"} description={profile.introduction} profile={profile} canonicalPath="/">
+<BaseLayout title={profile.displayName + " | Kotlin, C# and Python software developer"} description={profile.introduction} profile={profile} canonicalPath="/">
   <main id="main-content" class="site-frame home-page" tabindex="-1">
     <section class="hero" aria-labelledby="hero-title">
       <p class="eyebrow">Software developer / {profile.location}</p>
       <h1 id="hero-title">{profile.displayName}</h1>
-      <p class="hero__focus">Android &amp; Windows software.</p>
+      <p class="hero__focus">Software developer.<span class="hero__stack">Kotlin · C# · Python</span></p>
       <p class="hero__intro">{profile.introduction}</p>
       <div class="action-row">
-        <a class="button button--primary" href="#projects">Explore my projects <span aria-hidden="true">↓</span></a>
         <a class="button button--secondary" href="#contact">Get in touch</a>
-        <a class="button button--text" href={profile.resumeHref} download>QA Software Intern resume (Word) <span aria-hidden="true">↗</span></a>
+        <a class="button button--primary" href={profile.resumePdfHref} download>Download resume (PDF) <span aria-hidden="true">↓</span></a>
+        <a class="button button--secondary" href={profile.resumeHref} download>Download resume (Word) <span aria-hidden="true">↓</span></a>
       </div>
     </section>
 
@@ -69,6 +71,7 @@ const additionalProjects = projects.filter((project) => !project.featured);
             <article class="experience-item">
               <p class="eyebrow">{entry.organization} / {entry.location}</p>
               <h3>{entry.role}</h3>
+              {entry.dateLabel && <p class="experience-item__dates">{entry.dateLabel}</p>}
               <p>{entry.description}</p>
             </article>
           ))}
@@ -76,34 +79,19 @@ const additionalProjects = projects.filter((project) => !project.featured);
       </section>
       <section id="education" class="content-section education-section" aria-labelledby="education-heading">
         <SectionHeading id="education-heading" eyebrow="Education" title="A foundation to build on." />
-        <div class="education-card">
-          <p class="eyebrow">{profile.education.institution}</p>
-          <h3>{profile.education.program}</h3>
-          <p>{profile.education.location}<br />Expected graduation {profile.education.expectedGraduation}</p>
-          <p class="education-card__gpa"><strong>{profile.education.gpa}</strong> cumulative GPA</p>
-          {profile.education.training.map((item) => (
-            <div class="education-card__training">
-              <p class="eyebrow">{item.credential}</p>
-              <strong>{item.href ? <a href={item.href}>{item.name}</a> : item.name}</strong>
-              {item.issuedDate && <p>Issued <time datetime={item.issuedDate}>{new Date(item.issuedDate + "T00:00:00Z").toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" })}</time></p>}
-            </div>
-          ))}
-        </div>
+        <EducationCard education={profile.education} />
       </section>
     </div>
 
     <section id="contact" class="content-section contact-section" aria-labelledby="contact-heading">
       <div class="contact-panel">
         <SectionHeading id="contact-heading" eyebrow="Contact" title="Let's build something useful." intro="For software-development roles, product work, or a project you want to discuss." />
-        <div class="action-row">
-          <a class="button button--primary" href={"mailto:" + profile.email}>Email Rory <span aria-hidden="true">↗</span></a>
-          <a class="button button--secondary" href={profile.resumeHref} download>QA Software Intern resume (Word) <span aria-hidden="true">↓</span></a>
-        </div>
-        <p class="resume-note">QA Software Intern resume · Word document</p>
+        <ResumeDownloads profile={profile} />
         <div class="contact-panel__details">
           <a href={"mailto:" + profile.email}>{profile.email}</a>
           <a href={profile.phoneHref}>{profile.phoneDisplay}</a>
           <a href={profile.githubUrl}>GitHub / Rory-Hughes <span aria-hidden="true">↗</span></a>
+          {profile.linkedinUrl && <a href={profile.linkedinUrl}>LinkedIn <span aria-hidden="true">↗</span></a>}
         </div>
       </div>
     </section>

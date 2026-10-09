@@ -8,6 +8,7 @@ import {
 } from "../src/lib/publication-compiler.mjs";
 import {
   resumeAssetSchema,
+  resumePdfAssetSchema,
 } from "../src/lib/content-contract.mjs";
 import { validateMediaAssets } from "../src/lib/media-policy.mjs";
 
@@ -121,6 +122,14 @@ async function validateResume(profile) {
   }
 }
 
+const pdfResumeManifest = resumePdfAssetSchema.parse(await readJson(path.join(contentRoot, "resume-pdf-asset.json")));
+const pdfResumeBytes = await readFile(path.join(repositoryRoot, "public", "downloads", pdfResumeManifest.fileName));
+if (pdfResumeBytes.subarray(0, 5).toString() !== "%PDF-"
+    || pdfResumeBytes.length !== pdfResumeManifest.byteLength
+    || createHash("sha256").update(pdfResumeBytes).digest("hex") !== pdfResumeManifest.sha256) {
+  throw new Error("PDF resume does not match its reviewed asset manifest.");
+}
+
 const profileDirectory = path.join(contentRoot, "profile");
 const profileFiles = (await readdir(profileDirectory, { withFileTypes: true }))
   .filter((entry) => entry.isFile() && entry.name.endsWith(".json"));
@@ -133,6 +142,9 @@ const profile = compilePublicProfile([{
   data: await readJson(path.join(profileDirectory, "rory.json")),
 }]);
 const projectEntries = await loadProjectEntries();
+if (profile.resumePdfHref !== pdfResumeManifest.href) {
+  throw new Error("Profile PDF resume link and manifest differ.");
+}
 const projects = compilePublicProjects(projectEntries);
 if (projects.length !== projectEntries.length) {
   throw new Error("Non-public project records cannot be stored in this public site repository.");

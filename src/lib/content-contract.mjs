@@ -23,6 +23,7 @@ const experienceSchema = z.object({
   role: z.string().min(2),
   location: z.string().min(2),
   description: z.string().min(20),
+  dateLabel: z.string().min(4).optional(),
 }).strict();
 
 export const profileSchema = z.object({
@@ -36,7 +37,9 @@ export const profileSchema = z.object({
   phoneDisplay: z.string().min(7),
   phoneHref: z.string().regex(/^tel:\+[0-9]+$/),
   githubUrl: httpsUrl,
-  resumeHref: z.literal("/downloads/Rory-Hughes-Resume.docx"),
+  linkedinUrl: httpsUrl.refine((value) => new URL(value).hostname === "www.linkedin.com", "Use the public LinkedIn profile URL.").optional(),
+  resumeHref: z.literal("/downloads/Portfolio_Resume.docx"),
+  resumePdfHref: z.literal("/downloads/Portfolio_Resume.pdf"),
   skills: z.array(skillGroupSchema).min(3),
   experience: z.array(experienceSchema).min(3),
   education: z.object({
@@ -45,6 +48,10 @@ export const profileSchema = z.object({
     location: z.string().min(2),
     expectedGraduation: z.string().regex(/^20[0-9]{2}$/),
     gpa: z.string().regex(/^[0-9]+\.[0-9]{2}$/),
+    coursework: z.array(z.object({
+      name: z.string().min(4),
+      description: z.string().min(12),
+    }).strict()).min(1),
     training: z.array(z.object({
       name: z.string().min(2),
       credential: z.string().min(2),
@@ -122,6 +129,7 @@ export const projectSchema = z.object({
   summary: z.string().min(40).max(260),
   problem: z.string().min(40),
   role: z.string().min(8),
+  accomplishments: z.array(z.string().min(20).max(200)).min(2).max(4),
   stakeholders: z.array(z.string().min(2)).min(1),
   technologies: z.array(z.string().min(2)).max(12),
   statusLabel: z.string().min(3),
@@ -147,11 +155,16 @@ export const projectSchema = z.object({
 });
 
 export const resumeAssetSchema = z.object({
-  href: z.literal("/downloads/Rory-Hughes-Resume.docx"),
-  fileName: z.literal("Rory-Hughes-Resume.docx"),
+  href: z.literal("/downloads/Portfolio_Resume.docx"),
+  fileName: z.literal("Portfolio_Resume.docx"),
   byteLength: z.number().int().positive(),
   sha256: z.string().regex(/^[a-f0-9]{64}$/),
   sourceDescription: z.string().min(20),
+}).strict();
+
+export const resumePdfAssetSchema = resumeAssetSchema.extend({
+  href: z.literal("/downloads/Portfolio_Resume.pdf"),
+  fileName: z.literal("Portfolio_Resume.pdf"),
 }).strict();
 
 export const MAX_PUBLIC_MEDIA_BYTES = 100 * 1024 * 1024;

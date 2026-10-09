@@ -27,10 +27,23 @@ client-side router is required.
   project record, include descriptive alt text and a caption, and provide a
   concise transcript for recordings. Every media file must be smaller than
   100 MiB and pass a manual privacy review.
-- The supplied QA Software Intern resume is copied unchanged to
-  public/downloads/Rory-Hughes-Resume.docx. Its pinned SHA-256 and byte count
-  are checked locally and in CI. If the owner supplies a replacement, update
-  both the file and src/content/resume-asset.json.
+- The owner-supplied resume is retained unchanged at
+  public/downloads/Portfolio_Resume.docx, with a PDF export of the same document at
+  public/downloads/Portfolio_Resume.pdf. The PDF is the primary download; Word is
+  the secondary format. SHA-256 and byte counts in src/content/resume-asset.json
+  and src/content/resume-pdf-asset.json are checked locally and in CI.
+- To export a replacement resume on Windows with Microsoft Word installed, run
+  pwsh -NoProfile -File scripts/export-resume-pdf.ps1. The script opens the DOCX
+  read-only in a separate automation instance and verifies its bytes are unchanged.
+  Render and visually review every PDF page before updating both asset manifests.
+- Relevant coursework and owner-confirmed work dates share the profile record.
+  Project accomplishments share the project records; keep summaries consistent
+  with the detailed evidence and development status.
+- scripts/create-social-image.py uses Pillow and the Windows Segoe UI fonts to
+  rebuild public/social/portfolio-preview.png. Review the image after changes.
+  The build creates sitemap.xml from actual rendered pages and excludes 404;
+  public/robots.txt identifies the sitemap. Search Console and deployed-page
+  Lighthouse checks remain owner-operated release checks.
 
 Use the 5 supplied MileageTracker screen recordings without changing their bytes.
 The owner-approved sanitized source repository is

@@ -10,6 +10,7 @@ interface Props {
   description: string;
   profile: PublicProfile;
   canonicalPath?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -17,9 +18,12 @@ const {
   description,
   profile,
   canonicalPath = Astro.url.pathname,
+  noindex = false,
 } = Astro.props;
 const canonicalBase = Astro.site ?? Astro.url;
 const canonicalUrl = new URL(canonicalPath, canonicalBase);
+const shareImageUrl = new URL("/social/portfolio-preview.png", canonicalBase);
+const shareImageAlt = "Rory Hughes, software developer working with Kotlin, C# and Python in Saint John, New Brunswick.";
 ---
 
 <!doctype html>
@@ -27,9 +31,28 @@ const canonicalUrl = new URL(canonicalPath, canonicalBase);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="light" />
-    <meta name="theme-color" content="#F7F8FC" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f7f8fc" />
+    <script is:inline>
+      (() => {
+        const storageKey = "rory-hughes-theme";
+        let savedTheme = null;
+        try {
+          const storedValue = window.localStorage.getItem(storageKey);
+          if (storedValue === "light" || storedValue === "dark") savedTheme = storedValue;
+        } catch {
+          // The system preference still works when browser storage is unavailable.
+        }
+
+        const followsDarkPreference = window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+        const theme = savedTheme ?? (followsDarkPreference ? "dark" : "light");
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#0f1724" : "#f7f8fc");
+      })();
+    </script>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalUrl.href} />
     <meta property="og:type" content="website" />
@@ -37,7 +60,24 @@ const canonicalUrl = new URL(canonicalPath, canonicalBase);
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl.href} />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={shareImageUrl.href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={shareImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={shareImageUrl.href} />
+    <meta name="twitter:image:alt" content={shareImageAlt} />
+    {canonicalPath === "/" && <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: profile.displayName,
+      url: canonicalUrl.href,
+      description: profile.introduction,
+      sameAs: [profile.githubUrl, ...(profile.linkedinUrl ? [profile.linkedinUrl] : [])],
+      knowsAbout: profile.skills[0].items,
+    }).replaceAll("<", "\\u003c")} />}
     <title>{title}</title>
   </head>
   <body id="top">

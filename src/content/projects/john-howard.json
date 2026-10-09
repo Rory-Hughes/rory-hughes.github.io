@@ -8,6 +8,11 @@
   "summary": "An offline Windows desktop prototype for nonprofit program operations. Separate Main Office and House apps share authorization, protected storage, and a signed file-exchange core.",
   "problem": "Housing-program teams working across disconnected sites need to coordinate program definitions and eventually return participant information to a main office. Sensitive information and unreliable connectivity make local storage, explicit trust, and controlled file exchange central design concerns.",
   "role": "Led stakeholder discovery, requirements, workflow design, architecture decisions, implementation, and verification.",
+  "accomplishments": [
+    "Built separate Main Office and House WPF applications around shared authorization, storage, and transfer rules.",
+    "Implemented signed, encrypted, recipient-bound transfer foundations and session checks that reject stale work after a lock.",
+    "Translated stakeholder feedback into program-authoring workflows; the October 7 report records 1,148 passing cases across six suites."
+  ],
   "stakeholders": [
     "Program staff",
     "Main office administrator",

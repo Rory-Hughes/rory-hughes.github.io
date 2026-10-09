@@ -89,9 +89,7 @@ if (dialog && sourceNode && titleNode && statusNode && loadingNode && editorHost
       currentExcerptId = id;
       returnFocusTo = button;
       originalSource = decodeSource(encoded);
-      titleNode.textContent = button.getAttribute("aria-labelledby")
-        ? document.getElementById(button.getAttribute("aria-labelledby") ?? "")?.textContent ?? "Code excerpt"
-        : "Code excerpt";
+      titleNode.textContent = document.getElementById("excerpt-title-" + id)?.textContent ?? "Code excerpt";
       copyButton.disabled = true;
       resetButton.disabled = true;
       loadingNode.hidden = false;

@@ -8,6 +8,11 @@
   "summary": "A Kotlin Android app for mileage, vehicle records, receipts, and exports. Local trip storage and recovery are central, with optional cloud sync and a sanitized public repository.",
   "problem": "Drivers need a dependable way to record trip details, organize mileage, and review information for their own records without losing sight of incomplete or unverified entries.",
   "role": "Solo developer building the Android application and maintaining its verification and closed-beta checklist.",
+  "accomplishments": [
+    "Built an Android workflow for captured trips, business or personal classification, vehicle records, and report/export actions.",
+    "Implemented local tracking checkpoints and retry paths to support interrupted-trip recovery independently of cloud connectivity.",
+    "Added unit and Android UI coverage; the approved recordings demonstrate current screens while device and release gates remain open."
+  ],
   "stakeholders": [
     "Drivers recording personal or business mileage"
   ],

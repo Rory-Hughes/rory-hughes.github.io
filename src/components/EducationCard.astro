@@ -1,0 +1,28 @@
+---
+import type { PublicProfile } from "../lib/types";
+
+interface Props { education: PublicProfile["education"]; }
+const { education } = Astro.props;
+const formatDate = (date: string) => new Date(date + "T00:00:00Z").toLocaleDateString("en-CA", {
+  year: "numeric", month: "long", day: "numeric", timeZone: "UTC",
+});
+---
+
+<article class="education-card">
+  <p class="eyebrow">{education.institution}</p>
+  <h3>{education.program}</h3>
+  <p>{education.location}<br />Expected graduation {education.expectedGraduation}</p>
+  <p class="education-card__gpa"><strong>{education.gpa}</strong> cumulative GPA</p>
+  <div class="education-card__coursework">
+    <h4>Relevant coursework</h4>
+    <p class="education-card__term">Current study · Fall 2026</p>
+    <ul class="coursework-list">
+      {education.coursework.map((course) => <li><strong>{course.name}</strong><span>{course.description}</span></li>)}
+    </ul>
+  </div>
+  {education.training.map((item) => <div class="education-card__training">
+    <p class="eyebrow">{item.credential}</p>
+    <strong>{item.href ? <a href={item.href}>{item.name}</a> : item.name}</strong>
+    {item.issuedDate && <p>Issued <time datetime={item.issuedDate}>{formatDate(item.issuedDate)}</time></p>}
+  </div>)}
+</article>

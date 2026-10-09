@@ -3,53 +3,70 @@
   "displayName": "Rory Hughes",
   "location": "Saint John, New Brunswick, Canada",
   "headline": "Software development, grounded in real workflows.",
-  "introduction": "I am an Information Technology: Software Development student building Android and Windows applications. I like joining the dots between understanding a problem, shaping a useful workflow, and checking that the details hold up.",
+  "introduction": "I'm an NBCC Software Development student building Android apps in Kotlin, Windows applications in C#, and a Python learning simulator. My work connects real-world requirements with application architecture, automated testing, and useful workflows.",
   "about": [
-    "I am completing the Information Technology: Software Development program at New Brunswick Community College, with expected graduation in 2027 and a cumulative GPA of 3.91. My project work spans Android with Kotlin and Windows desktop software with C# and WPF.",
+    "I am completing the Information Technology: Software Development program at New Brunswick Community College, with expected graduation in 2027. My personal projects span Android with Kotlin and Windows desktop software with C# and WPF. ",
     "I bring a customer-service and operations mindset to software: clarify what should happen, document blockers and edge cases, and verify changes across the paths people use. I am interested in work that connects implementation, product thinking, and careful quality checks.",
-    "My near-term direction is software engineering, product management, and building useful solutions with clients. Longer term, I plan to continue university study and explore research where developmental biology, computer science, and cognitive science meet. Those are future goals; my current bioelectric simulator is a learning project."
+    "I am pursuing software development opportunities where I can build useful applications, learn from an experienced team, and work closely with the people using the software. Longer term, I plan to continue university study and explore research where developmental biology, computer science, and cognitive science meet. My current bioelectric simulator is a learning project that reflects that curiosity."
   ],
   "email": "hughesrory8@gmail.com",
   "phoneDisplay": "506-271-7876",
   "phoneHref": "tel:+15062717876",
   "githubUrl": "https://github.com/Rory-Hughes",
-  "resumeHref": "/downloads/Rory-Hughes-Resume.docx",
+  "resumeHref": "/downloads/Portfolio_Resume.docx",
+  "resumePdfHref": "/downloads/Portfolio_Resume.pdf",
   "skills": [
     {
-      "name": "Quality and testing",
-      "note": "Plan, reproduce, and verify expected behavior across application layers.",
-      "items": [
-        "Test-case design",
-        "Manual workflow checks",
-        "Defect reproduction",
-        "Fix verification",
-        "Unit and integration testing",
-        "Android UI, view-model, and regression coverage",
-        "Release-readiness checklists"
-      ]
-    },
-    {
-      "name": "Languages and platforms",
-      "note": "Hands-on work across mobile, desktop, web, and data tasks.",
+      "name": "Programming languages",
+      "note": "Used in application projects, a learning simulator, and current coursework.",
       "items": [
         "Kotlin",
         "C#",
+        "Python",
         "JavaScript",
         "TypeScript",
+        "Java",
         "SQL",
-        "HTML5 and CSS3",
+        "HTML5 and CSS3"
+      ]
+    },
+    {
+      "name": "Frameworks and platforms",
+      "note": "Mobile and desktop foundations, local data, and numerical Python tools.",
+      "items": [
         "Jetpack Compose",
-        "WPF",
-        "Room",
+        ".NET and WPF",
+        "Room and SQLite",
         "Hilt",
         "Firebase",
+        "NumPy and Matplotlib"
+      ]
+    },
+    {
+      "name": "Development tools",
+      "note": "Version control and command-line tools used to build, inspect, and verify changes.",
+      "items": [
         "Git and GitHub",
+        "PowerShell",
         "Bash and command line"
       ]
     },
     {
-      "name": "Product and communication",
-      "note": "Make requirements, decisions, and quality concerns easy to follow.",
+      "name": "Testing and quality assurance",
+      "note": "Hands-on verification across unit, integration, interface, and regression paths.",
+      "items": [
+        "Test-case design",
+        "Unit and integration testing",
+        "xUnit and pytest",
+        "Android UI and view-model coverage",
+        "Manual workflow checks",
+        "Defect reproduction and fix verification",
+        "Release-readiness checklists"
+      ]
+    },
+    {
+      "name": "Professional skills",
+      "note": "Connect requirements and implementation through clear decisions and communication.",
       "items": [
         "Requirements analysis",
         "Technical documentation",
@@ -60,11 +77,11 @@
       ]
     },
     {
-      "name": "Browser automation",
-      "note": "Prior exposure through small browser-automation experiments.",
+      "name": "Additional familiarity",
+      "note": "Introductory exposure through small browser-automation experiments.",
       "items": [
-        "Selenium familiarity",
-        "Playwright familiarity",
+        "Selenium",
+        "Playwright",
         "Form-filling workflows"
       ]
     }
@@ -72,21 +89,24 @@
   "experience": [
     {
       "organization": "Home Hardware",
+      "dateLabel": "October 2014 - July 2015",
       "role": "Customer Service Representative",
       "location": "Quispamsis, New Brunswick",
-      "description": "Supported customers and completed data-entry and inventory tasks where accuracy and clear communication were essential."
+      "description": "Supported customers and completed data-entry and inventory tasks. The work required accurate records, clear explanations, and attention to the details people needed to make decisions."
     },
     {
       "organization": "Mackies Moving",
+      "dateLabel": "July 2016 - October 2018",
       "role": "Mover",
       "location": "Saint John, New Brunswick",
-      "description": "Followed detailed logistics, identified issues, and coordinated safely with teammates to meet service deadlines."
+      "description": "Followed detailed moving logistics, identified issues, and coordinated safely with teammates to meet service deadlines. Clear communication helped the team keep work organized as conditions changed."
     },
     {
       "organization": "Boys and Girls Club",
-      "role": "Volunteer - Trail construction",
+      "dateLabel": "September - October 2025",
+      "role": "Volunteer",
       "location": "Saint John, New Brunswick",
-      "description": "Helped build the wooden frames for a fundraiser trail, preparing the structures to be decorated."
+      "description": "Troubleshot Raspberry Pi boards used for motion-triggered effects in a fundraiser installation. Also helped build wooden frames and prepare the fundraiser trail."
     }
   ],
   "education": {
@@ -95,6 +115,24 @@
     "location": "Saint John, New Brunswick",
     "expectedGraduation": "2027",
     "gpa": "3.91",
+    "coursework": [
+      {
+        "name": "Advanced JavaScript",
+        "description": "Functions, classes, asynchronous programming, and data-access exercises."
+      },
+      {
+        "name": "Enterprise Java",
+        "description": "Java web applications, servlets, JSP, and database-backed workflows."
+      },
+      {
+        "name": "Server-Side Web: MVC Framework",
+        "description": "ASP.NET Core, Razor Pages, forms, validation, and session state."
+      },
+      {
+        "name": "Cloud Foundations - Amazon Web Services",
+        "description": "Cloud concepts, AWS services, security, and architecture fundamentals."
+      }
+    ],
     "training": [
       {
         "name": "AWS Cloud Foundations",

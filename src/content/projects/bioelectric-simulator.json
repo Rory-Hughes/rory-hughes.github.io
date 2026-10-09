@@ -8,6 +8,10 @@
   "summary": "A work-in-progress learning simulator for passive membrane voltage spreading through a chain of gap-junction-coupled cells.",
   "problem": "I am exploring how a small computational model can make a research description of multicellular bioelectric interactions easier to reason about.",
   "role": "Independent learning-project builder.",
+  "accomplishments": [
+    "Implemented a passive coupled-cell model in Python and NumPy with Euler and fourth-order Runge-Kutta integration.",
+    "Added plots and internal tests for current balance, stimulus boundaries, and time-step behavior; scientific validation remains outside this scope."
+  ],
   "stakeholders": [
     "Readers exploring computational models of cell interactions"
   ],

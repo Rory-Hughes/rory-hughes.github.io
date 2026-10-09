@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "astro dev --host 127.0.0.1",
-    "build": "astro build && node scripts/create-release-manifest.mjs && node scripts/validate-output.mjs",
+    "build": "astro build && node scripts/create-sitemap.mjs && node scripts/create-release-manifest.mjs && node scripts/validate-output.mjs",
     "preview": "astro preview --host 127.0.0.1",
     "check": "astro check && node scripts/validate-content.mjs",
     "test": "node --test",

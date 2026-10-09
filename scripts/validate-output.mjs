@@ -4,7 +4,8 @@ import { lstat, readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { compilePublicProfile, compilePublicProjects } from "../src/lib/publication-compiler.mjs";
-import { resumeAssetSchema } from "../src/lib/content-contract.mjs";
+import { resumeAssetSchema, resumePdfAssetSchema } from "../src/lib/content-contract.mjs";
+import { publicPageUrls } from "../src/lib/sitemap.mjs";
 import { validateMediaAssets } from "../src/lib/media-policy.mjs";
 
 const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -112,6 +113,10 @@ const requiredOutput = [
   "projects/mileage-tracker/index.html",
   "projects/bioelectric-simulator/index.html",
   "404.html",
+  "sitemap.xml",
+  "robots.txt",
+  "social/portfolio-preview.png",
+  "downloads/Portfolio_Resume.pdf",
 ];
 for (const relativePath of requiredOutput) {
   assert(outputFiles.some((file) => file.relativePath === relativePath), "Missing static output: " + relativePath);
@@ -154,8 +159,30 @@ for (const file of htmlFiles) {
 }
 
 const homeHtml = await readFile(path.join(outputDirectory, "index.html"), "utf8");
+const sitemap = await readFile(path.join(outputDirectory, "sitemap.xml"), "utf8");
+const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1].replaceAll("&amp;", "&"));
+assert.deepEqual(sitemapUrls, publicPageUrls(htmlFiles.map((file) => file.relativePath), siteOrigin), "Sitemap must list all built public pages exactly once and exclude 404.");
+const robots = await readFile(path.join(outputDirectory, "robots.txt"), "utf8");
+assert(robots.includes("Sitemap: " + new URL("/sitemap.xml", siteOrigin).href), "Robots must identify the production sitemap.");
+const shareImage = await readFile(path.join(outputDirectory, "social", "portfolio-preview.png"));
+assert.equal(shareImage.readUInt32BE(16), 1200, "Social card must be 1200px wide.");
+assert.equal(shareImage.readUInt32BE(20), 630, "Social card must be 630px high.");
+for (const file of htmlFiles) {
+  const html = await readFile(file.absolutePath, "utf8");
+  assert(html.includes('property="og:image" content="https://rory-hughes.github.io/social/portfolio-preview.png"'), file.relativePath + " must include the social-sharing image.");
+  assert(html.includes('name="twitter:card" content="summary_large_image"'), file.relativePath + " must use the large sharing card.");
+}
 for (const sectionId of ["about", "skills", "projects", "experience", "education", "contact"]) {
   assert(homeHtml.includes('id="' + sectionId + '"'), "Homepage is missing required section: " + sectionId);
+}
+assert.match(homeHtml, /Download resume \(PDF\)/, "Homepage must offer the PDF export of the supplied resume.");
+for (const project of projects) {
+  const caseHtml = await readFile(path.join(outputDirectory, "projects", project.slug, "index.html"), "utf8");
+  const problemIndex = caseHtml.indexOf('id="problem-heading"');
+  const accomplishmentsIndex = caseHtml.indexOf('id="accomplishments-heading"');
+  const codeIndex = caseHtml.indexOf('data-excerpt-disclosure');
+  assert(problemIndex >= 0 && accomplishmentsIndex > problemIndex && codeIndex > accomplishmentsIndex, "Project narrative and accomplishments must precede optional implementation examples.");
+  assert.doesNotMatch(caseHtml.match(/<details\b[^>]*data-excerpt-disclosure[^>]*>/)?.[0] ?? "", /\bopen\b/, "Code examples must be collapsed initially.");
 }
 
 const johnHtml = await readFile(path.join(outputDirectory, "projects", "john-howard", "index.html"), "utf8");
@@ -218,8 +245,7 @@ assert.deepEqual(
   ["/" + leadAsset],
   "The lead section must contain only the application overview recording.",
 );
-assert.match(leadSection[2], /media-demo--lead-code/, "The lead video and excerpt must share a joined panel.");
-assert.match(leadSection[2], /code-excerpt-card--lead/, "The lead excerpt must use its vertically stacked presentation.");
+assert.doesNotMatch(leadSection[2], /data-code-excerpt-card/, "The application demo must not require reading implementation examples.");
 assert.match(liveMileageHtml, /class="case-study__lead-overview case-study__lead-overview--mileage"/, "MileageTracker must use the aligned lead/overview layout.");
 assert.doesNotMatch(liveMileageHtml, /Read the video transcript|class="[^"]*\btranscript\b/i, "MileageTracker recordings must not render transcript controls.");
 const readingBodyIndex = liveMileageHtml.search(/<div\b[^>]*\bclass="[^"]*\bcase-study__body\b[^"]*"/i);
@@ -250,12 +276,8 @@ for (const slot of mileageVideoSlots) {
   assert.equal(attributeValues(videoTag, "aria-label")[0]?.trim(), slot.altText, slot.assetPath + " must have its own accessible name.");
 
   const captions = [...figure.matchAll(/<figcaption\b[^>]*>([\s\S]*?)<\/figcaption\s*>/gi)];
-  if (slot.id === "overview") {
-    assert.equal(captions.length, 0, slot.assetPath + " uses the excerpt card as the lead panel description.");
-  } else {
-    assert.equal(captions.length, 1, slot.assetPath + " must have exactly one caption.");
-    assert(captions[0][1].includes(slot.label) && captions[0][1].includes(slot.caption), slot.assetPath + " must render its own caption.");
-  }
+  assert.equal(captions.length, 1, slot.assetPath + " must have exactly one caption.");
+  assert(captions[0][1].includes(slot.label) && captions[0][1].includes(slot.caption), slot.assetPath + " must render its own caption.");
   assert.doesNotMatch(figure, /class="[^"]*\btranscript\b|Read the video transcript/i, slot.assetPath + " must not render a transcript disclosure.");
 }
 
@@ -268,6 +290,12 @@ const resumeBytes = await readFile(resumeOutputPath);
 assert.equal(resumeBytes.length, resumeManifest.byteLength, "Static resume download has the wrong size.");
 assert.equal(createHash("sha256").update(resumeBytes).digest("hex"), resumeManifest.sha256, "Static resume download has the wrong SHA-256.");
 assert.equal(profile.resumeHref, resumeManifest.href, "Profile resume link and manifest differ.");
+const pdfManifest = resumePdfAssetSchema.parse(await readJson(path.join(repositoryRoot, "src", "content", "resume-pdf-asset.json")));
+const pdfBytes = await readFile(path.join(outputDirectory, "downloads", pdfManifest.fileName));
+assert.equal(pdfBytes.subarray(0, 5).toString(), "%PDF-", "Resume export must be a PDF.");
+assert.equal(pdfBytes.length, pdfManifest.byteLength, "PDF resume byte count differs.");
+assert.equal(createHash("sha256").update(pdfBytes).digest("hex"), pdfManifest.sha256, "PDF resume digest differs.");
+assert.equal(profile.resumePdfHref, pdfManifest.href, "Profile PDF resume link and manifest differ.");
 
 const manifest = await readJson(path.join(outputDirectory, "release-manifest.json"));
 assert.match(manifest.sourceCommit, /^[a-f0-9]{40,64}$/i, "Release manifest must include a canonical commit SHA.");

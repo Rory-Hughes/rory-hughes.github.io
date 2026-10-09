@@ -7,7 +7,7 @@ import path from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import { parse as parseYaml } from "yaml";
-import { projectSchema, resumeAssetSchema } from "../src/lib/content-contract.mjs";
+import { projectSchema, resumeAssetSchema, resumePdfAssetSchema } from "../src/lib/content-contract.mjs";
 import { isPublicMediaSizeValid, validateMediaAssets, videoMimeType } from "../src/lib/media-policy.mjs";
 import { compilePublicProfile, compilePublicProjects } from "../src/lib/publication-compiler.mjs";
 
@@ -232,6 +232,16 @@ test("the public resume matches its pinned unchanged DOCX digest", async () => {
 
   assert.equal(resumeBytes.length, manifest.byteLength);
   assert.equal(createHash("sha256").update(resumeBytes).digest("hex"), manifest.sha256);
+});
+
+test("the PDF resume export is a reviewed asset with a matching link and digest", async () => {
+  const manifest = resumePdfAssetSchema.parse(await readJson("src/content/resume-pdf-asset.json"));
+  const bytes = await readFile(path.join(repositoryRoot, "public", "downloads", manifest.fileName));
+  assert.equal(bytes.subarray(0, 5).toString(), "%PDF-");
+  assert.equal(bytes.length, manifest.byteLength);
+  assert.equal(createHash("sha256").update(bytes).digest("hex"), manifest.sha256);
+  assert.equal(profile.resumePdfHref, manifest.href);
+  assert.notEqual(manifest.href, profile.resumeHref);
 });
 
 test("Pages builds only on manual dispatch and deploys only with an explicit main-branch choice", async () => {
