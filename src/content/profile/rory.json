@@ -5,7 +5,7 @@
   "headline": "Software development, grounded in real workflows.",
   "introduction": "I'm an NBCC Software Development student building Android apps in Kotlin, Windows applications in C#, and a Python learning simulator. My work connects real-world requirements with application architecture, automated testing, and useful workflows.",
   "about": [
-    "I am completing the Information Technology: Software Development program at New Brunswick Community College, with expected graduation in 2027. My personal projects span Android with Kotlin and Windows desktop software with C# and WPF. ",
+    "I am completing the Information Technology: Software Development program at New Brunswick Community College, with expected graduation in 2027. My personal projects span Android with Kotlin, Windows desktop software with C# and WPF, and a Python learning simulator. In class, I am building a broader foundation in web development, database programming, and software design.",
     "I bring a customer-service and operations mindset to software: clarify what should happen, document blockers and edge cases, and verify changes across the paths people use. I am interested in work that connects implementation, product thinking, and careful quality checks.",
     "I am pursuing software development opportunities where I can build useful applications, learn from an experienced team, and work closely with the people using the software. Longer term, I plan to continue university study and explore research where developmental biology, computer science, and cognitive science meet. My current bioelectric simulator is a learning project that reflects that curiosity."
   ],
@@ -17,17 +17,23 @@
   "resumePdfHref": "/downloads/Portfolio_Resume.pdf",
   "skills": [
     {
-      "name": "Programming languages",
-      "note": "Used in application projects, a learning simulator, and current coursework.",
+      "name": "Primary project languages",
+      "note": "My main languages for personal application projects and a learning simulator.",
       "items": [
-        "Kotlin",
-        "C#",
-        "Python",
+        "Kotlin: Android applications",
+        "C#: Windows desktop applications",
+        "Python: numerical learning simulator"
+      ]
+    },
+    {
+      "name": "Additional languages and web foundations",
+      "note": "JavaScript, Java, SQL, HTML, and CSS through coursework; TypeScript in this portfolio.",
+      "items": [
         "JavaScript",
-        "TypeScript",
         "Java",
         "SQL",
-        "HTML5 and CSS3"
+        "HTML5 and CSS3",
+        "TypeScript"
       ]
     },
     {
@@ -43,10 +49,26 @@
       ]
     },
     {
-      "name": "Development tools",
-      "note": "Version control and command-line tools used to build, inspect, and verify changes.",
+      "name": "Web and database coursework",
+      "note": "Practised in class exercises and assignments, alongside my personal projects.",
       "items": [
+        "DOM events and form validation",
+        "Node.js, callbacks, promises and async/await",
+        "ASP.NET Core and Razor Pages",
+        "Java servlets, JSP and JPA",
+        "Relational modelling and SQL queries",
+        "C# database access and LINQ"
+      ]
+    },
+    {
+      "name": "Development tools",
+      "note": "Development environments, version control, and build and verification workflows.",
+      "items": [
+        "Visual Studio",
+        "Android Studio",
+        "VS Code",
         "Git and GitHub",
+        "GitHub Actions",
         "PowerShell",
         "Bash and command line"
       ]
@@ -69,6 +91,7 @@
       "note": "Connect requirements and implementation through clear decisions and communication.",
       "items": [
         "Requirements analysis",
+        "UML and use-case modelling",
         "Technical documentation",
         "Stakeholder feedback",
         "Clear blocker reporting",
@@ -78,8 +101,9 @@
     },
     {
       "name": "Additional familiarity",
-      "note": "Introductory exposure through small browser-automation experiments.",
+      "note": "Introductory MongoDB coursework and small browser-automation experiments.",
       "items": [
+        "MongoDB CRUD basics",
         "Selenium",
         "Playwright",
         "Form-filling workflows"
@@ -118,15 +142,15 @@
     "coursework": [
       {
         "name": "Advanced JavaScript",
-        "description": "Functions, classes, asynchronous programming, and data-access exercises."
+        "description": "Node.js modules, classes, callbacks, promises, async/await, JSON file access, and introductory MongoDB CRUD exercises."
       },
       {
         "name": "Enterprise Java",
-        "description": "Java web applications, servlets, JSP, and database-backed workflows."
+        "description": "Java web applications with servlets, JSP, and JPA repositories; menu and order-management exercises with database-backed create, read, update, and delete workflows."
       },
       {
         "name": "Server-Side Web: MVC Framework",
-        "description": "ASP.NET Core, Razor Pages, forms, validation, and session state."
+        "description": "ASP.NET Core and Razor Pages: request handling, form binding and validation, session state, and multi-page survey and quiz workflows."
       },
       {
         "name": "Cloud Foundations - Amazon Web Services",
@@ -139,6 +163,32 @@
         "credential": "Certificate / badge",
         "href": "https://www.credly.com/badges/4fa2062f-5c31-48ea-a08a-d0fe92c0eff4",
         "issuedDate": "2026-09-11"
+      }
+    ],
+    "earlierCoursework": [
+      {
+        "name": "Programming Fundamentals and Object Oriented Programming",
+        "description": "C# control flow, methods, classes, encapsulation, inheritance, interfaces, and polymorphism; a WPF home-inspection application and unit-testing exercises."
+      },
+      {
+        "name": "Database Design and SQL / Intermediate SQL",
+        "description": "Entity-relationship modelling, normalization, joins, aggregate queries, subqueries, views, stored procedures, and triggers."
+      },
+      {
+        "name": "Database Programming",
+        "description": "C# applications using SQL Server connections, parameterized commands, and LINQ to filter, group, and summarize records."
+      },
+      {
+        "name": "Responsive Web Design and JavaScript Programming",
+        "description": "HTML and CSS layouts, responsive design, DOM manipulation, events, and interactive browser forms."
+      },
+      {
+        "name": "Software Engineering",
+        "description": "Requirements analysis, UML use-case, activity, and class diagrams, plus project planning and Agile concepts."
+      },
+      {
+        "name": "Command Line Interface: Bash",
+        "description": "File management, permissions, archives, and shell scripts with argument validation and safe-copy checks."
       }
     ]
   }

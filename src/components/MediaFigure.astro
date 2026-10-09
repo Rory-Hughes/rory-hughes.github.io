@@ -1,7 +1,7 @@
 ---
 import type { z } from "zod";
 import type { projectSchema } from "../lib/content-contract.mjs";
-import { videoMimeType } from "../lib/media-policy.mjs";
+import DemoVideo from "./DemoVideo.astro";
 
 type MediaSlot = z.infer<typeof projectSchema>["media"][number];
 
@@ -18,10 +18,7 @@ const { media, usesPortraitFrame, showCaption = true, captionId } = Astro.props;
 <figure class:list={["media-figure", { "media-figure--portrait": usesPortraitFrame }]}>
   {media.kind === "video" ? (
     <div class="media-figure__player">
-      <video controls preload="metadata" playsinline aria-label={media.altText}>
-        <source src={"/" + media.assetPath} type={videoMimeType(media.assetPath)} />
-        Your browser does not support this video player.
-      </video>
+      <DemoVideo assetPath={media.assetPath!} posterPath={media.posterPath!} label={media.altText!} describedBy={showCaption ? captionId : undefined} />
     </div>
   ) : (
     <img src={"/" + media.assetPath} alt={media.altText} loading="lazy" decoding="async" />

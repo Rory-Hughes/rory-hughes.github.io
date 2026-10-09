@@ -1,8 +1,8 @@
 ---
 import type { PublicProfile } from "../lib/types";
 
-interface Props { education: PublicProfile["education"]; }
-const { education } = Astro.props;
+interface Props { education: PublicProfile["education"]; showEarlierCoursework?: boolean; }
+const { education, showEarlierCoursework = true } = Astro.props;
 const formatDate = (date: string) => new Date(date + "T00:00:00Z").toLocaleDateString("en-CA", {
   year: "numeric", month: "long", day: "numeric", timeZone: "UTC",
 });
@@ -20,6 +20,13 @@ const formatDate = (date: string) => new Date(date + "T00:00:00Z").toLocaleDateS
       {education.coursework.map((course) => <li><strong>{course.name}</strong><span>{course.description}</span></li>)}
     </ul>
   </div>
+  {showEarlierCoursework && <div class="education-card__coursework">
+    <h4>Earlier coursework</h4>
+    <p class="education-card__term">Fall 2025 &amp; Winter 2026</p>
+    <ul class="coursework-list">
+      {education.earlierCoursework.map((course) => <li><strong>{course.name}</strong><span>{course.description}</span></li>)}
+    </ul>
+  </div>}
   {education.training.map((item) => <div class="education-card__training">
     <p class="eyebrow">{item.credential}</p>
     <strong>{item.href ? <a href={item.href}>{item.name}</a> : item.name}</strong>

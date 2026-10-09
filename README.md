@@ -27,6 +27,10 @@ client-side router is required.
   project record, include descriptive alt text and a caption, and provide a
   concise transcript for recordings. Every media file must be smaller than
   100 MiB and pass a manual privacy review.
+- Published recordings also require a reviewed `posterPath` in their media record.
+  Posters use the same allow-list, file-signature, size, and publication checks as
+  other media. Players show the poster with `preload="none"` and retain native
+  controls alongside a progressively enhanced "Watch demo" button.
 - The owner-supplied resume is retained unchanged at
   public/downloads/Portfolio_Resume.docx, with a PDF export of the same document at
   public/downloads/Portfolio_Resume.pdf. The PDF is the primary download; Word is
@@ -37,6 +41,9 @@ client-side router is required.
   read-only in a separate automation instance and verifies its bytes are unchanged.
   Render and visually review every PDF page before updating both asset manifests.
 - Relevant coursework and owner-confirmed work dates share the profile record.
+  Current courses use `education.coursework`; earlier study uses
+  `education.earlierCoursework`. Summarize topics supported by actual term material
+  and exercises rather than treating the full program catalogue as completed study.
   Project accomplishments share the project records; keep summaries consistent
   with the detailed evidence and development status.
 - scripts/create-social-image.py uses Pillow and the Windows Segoe UI fonts to

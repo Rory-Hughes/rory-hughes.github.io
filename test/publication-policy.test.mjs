@@ -106,8 +106,32 @@ test("the five approved MileageTracker recordings include classification without
   }
   assert.deepEqual(
     await validateMediaAssets(compilePublicProjects(projectEntries), path.join(repositoryRoot, "public")),
-    ["media/john-howard-application-walkthrough.mp4", ...expectedAssets],
+    ["media/john-howard-application-walkthrough.mp4", ...expectedAssets]
+      .flatMap((asset) => [asset, asset.replace(/\.mp4$/, "-poster.webp")]).sort(),
   );
+});
+
+test("video posters obey the recording's publication boundary and image validation", async (context) => {
+  const mileage = projectEntries.find((entry) => entry.id === "mileage-tracker").data;
+  const video = { ...mileage.media[0], assetPath: "media/demo.mp4", posterPath: "media/demo-poster.png" };
+  const project = { ...mileage, media: [video] };
+  const missingPoster = { ...video };
+  delete missingPoster.posterPath;
+  assert.throws(() => projectSchema.parse({ ...project, media: [missingPoster] }), /reviewed poster image/);
+  assert.throws(() => projectSchema.parse({ ...project, media: [{ ...video, availability: "candidate", publicationState: "deferred", reviewStatus: "pending", assetPath: undefined }] }), /cannot reference a public asset/);
+  assert.throws(() => projectSchema.parse({ ...project, media: [{ ...video, kind: "image" }] }), /Only recordings/);
+
+  const scratchRoot = await mkdtemp(path.join(os.tmpdir(), "portfolio-poster-policy-"));
+  context.after(async () => rm(scratchRoot, { recursive: true, force: true }));
+  await mkdir(path.join(scratchRoot, "media"));
+  await writeFile(path.join(scratchRoot, "media/demo.mp4"), Buffer.from([0, 0, 0, 20, 102, 116, 121, 112, 105, 115, 111, 109]));
+  await assert.rejects(validateMediaAssets([project], scratchRoot), /Approved media asset is missing: media\/demo-poster.png/);
+  await writeFile(path.join(scratchRoot, video.posterPath), Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]));
+  assert.deepEqual(await validateMediaAssets([project], scratchRoot), ["media/demo-poster.png", "media/demo.mp4"]);
+  await assert.rejects(validateMediaAssets([{ ...project, media: [{ ...video, posterPath: "media/../private.png" }] }], scratchRoot), /safe poster image/);
+  await assert.rejects(validateMediaAssets([{ ...project, media: [{ ...video, posterPath: "media/demo.mp4" }] }], scratchRoot), /image file for its poster/);
+  await writeFile(path.join(scratchRoot, video.posterPath), Buffer.from("not an image"));
+  await assert.rejects(validateMediaAssets([project], scratchRoot), /signature does not match/);
 });
 
 test("published media cannot pass without explicit privacy approval", () => {

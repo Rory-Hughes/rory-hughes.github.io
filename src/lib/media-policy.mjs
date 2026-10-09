@@ -67,7 +67,7 @@ export async function validateMediaAssets(projects, publicDirectory) {
   for (const project of projects) {
     for (const slot of project.media) {
       if (slot.availability !== "published") {
-        if (slot.assetPath) {
+        if (slot.assetPath || slot.posterPath) {
           errors.push(project.slug + "/" + slot.id + " references an asset before publication approval.");
         }
         if (!slot.fallbackText.trim()) {
@@ -88,6 +88,21 @@ export async function validateMediaAssets(projects, publicDirectory) {
         continue;
       }
       referenced.set(slot.assetPath, { project, slot });
+
+      if (slot.kind === "video") {
+        if (!slot.posterPath || !validateAssetPath(slot.posterPath)) {
+          errors.push(project.slug + "/" + slot.id + " must reference a safe poster image under public/media/.");
+        } else if (!expectedExtensions("image").has(path.posix.extname(slot.posterPath).toLowerCase())) {
+          errors.push(project.slug + "/" + slot.id + " must use an image file for its poster.");
+        } else if (referenced.has(slot.posterPath)) {
+          errors.push("Media asset is referenced by more than one slot: " + slot.posterPath);
+        } else {
+          // Posters share the recording's explicit publication and privacy review.
+          referenced.set(slot.posterPath, { project, slot });
+        }
+      } else if (slot.posterPath) {
+        errors.push(project.slug + "/" + slot.id + " is not a recording and cannot reference a poster.");
+      }
 
       const extension = path.posix.extname(slot.assetPath).toLowerCase();
       if (!expectedExtensions(slot.kind).has(extension)) {

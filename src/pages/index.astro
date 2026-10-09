@@ -21,8 +21,8 @@ const additionalProjects = projects.filter((project) => !project.featured);
       <p class="hero__focus">Software developer.<span class="hero__stack">Kotlin · C# · Python</span></p>
       <p class="hero__intro">{profile.introduction}</p>
       <div class="action-row">
-        <a class="button button--secondary" href="#contact">Get in touch</a>
-        <a class="button button--primary" href={profile.resumePdfHref} download>Download resume (PDF) <span aria-hidden="true">↓</span></a>
+        <a class="button button--primary" href="#contact">Get in touch</a>
+        <a class="button button--secondary" href={profile.resumePdfHref} download>Download resume (PDF) <span aria-hidden="true">↓</span></a>
         <a class="button button--secondary" href={profile.resumeHref} download>Download resume (Word) <span aria-hidden="true">↓</span></a>
       </div>
     </section>
@@ -51,7 +51,7 @@ const additionalProjects = projects.filter((project) => !project.featured);
     </section>
 
     <section id="skills" class="content-section skills-section" aria-labelledby="skills-heading">
-      <SectionHeading id="skills-heading" eyebrow="Skills" title="A practical toolkit." intro="Development, testing, and communication skills used across my projects." />
+      <SectionHeading id="skills-heading" eyebrow="Skills" title="A practical toolkit." intro="Kotlin, C#, and Python in my personal projects, supported by web development, database, and software design coursework." />
       <div class="skills-grid">
         {profile.skills.map((group) => (
           <article class="skill-group">
@@ -79,7 +79,7 @@ const additionalProjects = projects.filter((project) => !project.featured);
       </section>
       <section id="education" class="content-section education-section" aria-labelledby="education-heading">
         <SectionHeading id="education-heading" eyebrow="Education" title="A foundation to build on." />
-        <EducationCard education={profile.education} />
+        <EducationCard education={profile.education} showEarlierCoursework={false} />
       </section>
     </div>
 

@@ -1,6 +1,6 @@
 ---
 import type { ProjectRecord } from "../lib/types";
-import { videoMimeType } from "../lib/media-policy.mjs";
+import DemoVideo from "./DemoVideo.astro";
 
 interface Props {
   project: ProjectRecord;
@@ -25,10 +25,7 @@ const categoryLabels = {
   </div>
   <h3><a href={"/projects/" + project.slug + "/"}>{project.shortTitle}</a></h3>
   {!compact && preview && <figure class:list={["project-card__visual", { "project-card__visual--portrait": project.slug === "mileage-tracker" }]}>
-    <video controls preload="metadata" playsinline aria-label={preview.altText} aria-describedby={"preview-caption-" + project.slug}>
-      <source src={"/" + preview.assetPath + (project.slug === "john-howard" ? "#t=15" : "#t=0.1")} type={videoMimeType(preview.assetPath)} />
-      Your browser does not support video. <a href={"/projects/" + project.slug + "/"}>Read the case study</a>.
-    </video>
+    <DemoVideo assetPath={preview.assetPath!} posterPath={preview.posterPath!} label={preview.altText!} describedBy={"preview-caption-" + project.slug} />
     <figcaption id={"preview-caption-" + project.slug}>{project.slug === "john-howard" ? "Program-authoring demo · synthetic data" : "Android dashboard and trip-review demo"}</figcaption>
   </figure>}
   <p class="project-card__summary">{project.summary}</p>

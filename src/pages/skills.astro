@@ -9,7 +9,7 @@ const profile = compilePublicProfile(await getCollection("profile"));
 <ProfileDetailLayout
   profile={profile}
   title={"Skills | " + profile.displayName}
-  description="Rory's software development, testing, communication, and browser automation skills."
+  description="Rory's Kotlin, C# and Python project experience, web and database coursework, development tools, and testing skills."
   heading="Skills and tools"
   intro="A practical toolkit built through coursework, project work, and hands-on verification."
   sectionId="skills"
@@ -18,7 +18,7 @@ const profile = compilePublicProfile(await getCollection("profile"));
     <div class="section-heading">
       <p class="eyebrow">Skills</p>
       <h2 id="skills-detail-heading">A practical toolkit.</h2>
-      <p class="section-heading__intro">Development, testing, and communication skills used across my projects.</p>
+      <p class="section-heading__intro">Kotlin, C#, and Python in my personal projects, supported by web development, database, and software design coursework.</p>
     </div>
     <div class="skills-grid">
       {profile.skills.map((group) => (

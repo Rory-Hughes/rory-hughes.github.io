@@ -7,6 +7,7 @@ interface Props {
 
 const { profile } = Astro.props;
 const links = [
+  { href: "/", label: "Home" },
   { href: "/projects/", label: "Projects" },
   { href: "/about/", label: "About" },
   { href: "/skills/", label: "Skills" },
@@ -29,15 +30,13 @@ const currentPath = Astro.url.pathname;
         {links.map((link) => <a href={link.href} aria-current={currentPath === link.href ? "page" : undefined}>{link.label}</a>)}
       </nav>
 
-      <button class="theme-toggle" type="button" aria-label="Dark mode" aria-pressed="false" data-theme-toggle>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false" data-theme-toggle>
         <span class="theme-toggle__icon" aria-hidden="true" data-theme-toggle-icon>☾</span>
-        <span class="theme-toggle__label">Dark mode</span>
-        <span class="theme-toggle__track" aria-hidden="true"></span>
       </button>
 
       <details class="mobile-menu" data-mobile-menu>
         <summary>
-          <span>Menu</span>
+          <span class="visually-hidden">Menu</span>
           <span class="mobile-menu__icon" aria-hidden="true">☰</span>
         </summary>
         <nav aria-label="Mobile primary navigation">
@@ -75,6 +74,7 @@ const currentPath = Astro.url.pathname;
     const darkThemeEnabled = root.dataset.theme === "dark";
     for (const button of themeButtons) {
       button.setAttribute("aria-pressed", String(darkThemeEnabled));
+      button.setAttribute("aria-label", darkThemeEnabled ? "Switch to light mode" : "Switch to dark mode");
       const icon = button.querySelector<HTMLElement>("[data-theme-toggle-icon]");
       if (icon) icon.textContent = darkThemeEnabled ? "☀" : "☾";
     }

@@ -1,0 +1,42 @@
+---
+import { videoMimeType } from "../lib/media-policy.mjs";
+
+interface Props {
+  assetPath: string;
+  posterPath: string;
+  label: string;
+  describedBy?: string;
+}
+
+const { assetPath, posterPath, label, describedBy } = Astro.props;
+---
+
+<div class="demo-player" data-demo-player>
+  <video controls preload="none" playsinline poster={"/" + posterPath} aria-label={label} aria-describedby={describedBy}>
+    <source src={"/" + assetPath} type={videoMimeType(assetPath)} />
+    Your browser does not support this video player. <a href={"/" + assetPath}>Watch the demo recording</a>.
+  </video>
+  <button class="demo-player__watch" type="button" aria-label={"Watch demo: " + label} data-demo-play hidden>
+    <span aria-hidden="true">▶</span> Watch demo
+  </button>
+</div>
+
+<script>
+  for (const player of document.querySelectorAll<HTMLElement>("[data-demo-player]")) {
+    const video = player.querySelector("video");
+    const button = player.querySelector<HTMLButtonElement>("[data-demo-play]");
+    if (!video || !button) continue;
+
+    // Native controls remain available when JavaScript is disabled or playback fails.
+    // Before playback, the explicit button keeps the poster free of native loading overlays.
+    button.hidden = false;
+    video.controls = false;
+    button.addEventListener("click", () => {
+      video.controls = true;
+      video.focus();
+      video.play().catch(() => { button.hidden = false; });
+    });
+    video.addEventListener("play", () => { video.controls = true; button.hidden = true; });
+    video.addEventListener("ended", () => { button.hidden = false; });
+  }
+</script>

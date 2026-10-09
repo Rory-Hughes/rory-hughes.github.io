@@ -131,7 +131,8 @@
       "altText": "Synthetic-data demonstration of the John Howard Main Office program builder and House program setup.",
       "caption": "An 80-second walkthrough of the Windows development prototype: configure a program, select reusable fields, set reporting cadence and House assignments, preview and publish a version, then inspect House setup. All examples use synthetic data.",
       "transcript": "The opening identifies the John Howard Program Management and Data Collection System as a synthetic-data development prototype. In the Main Office app, the walkthrough opens the program builder, describes an example housing program, chooses fields from the reusable library, configures a monthly reporting cadence, and selects a House destination. The review and form-preview screens show the chosen fields and publication validation. The operator saves the draft, confirms publication, and opens the resulting immutable program version and its provisioning controls. The recording then switches to the House app, showing available program configurations, a protected signing identity, and signing-trust and package-import setup. The closing card identifies the offline Windows stack: C#, .NET, WPF, and SQLite, with two application shells and shared security and transfer foundations. The recording demonstrates authoring and setup; it does not demonstrate participant reporting, a complete data-return journey, or production acceptance.",
-      "fallbackText": "The written case study explains the authoring workflow, shared architecture, and current development limitations if video playback is unavailable."
+      "fallbackText": "The written case study explains the authoring workflow, shared architecture, and current development limitations if video playback is unavailable.",
+      "posterPath": "media/john-howard-application-walkthrough-poster.webp"
     }
   ]
 }

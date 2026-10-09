@@ -120,7 +120,8 @@
       "altText": "The MileageTracker dashboard followed by a trip-detail screen with a suggested business classification, route, recorded distance, category options, vehicle selection, and notes.",
       "caption": "Owner-approved dashboard and trip-detail screens showing a classification suggestion and editable trip fields.",
       "transcript": "Silent screen recording. It opens on the dashboard, then shows a trip detail with date and time, route, distance, a suggested business classification with Dismiss and Apply actions, category options, vehicle selection, and the notes area.",
-      "fallbackText": "The written project summary remains available if this owner-approved dashboard and trip-detail recording cannot be played."
+      "fallbackText": "The written project summary remains available if this owner-approved dashboard and trip-detail recording cannot be played.",
+      "posterPath": "media/mileage-dashboard-trip-review-poster.webp"
     },
     {
       "id": "trip-capture",
@@ -133,7 +134,8 @@
       "altText": "Automatically captured trips awaiting classification, followed by a trip-detail form with classification options, vehicle selection, notes, attachments, and a route map.",
       "caption": "Review automatically captured, unclassified trips. Swipe left or right to classify them as business or personal, or open a trip to edit its details in a form.",
       "transcript": "The recording begins on Trips, with automatically captured, unclassified entries showing dates, routes, and distances. A selected trip opens Trip Details, showing a classification suggestion, a missing-information warning, category choices, vehicle selection, notes, attachments, and the recorded route. The Trips screen also supports swiping left or right to classify a trip as business or personal.",
-      "fallbackText": "The written project summary remains available if this owner-approved trip-list recording cannot be played."
+      "fallbackText": "The written project summary remains available if this owner-approved trip-list recording cannot be played.",
+      "posterPath": "media/mileage-trip-records-poster.webp"
     },
     {
       "id": "tracking-controls",
@@ -146,7 +148,8 @@
       "altText": "The Track a Trip screen with a map preview and a Start Tracking control in its ready state.",
       "caption": "Manual tracking controls ready to start; the clip does not show a completed drive.",
       "transcript": "Silent screen recording of Track a Trip. A map preview and Start Tracking button appear with the timer and distance at zero. The footage shows the ready state only, not a completed trip or verified GPS outcome.",
-      "fallbackText": "The written project summary remains available if this manual-tracking controls recording cannot be played."
+      "fallbackText": "The written project summary remains available if this manual-tracking controls recording cannot be played.",
+      "posterPath": "media/mileage-manual-tracking-poster.webp"
     },
     {
       "id": "vehicle-odometer",
@@ -159,7 +162,8 @@
       "altText": "Profile and vehicle settings screens with an account email, member-since date, saved vehicles, and odometer fields.",
       "caption": "Owner-approved profile and vehicle settings footage, including the account email and vehicle details.",
       "transcript": "Silent screen recording. It shows the Profile screen with the account email and member-since field, then settings and vehicle screens with saved-vehicle and odometer information. These displayed personal values are approved by the owner for this public portfolio.",
-      "fallbackText": "The written project summary remains available if this owner-approved profile and vehicle settings recording cannot be played."
+      "fallbackText": "The written project summary remains available if this owner-approved profile and vehicle settings recording cannot be played.",
+      "posterPath": "media/mileage-settings-and-vehicles-poster.webp"
     },
     {
       "id": "summary-export",
@@ -172,7 +176,8 @@
       "altText": "The Reports screen with reporting periods, vehicle filters, logbook and export actions, a review warning, and a period summary.",
       "caption": "Quarterly report view and export actions; the screen does not establish a filed or accepted tax return.",
       "transcript": "Silent screen recording of Reports. It shows monthly, quarterly, and annual tabs, tax-year and vehicle filters, CRA Vehicle Logbook, Export History, Export Logbook, Vehicle Expenses, a warning that some trips need attention, and a period summary. This is an interface walkthrough, not tax advice or proof of an accepted filing.",
-      "fallbackText": "The written project summary remains available if this owner-approved reports and export recording cannot be played."
+      "fallbackText": "The written project summary remains available if this owner-approved reports and export recording cannot be played.",
+      "posterPath": "media/mileage-reports-logbook-poster.webp"
     }
   ]
 }

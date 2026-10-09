@@ -26,6 +26,11 @@ const experienceSchema = z.object({
   dateLabel: z.string().min(4).optional(),
 }).strict();
 
+const courseworkSchema = z.object({
+  name: z.string().min(4),
+  description: z.string().min(12),
+}).strict();
+
 export const profileSchema = z.object({
   publicationState: publicationStateSchema,
   displayName: z.string().min(2),
@@ -48,10 +53,8 @@ export const profileSchema = z.object({
     location: z.string().min(2),
     expectedGraduation: z.string().regex(/^20[0-9]{2}$/),
     gpa: z.string().regex(/^[0-9]+\.[0-9]{2}$/),
-    coursework: z.array(z.object({
-      name: z.string().min(4),
-      description: z.string().min(12),
-    }).strict()).min(1),
+    coursework: z.array(courseworkSchema).min(1),
+    earlierCoursework: z.array(courseworkSchema).min(1),
     training: z.array(z.object({
       name: z.string().min(2),
       credential: z.string().min(2),
@@ -83,6 +86,7 @@ const mediaSlotSchema = z.object({
   publicationState: publicationStateSchema,
   reviewStatus: z.enum(["not-provided", "pending", "withheld", "approved"]),
   assetPath: z.string().regex(/^media\/[A-Za-z0-9._/-]+$/).optional(),
+  posterPath: z.string().regex(/^media\/[A-Za-z0-9._/-]+$/).optional(),
   altText: z.string().min(12).optional(),
   caption: z.string().min(12).optional(),
   transcript: z.string().min(20).optional(),
@@ -103,13 +107,19 @@ const mediaSlotSchema = z.object({
     if (slot.kind === "video" && !slot.transcript) {
       context.addIssue({ code: "custom", path: ["transcript"], message: "Published recordings require a concise transcript." });
     }
+    if (slot.kind === "video" && !slot.posterPath) {
+      context.addIssue({ code: "custom", path: ["posterPath"], message: "Published recordings require a reviewed poster image." });
+    }
   } else {
-    if (slot.assetPath) {
+    if (slot.assetPath || slot.posterPath) {
       context.addIssue({ code: "custom", path: ["assetPath"], message: "Deferred or candidate media cannot reference a public asset." });
     }
     if (slot.publicationState === "public") {
       context.addIssue({ code: "custom", path: ["publicationState"], message: "Fallback and candidate media must remain deferred or private." });
     }
+  }
+  if (slot.posterPath && slot.kind !== "video") {
+    context.addIssue({ code: "custom", path: ["posterPath"], message: "Only recordings may reference poster images." });
   }
 });
 

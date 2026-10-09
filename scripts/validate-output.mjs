@@ -100,6 +100,7 @@ const projects = compilePublicProjects(await Promise.all(projectFileNames.map(as
 }))));
 const outputFiles = await collectFiles(outputDirectory);
 const htmlFiles = outputFiles.filter((file) => file.relativePath.endsWith(".html"));
+const mediaAssets = await validateMediaAssets(projects, outputDirectory);
 
 const requiredOutput = [
   "index.html",
@@ -148,11 +149,17 @@ for (const file of htmlFiles) {
     }
   }
 
-  for (const src of attributeValues(html, "src")) {
+  for (const src of [...attributeValues(html, "src"), ...attributeValues(html, "poster")]) {
     const target = routeForLink(src, pageUrl);
     if (!target) continue;
     const targetPath = fileForPath(target.pathname);
     assert(outputFiles.some((entry) => path.resolve(entry.absolutePath) === path.resolve(targetPath)), file.relativePath + " loads a missing asset: " + src);
+  }
+
+  for (const videoTag of tagContents(html, "video")) {
+    const poster = attributeValues(videoTag, "poster")[0];
+    assert(poster && mediaAssets.includes(poster.slice(1)), file.relativePath + " must use an approved video poster.");
+    assert.equal(attributeValues(videoTag, "preload")[0], "none", file.relativePath + " must show its poster before fetching video data.");
   }
 
   assertNamedAnchors(html, file.relativePath);
@@ -204,7 +211,6 @@ assert(bioelectricHeader, "Bioelectric simulator must use its wide header layout
 assert.match(bioelectricHeader[0], /class="boundary-note"/, "The research status note must remain in the header.");
 assert.match(bioelectricHtml, /tests\/test_model\.py \(lines 36–69\)/, "The excerpt cards must identify the internal test source.");
 
-const mediaAssets = await validateMediaAssets(projects, outputDirectory);
 for (const file of outputFiles) {
   if ([".mp4", ".mov", ".mkv", ".avi", ".webm"].includes(path.extname(file.relativePath).toLowerCase())) {
     const assetPath = "media/" + file.relativePath.replaceAll("\\", "/").replace(/^media\//, "");

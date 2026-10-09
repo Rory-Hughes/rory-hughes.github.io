@@ -7,5 +7,5 @@ const { profile } = Astro.props;
 <div class="action-row">
   <a class="button button--primary" href={"mailto:" + profile.email}>Email Rory <span aria-hidden="true">↗</span></a>
   <a class="button button--secondary" href={profile.resumePdfHref} download>Download resume (PDF) <span aria-hidden="true">↓</span></a>
+  <a class="button button--secondary" href={profile.resumeHref} download>Download resume (Word) <span aria-hidden="true">↓</span></a>
 </div>
-<p class="resume-note">Prefer Word? <a href={profile.resumeHref} download>Download resume (Word)</a></p>
