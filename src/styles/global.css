@@ -380,12 +380,14 @@ summary { cursor: pointer; font-weight: 650; }
   .case-study__lead-overview--mileage .media-demo--lead-code .media-figure__player { height: 100%; }
   .case-study__lead-overview--mileage .media-demo--lead-code .code-excerpt-card__editor { font-size: .65rem; }
   .case-code-excerpts > .case-section__content { grid-column: 1 / -1; }
-  .case-study__overview-visual .overview-flow { flex: 1; grid-template-columns: minmax(0, 1fr); align-content: space-between; gap: 0; }
-  .case-study__overview-visual .overview-flow__step { display: grid; justify-items: center; }
+  .case-study__overview-visual .overview-flow { flex: 1; grid-template-columns: minmax(0, 1fr); grid-template-rows: repeat(3, minmax(6.4rem, 1fr)) auto; align-content: stretch; gap: 0; }
+  .case-study__overview-visual .overview-flow__step { display: grid; grid-template-rows: auto minmax(2rem, 1fr); justify-items: center; }
+  .case-study__overview-visual .overview-flow__step:last-child { grid-template-rows: auto; }
   .case-study__overview-visual .overview-flow .overview-node { width: 100%; min-height: 4.4rem; grid-template-columns: auto 1fr; align-items: center; column-gap: .75rem; }
   .case-study__overview-visual .overview-flow .overview-node__icon { grid-row: 1 / 3; margin: 0; }
   .case-study__overview-visual .overview-flow .overview-node > span:last-child { grid-column: 2; }
-  .case-study__overview-visual .overview-flow__arrow { display: grid; place-items: center; height: 1.7rem; color: var(--primary); font-size: 1.25rem; font-weight: 750; line-height: 1; }
+  .case-study__overview-visual .overview-flow__arrow { display: grid; place-items: center; width: 2rem; min-height: 2rem; color: var(--accent); }
+  .case-study__overview-visual .overview-flow__arrow svg { width: 1.5rem; height: clamp(2rem, 2.5vw, 2.5rem); }
   .case-media--promoted .media-grid { gap: 2.5rem; }
   .case-code-excerpts__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
   .case-study__lead-media, .case-study__overview-visual { max-width: 76rem; }
