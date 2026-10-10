@@ -185,11 +185,18 @@ for (const sectionId of ["about", "skills", "projects", "experience", "education
 assert.match(homeHtml, /Download resume \(PDF\)/, "Homepage must offer the PDF export of the supplied resume.");
 for (const project of projects) {
   const caseHtml = await readFile(path.join(outputDirectory, "projects", project.slug, "index.html"), "utf8");
-  const problemIndex = caseHtml.indexOf('id="problem-heading"');
-  const accomplishmentsIndex = caseHtml.indexOf('id="accomplishments-heading"');
-  const codeIndex = caseHtml.indexOf('data-excerpt-disclosure');
-  assert(problemIndex >= 0 && accomplishmentsIndex > problemIndex && codeIndex > accomplishmentsIndex, "Project narrative and accomplishments must precede optional implementation examples.");
-  assert.doesNotMatch(caseHtml.match(/<details\b[^>]*data-excerpt-disclosure[^>]*>/)?.[0] ?? "", /\bopen\b/, "Code examples must be collapsed initially.");
+  if (["john-howard", "mileage-tracker"].includes(project.slug)) {
+    const header = caseHtml.match(/<header\b[^>]*case-study__header[^>]*>[\s\S]*?<\/header\s*>/i)?.[0];
+    assert(header && /<dl\b[^>]*class="case-metadata"/.test(header), project.slug + " must retain its metadata row in the header.");
+    assert.doesNotMatch(caseHtml, /class="case-brief"|class="case-toolkit"|data-excerpt-disclosure/, project.slug + " must retain the owner's open media and excerpt presentation.");
+    assert.doesNotMatch(caseHtml, /<button\b[^>]*\bdata-demo-play\b/, project.slug + " must retain the native video controls without a separate watch button.");
+  } else {
+    const problemIndex = caseHtml.indexOf('id="problem-heading"');
+    const accomplishmentsIndex = caseHtml.indexOf('id="accomplishments-heading"');
+    const codeIndex = caseHtml.indexOf('data-excerpt-disclosure');
+    assert(problemIndex >= 0 && accomplishmentsIndex > problemIndex && codeIndex > accomplishmentsIndex, "Project narrative and accomplishments must precede optional implementation examples.");
+    assert.doesNotMatch(caseHtml.match(/<details\b[^>]*data-excerpt-disclosure[^>]*>/)?.[0] ?? "", /\bopen\b/, "Code examples must be collapsed initially.");
+  }
 }
 
 const johnHtml = await readFile(path.join(outputDirectory, "projects", "john-howard", "index.html"), "utf8");
@@ -198,6 +205,9 @@ assert.doesNotMatch(johnHtml, /href="[^"]*(john-howard-demo|john-howard-reposito
 const johnVideo = "media/john-howard-application-walkthrough.mp4";
 assert.equal(attributeValues(johnHtml, "src").filter((src) => src === "/" + johnVideo).length, 1, "John Howard must render the approved walkthrough exactly once.");
 assert(johnHtml.indexOf("/" + johnVideo) < johnHtml.indexOf('class="case-study__reading"'), "John Howard's walkthrough must appear before the reading body.");
+assert.equal([...johnHtml.matchAll(/data-code-excerpt-card=/g)].length, 6, "John Howard must retain its six excerpt cards.");
+assert(johnHtml.lastIndexOf("data-code-excerpt-card=") < johnHtml.indexOf('class="case-study__reading"'), "John Howard's open excerpt gallery must appear directly below the lead panels, before the reading body.");
+assert.match(johnHtml, /class="case-section__heading case-code-excerpts__heading"/, "John Howard's excerpt introduction must remain beside the walkthrough, under the overview panel.");
 assert.match(johnHtml, /<video\b[^>]*\bcontrols/i);
 assert.doesNotMatch(johnHtml, /Read the video transcript|class="[^"]*\btranscript\b/i, "John Howard recordings must not render transcript controls.");
 
@@ -251,7 +261,8 @@ assert.deepEqual(
   ["/" + leadAsset],
   "The lead section must contain only the application overview recording.",
 );
-assert.doesNotMatch(leadSection[2], /data-code-excerpt-card/, "The application demo must not require reading implementation examples.");
+assert.match(leadSection[2], /media-demo--lead-code/, "The application overview must retain its joined video and excerpt panel.");
+assert.match(leadSection[2], /data-code-excerpt-card="trip-suggestion"/, "The lead recording must be paired with its trip-suggestion excerpt.");
 assert.match(liveMileageHtml, /class="case-study__lead-overview case-study__lead-overview--mileage"/, "MileageTracker must use the aligned lead/overview layout.");
 assert.doesNotMatch(liveMileageHtml, /Read the video transcript|class="[^"]*\btranscript\b/i, "MileageTracker recordings must not render transcript controls.");
 const readingBodyIndex = liveMileageHtml.search(/<div\b[^>]*\bclass="[^"]*\bcase-study__body\b[^"]*"/i);
@@ -259,6 +270,9 @@ assert(readingBodyIndex >= 0 && leadSection.index + leadSection[0].length <= rea
 const remainingSection = [...liveMileageHtml.matchAll(/<section\b([^>]*)>([\s\S]*?)<\/section\s*>/gi)]
   .find(([, attributes]) => attributeValues(attributes, "class")[0]?.split(/\s+/).includes("case-media"));
 assert(remainingSection, "MileageTracker must retain its remaining recordings section.");
+assert(remainingSection.index < readingBodyIndex, "MileageTracker's remaining recordings must appear directly below the lead panels, before the reading body.");
+assert.equal([...remainingSection[2].matchAll(/media-demo--recording/g)].length, 4, "Each remaining recording must retain its joined description and excerpt panel.");
+assert.equal([...liveMileageHtml.matchAll(/data-code-excerpt-card=/g)].length, 5, "MileageTracker must pair each approved video with one excerpt, without a duplicate gallery.");
 const remainingAssets = tagContents(remainingSection[2], "source").map((source) => attributeValues(source, "src")[0]);
 assert(remainingAssets.includes("/" + tripCaptureAsset), "Trip capture must remain among the recordings.");
 assert(!remainingAssets.includes("/" + leadAsset), "Application overview must not be duplicated among the remaining recordings.");
@@ -282,8 +296,12 @@ for (const slot of mileageVideoSlots) {
   assert.equal(attributeValues(videoTag, "aria-label")[0]?.trim(), slot.altText, slot.assetPath + " must have its own accessible name.");
 
   const captions = [...figure.matchAll(/<figcaption\b[^>]*>([\s\S]*?)<\/figcaption\s*>/gi)];
-  assert.equal(captions.length, 1, slot.assetPath + " must have exactly one caption.");
-  assert(captions[0][1].includes(slot.label) && captions[0][1].includes(slot.caption), slot.assetPath + " must render its own caption.");
+  if (slot.id === "overview") {
+    assert.equal(captions.length, 0, "The lead recording's description must be replaced by its paired code excerpt.");
+  } else {
+    assert.equal(captions.length, 1, slot.assetPath + " must have exactly one caption.");
+    assert(captions[0][1].includes(slot.label) && captions[0][1].includes(slot.caption), slot.assetPath + " must render its own caption.");
+  }
   assert.doesNotMatch(figure, /class="[^"]*\btranscript\b|Read the video transcript/i, slot.assetPath + " must not render a transcript disclosure.");
 }
 

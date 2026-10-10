@@ -209,6 +209,8 @@ ul { padding-left: 1.35rem; }
 .case-study__header--mileage,
   .case-study__header--john-howard,
   .case-study__header--bioelectric { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(20rem, .8fr); grid-template-areas: "category status" "title status" "summary status" "actions actions"; align-items: start; column-gap: clamp(2rem, 4vw, 4rem); }
+  .case-study__header--mileage,
+  .case-study__header--john-howard { grid-template-areas: "category status" "title status" "summary status" "metadata metadata"; }
   .case-study__header--mileage > .eyebrow,
   .case-study__header--john-howard > .eyebrow { grid-area: category; }
   .case-study__header--bioelectric > .eyebrow { grid-area: category; }
@@ -221,8 +223,8 @@ ul { padding-left: 1.35rem; }
   .case-study__header--mileage > .boundary-note,
   .case-study__header--john-howard > .boundary-note { grid-area: status; align-self: start; max-width: none; margin-top: .15rem; padding: 1rem 1.1rem; border: 1px solid var(--border); border-left: 3px solid var(--primary); border-radius: var(--radius-md); background: var(--surface); box-shadow: 0 .6rem 1.7rem rgb(23 38 59 / 5%); }
   .case-study__header--bioelectric > .boundary-note { grid-area: status; align-self: start; max-width: none; margin-top: .15rem; padding: 1rem 1.1rem; border: 1px solid var(--border); border-left: 3px solid var(--primary); border-radius: var(--radius-md); background: var(--surface); box-shadow: 0 .6rem 1.7rem rgb(23 38 59 / 5%); }
-  .case-study__header--mileage > .case-study__actions,
-  .case-study__header--john-howard > .case-study__actions { grid-area: actions; }
+  .case-study__header--mileage > .case-metadata,
+  .case-study__header--john-howard > .case-metadata { grid-area: metadata; }
   .case-study__header--bioelectric > .case-study__actions { grid-area: actions; }
 }
 .case-study__lead-overview { margin-bottom: 3rem; }

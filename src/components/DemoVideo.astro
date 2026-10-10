@@ -6,9 +6,10 @@ interface Props {
   posterPath: string;
   label: string;
   describedBy?: string;
+  nativeControls?: boolean;
 }
 
-const { assetPath, posterPath, label, describedBy } = Astro.props;
+const { assetPath, posterPath, label, describedBy, nativeControls = false } = Astro.props;
 ---
 
 <div class="demo-player" data-demo-player>
@@ -16,9 +17,9 @@ const { assetPath, posterPath, label, describedBy } = Astro.props;
     <source src={"/" + assetPath} type={videoMimeType(assetPath)} />
     Your browser does not support this video player. <a href={"/" + assetPath}>Watch the demo recording</a>.
   </video>
-  <button class="demo-player__watch" type="button" aria-label={"Watch demo: " + label} data-demo-play hidden>
+  {!nativeControls && <button class="demo-player__watch" type="button" aria-label={"Watch demo: " + label} data-demo-play hidden>
     <span aria-hidden="true">▶</span> Watch demo
-  </button>
+  </button>}
 </div>
 
 <script>
